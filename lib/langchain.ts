@@ -1,14 +1,23 @@
-import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf'
+import { Document } from 'langchain/document'
+import pdf from 'pdf-parse';
 
 export async function fetchAndExtractPDFText(fileUrl: string) {
     const response = await fetch(fileUrl);
-    const blob = await response.blob();
 
-    const arrayBuffer = await blob.arrayBuffer();
+    const arrayBuffer = await response.arrayBuffer();
+    const buffer = Buffer.from(arrayBuffer);
 
-    const loader = new PDFLoader(new Blob([arrayBuffer]));
+    const data = await pdf(buffer);
 
-    const docs = await loader.load();
+    // const blob = await response.blob();
+
+    // const arrayBuffer = await blob.arrayBuffer();
+
+    // const loader = new PDFLoader(new Blob([arrayBuffer]));
+
+    // const docs = await loader.load();
+
+    const docs = [new Document({ pageContent: data.text })];
 
     // combine
     return docs.map((doc) => doc.pageContent).join('\n')
