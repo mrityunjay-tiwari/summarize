@@ -23,6 +23,13 @@ const fontSans = Source_Sans_3({
 export const metadata: Metadata = {
   title: "Make pdf summaries",
   description: "This application helps you make summaries of the pdf and put it like a set of flash cards before you",
+  openGraph: {
+    images: [
+      {
+        url: ''
+      }
+    ]
+  }
 };
 
 export default function RootLayout({
