@@ -11,12 +11,18 @@ interface uploadResponseProps {
     serverData : {
         userId: string,
         file: {
-            url: string,
-            name: string
+            ufsUrl: string,
+            name: string,
+            size?: number;
+            type?: string;
+            customId?: string | null;
+            lastModified?: number;
+            fileHash?: string;
         }
     }
 }
 
+// Argument of type 'ClientUploadedFileData<{ userId: string; file: { name: string; ufsUrl: string; size: number; type: string; customId: string | null; lastModified: number | undefined; fileHash: string; }; }>[]' is not assignable to parameter of type 'uploadResponseProps[]'.
 export async function generateSummary(uploadResponse: uploadResponseProps[]) {
     if(!uploadResponse) {
         return {
@@ -27,7 +33,7 @@ export async function generateSummary(uploadResponse: uploadResponseProps[]) {
     }
     console.log('uploadResponse : ', uploadResponse );
     console.log('uploadResponse[0] : ', uploadResponse[0]);    
-    const {serverData: {userId, file: {url: pdfUrl, name: filename}}} = uploadResponse[0]
+    const {serverData: {userId, file: {ufsUrl: pdfUrl, name: filename}}} = uploadResponse[0]
     
     console.log('pdfUrl from upload-actions - ', pdfUrl);
     
