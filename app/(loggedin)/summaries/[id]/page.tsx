@@ -1,4 +1,5 @@
 import BgGradient from "@/components/common/bg-gradient";
+import { MotionDiv } from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import IndSourceInfo from "@/components/summaries/ind-source-info";
 import IndSummaryHeader from "@/components/summaries/ind-summary-header";
@@ -79,6 +80,8 @@ const IndividualSummaryPage = async ({params} : SummaryPageProps) => {
     const info = await getInfo({params})
     const word_count = info.idOfSUmmary?.summary_text.length;
     const readingTime = Math.ceil(Number(word_count || 0)/200)
+    console.log(`info.idOfSUmmary?.summary_text - ${info.idOfSUmmary?.summary_text}`);
+    
     if(!info.idOfSUmmary?.title) {
         return
     }
@@ -87,13 +90,13 @@ const IndividualSummaryPage = async ({params} : SummaryPageProps) => {
             <BgGradient className="from-rose-400 via-rose-200 to-orange-200" />
             <div className="flex flex-col gap-4 w-full">
                 <div className="px-12 sm:px-20 lg:px-28 py-6 sm:py-12 lg:py-24 justify-center flex flex-col w-full">
-                    <div>
+                    <MotionDiv initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}}>
                         <IndSummaryHeader title={info.idOfSUmmary?.title} createdAt={info.idOfSUmmary?.created_at} readingTime={readingTime} />
-                    </div>
+                    </MotionDiv>
 
                     {(info.idOfSUmmary?.file_name) && <IndSourceInfo fileName={info.idOfSUmmary.file_name} title={info.idOfSUmmary.title} created_at={info.idOfSUmmary.created_at} original_file_url={info.idOfSUmmary.original_file_url} summary_text={info.idOfSUmmary.summary_text}  /> }
 
-                    <div className="relative mt-4 sm:mt-8 lg:mt-16 w-full">
+                    <MotionDiv initial={{opacity:0, y:40}} whileInView={{opacity:1, y:0}} transition={{duration: 0.5, ease:'easeOut'}} className="relative mt-4 sm:mt-8 lg:mt-16 w-full">
                         <div className="relative p-4 sm:p-6 lg:p-8 
                         bg-white/80 backdrop-blur-md rounded-2xl 
                         sm:rounded-3xl shadow-xl border border-rose-100/30 transition-all duration-300 hover:shadow-2xl 
@@ -112,11 +115,11 @@ const IndividualSummaryPage = async ({params} : SummaryPageProps) => {
                             text-rose-400" />
                             {word_count?.toLocaleString()} words
                             </div>
-                            <div className="relative mt-8 sm:mt-16 flex justify-center">
+                            <MotionDiv initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="relative mt-8 sm:mt-16 flex justify-center">
                                 <IndividualSummaryViewer summary={info.idOfSUmmary?.summary_text} />
-                            </div>
+                            </MotionDiv>
                         </div>
-                    </div>
+                    </MotionDiv>
 
                 </div>
             </div>

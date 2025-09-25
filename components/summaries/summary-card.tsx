@@ -43,7 +43,18 @@ export default function SummaryCard({ summary }: summaryCardProps) {
                     {summary.title}{" "}
                     </h3>
                     {/* <p className="text-sm text-gray-500">{new Date(summary.created_at).toLocaleDateString()}</p> */}
-                    {timePassed < 60 ? <p className="text-sm text-gray-500">{Math.floor(((new Date().getTime()) - (new Date(summary.created_at).getTime()))/ (1000 * 60))} minutes ago </p> : <p className="text-sm text-gray-500">{Math.floor(((new Date().getTime()) - (new Date(summary.created_at).getTime()))/ (1000 * 60 * 60))} hours ago</p> }
+                    {/* {timePassed < 60 ? <p className="text-sm text-gray-500">{Math.floor(((new Date().getTime()) - (new Date(summary.created_at).getTime()))/ (1000 * 60))} minutes ago </p> : <p className="text-sm text-gray-500">{Math.floor(((new Date().getTime()) - (new Date(summary.created_at).getTime()))/ (1000 * 60 * 60))} hours ago</p> }
+                    {timePassed > 60 * 24 && <p className="text-sm text-gray-500">{Math.floor(((new Date().getTime()) - (new Date(summary.created_at).getTime()))/ (1000 * 60 * 60 * 24))} days ago </p> } */}
+                    <p className="text-sm text-gray-500">
+                      {(() => {
+                        const diff = (Date.now() - new Date(summary.created_at).getTime()) / 1000; // seconds
+                        return diff < 3600
+                          ? `${Math.floor(diff / 60)} minutes ago`
+                          : diff < 86400
+                          ? `${Math.floor(diff / 3600)} hours ago`
+                          : `${Math.floor(diff / 86400)} days ago`;
+                      })()}
+                    </p>
                 </div>
             </div>
             
