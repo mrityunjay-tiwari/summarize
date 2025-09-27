@@ -25,7 +25,7 @@ export default async function Header() {
           <NavLink href={"/#pricing"}>Pricing</NavLink>
         </SignedOut>
         <SignedIn>
-          <NavLink href={"/dashboard"}>Your SUmmaries</NavLink>
+          <NavLink href={"/dashboard"}>Your SmmariEZ</NavLink>
         </SignedIn>
       </div>
       <SignedIn>

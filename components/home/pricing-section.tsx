@@ -22,7 +22,7 @@ const plans: Plans[] = [
     price: 9,
     description: "For individuals",
     items: [
-      "5 PDF summaries per week",
+      "20 PDF summaries per week",
       "Priority processing",
       "24/7 priority support",
       "Markdown export",
@@ -145,11 +145,12 @@ export default function PricingSection() {
       <div className="py-12 lg:py-24 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 lg:pt-12">
         <MotionDiv
           variants={itemVariant}
-          className="flex items-center justify-center w-full pb-12"
+          className="flex flex-col items-center justify-center w-full pb-12"
         >
           <h2 className="uppercase font-bold text-xl mb-8 text-rose-500">
             Pricing
           </h2>
+          <p className="uppercase font-bold text-lg mb-8 text-rose-500">Currently no pricing. Enjoy for FREE !!</p>
         </MotionDiv>
         <div
           className="relative flex justify-center flex-col 
