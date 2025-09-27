@@ -10,15 +10,14 @@ import getSummaries from "@/lib/summaries";
 
 export default async function Header() {
   const user = await auth();
-  const userId = user.userId
-  if(!userId) {
-      console.log("userId from clerk not found to server summaries")        
-      return redirect('/sign-in') 
+  const userId = user.userId;
+  if (!userId) {
+    console.log("userId from clerk not found to server summaries");
+    return redirect("/sign-in");
   }
   console.log(`userId from dashboard/page.tsx ${userId}`);
-  
-  
-  const summaries = await getSummaries(userId)
+
+  const summaries = await getSummaries(userId);
 
   const isLoggoedin = false;
   return (
@@ -41,7 +40,9 @@ export default async function Header() {
       </div>
       <SignedIn>
         <div className="flex items-center gap-4">
-          {summaries.length <= 5 && <NavLink href={"/upload"}>Upload a PDF</NavLink>}
+          {summaries.length <= 5 && (
+            <NavLink href={"/upload"}>Upload a PDF</NavLink>
+          )}
           <div className="gap-1 flex items-center">
             <SignedIn>
               <UserButton />

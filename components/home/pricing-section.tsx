@@ -59,7 +59,10 @@ const PricingCard = ({
   icon,
 }: Plans) => {
   return (
-    <MotionDiv initial={{opacity: 0, x:-40}} whileInView={{opacity: 1, x:0}} transition={{duration: 0.5, ease: 'easeOut'}}
+    <MotionDiv
+      initial={{ opacity: 0, x: -40 }}
+      whileInView={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
       whileHover={{ scale: 1.02 }}
       className="relative w-full max-w-lg hover:scale-105 hover:transition-all duration-200"
     >
@@ -70,7 +73,9 @@ const PricingCard = ({
         )}
       >
         <MotionDiv
-          initial={{opacity: 0, x:-40}} whileInView={{opacity: 1, x:0}} transition={{duration: 0.5, ease: 'easeOut'}}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex justify-left items-center gap-4"
         >
           <div>
@@ -82,7 +87,9 @@ const PricingCard = ({
           </div>
         </MotionDiv>
         <MotionDiv
-          initial={{opacity: 0, x:-40}} whileInView={{opacity: 1, x:0}} transition={{duration: 0.5, ease: 'easeOut'}}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="flex gap-2"
         >
           <p className="text-5xl tracking-tight font-extrabold">${price}</p>
@@ -92,7 +99,9 @@ const PricingCard = ({
           </div>
         </MotionDiv>
         <MotionDiv
-          initial={{opacity: 0, x:-40}} whileInView={{opacity: 1, x:0}} transition={{duration: 0.5, ease: 'easeOut'}}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="space-y-2.5 leading-relaxed text-base flex-1"
         >
           {items.map((item, key) => (
@@ -102,7 +111,9 @@ const PricingCard = ({
           ))}
         </MotionDiv>
         <MotionDiv
-          initial={{opacity: 0, x:-40}} whileInView={{opacity: 1, x:0}} transition={{duration: 0.5, ease: 'easeOut'}}
+          initial={{ opacity: 0, x: -40 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
           className="space-y-2 flex justify-center w-full text-white"
         >
           <Link
