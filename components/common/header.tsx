@@ -25,13 +25,13 @@ export default async function Header() {
           <NavLink href={"/#pricing"}>Pricing</NavLink>
         </SignedOut>
         <SignedIn>
-          <NavLink href={"/dashboard"}>Your SmmariEZ</NavLink>
+          <NavLink href={"/dashboard"}> <span className="hidden sm:inline">Your</span> SmmariEZ</NavLink>
         </SignedIn>
       </div>
       <SignedIn>
         <div className="flex items-center gap-4">
             <SignedIn>
-              <NavLink href={"/upload"}>Upload a PDF</NavLink>
+              <NavLink href={"/upload"}>Upload <span className="hidden sm:inline">a PDF</span> </NavLink>
             </SignedIn>
           <div className="gap-1 flex items-center">
             <SignedIn>
