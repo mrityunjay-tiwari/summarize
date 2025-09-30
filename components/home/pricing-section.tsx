@@ -150,7 +150,7 @@ export default function PricingSection() {
           <h2 className="uppercase font-bold text-xl mb-8 text-rose-500">
             Pricing
           </h2>
-          <p className="uppercase font-bold text-lg mb-8 text-rose-500">Currently no pricing. Enjoy for FREE !!</p>
+          <h3 className="uppercase font-bold mb-8 text-rose-500 flex justify-center items-center">Currently no pricing. Enjoy for FREE !!</h3>
         </MotionDiv>
         <div
           className="relative flex justify-center flex-col 

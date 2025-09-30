@@ -16,7 +16,7 @@ export default function CTASection() {
                         <div className="flex flex-col gap-2 min-[400px]:flex-row justify-center">
                         <MotionDiv initial={{opacity: 0, y:40}} whileInView={{opacity:1, y:0}} transition={{duration: 0.5, ease: 'easeOut'}}>
                             <Button variant={"main"} size={'lg'} className="w-full min-[400px] :w-auto bg-linear-to-r from-slate-900 to-rose-500 hover:from-rose-500 hover:to-slate-800 transition duration-300 ease-in-out ">
-                                <Link href={"/pricing"} className="flex items-center justify-center px-4"> Get Started <ArrowRight className="ml-4 h-4 w-4 animate-pulse" /> </Link>
+                                <Link href={"/sign-in"} className="flex items-center justify-center px-4"> Get Started <ArrowRight className="ml-4 h-4 w-4 animate-pulse" /> </Link>
                             </Button>
                         </MotionDiv>
                     </div>
