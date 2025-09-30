@@ -25,5 +25,6 @@ export default function BgGradient({
       </div>
       {children}
     </div>
+  
   )
 }
