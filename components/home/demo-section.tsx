@@ -30,7 +30,7 @@ export default function DemoSection() {
                     <div className="text-center mb-16">
                         <MotionH3 initial={{y:20, opacity:0}} whileInView={{y: 0,opacity: 1}} className="font-bold text-3xl max-w-2xl mx-auto px-4 sm:px-6">Watch how SummariZE transforms <span className="bg-linear-to-r from-rose-500 to-rose-700 bg-clip-text text-transparent">this NodeJS course PDF</span> into an easy to read summary</MotionH3>
                     </div>
-                    <div className="flex justify-center items-center px-2 sm:px-4 lg:px-6">
+                    <div className="flex justify-center items-center ">
                         <MotionDiv initial={{y:30, opacity:0}} whileInView={{y: 0,opacity: 1}} transition={{ duration: 2, ease: "easeOut" }}>
                             <IndividualSummaryViewer summary={DEMO_CONTENT} />
                         </MotionDiv>

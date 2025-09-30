@@ -28,7 +28,7 @@ export function NavigationControls({
           onClick={onPrevious}
           disabled={currentSection === 0}
           className={cn(
-            `rounded-full w-12 h-12 transition-all
+            `rounded-full w-8 h-8 lg:w-12 lg:h-12 transition-all
              duration-200 bg-linear-to-br from-rose-500
              to-rose-600 backdrop-blur-xs border
              border-rose-500/10`,
@@ -59,7 +59,7 @@ export function NavigationControls({
           onClick={onNext}
           disabled={currentSection === totalSections - 1}
           className={cn(
-            `rounded-full w-12 h-12 transition-all
+            `rounded-full w-8 h-8 lg:w-12 lg:h-12 transition-all
              duration-200 bg-linear-to-br from-rose-500
              to-rose-600 backdrop-blur-xs border
              border-rose-500/10`,

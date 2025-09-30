@@ -33,7 +33,7 @@ export default function IndividualSummaryViewer ({summary} : {summary : string |
     console.log(sections[currentSection].content.map((sec) => (sec)).length);
     
     return (
-        <Card className="relative px-2 h-[500px] sm:h-[600px] lg:h-[550px] w-full xl:w-[600px] overflow-hidden bg-linear-to-r from-background via-background/95 to-rose-500/5 backdrop-blur-lg shadow-2xl rounded-3xl border border-rose-500/10">
+        <Card className="relative px-2 h-[500px] sm:h-[600px] lg:h-[550px] lg:w-[500px] md:w-[350px] w-[250px] xl:w-[600px] overflow-hidden bg-linear-to-r from-background via-background/95 to-rose-500/5 backdrop-blur-lg shadow-2xl rounded-3xl border border-rose-500/10">
             <div><ProgressBar key={Math.random()* 5000} sections={sections} currentSection={currentSection} /></div>
             <CardHeader className="flex flex-col gap-2 mb-6 sticky top-0 pt-2 pb-4 bg-background/80 backdrop-blur-xs z-10 justify-center items-center">
                 <CardTitle className="text-xl lg:text-2xl font-bold text-center flex items-center justify-center gap-2">{sections[currentSection].title.startsWith('#') ? sections[currentSection].title.slice(1).trim() : sections[currentSection].title}</CardTitle>
