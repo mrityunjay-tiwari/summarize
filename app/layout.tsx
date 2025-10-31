@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Sans_3 } from "next/font/google";
+import { Geist, Geist_Mono, Source_Sans_3, Ubuntu } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
 import { ClerkProvider } from "@clerk/nextjs";
@@ -19,6 +19,12 @@ const fontSans = Source_Sans_3({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ['200', '300', '400', '500', '600', '700', '800', '900']
+})
+
+const ubuntu = Ubuntu({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ['300', '400', '500', '700']
 })
 export const metadata: Metadata = {
   title: "Make pdf summaries",
@@ -41,7 +47,7 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body
-          className={` ${fontSans.variable} font-sans antialiased`}
+          className={` ${ubuntu.className} `}
         >
           <Header /> 
           <main className="flex-1">{children}</main>  

@@ -147,10 +147,10 @@ export default function PricingSection() {
           variants={itemVariant}
           className="flex flex-col items-center justify-center w-full pb-12"
         >
-          <h2 className="uppercase font-bold text-xl mb-8 text-rose-500">
+          <h2 className="uppercase text-xl mb-8 text-rose-500">
             Pricing
           </h2>
-          <p className="uppercase font-bold text-lg mb-8 text-rose-500">Currently no pricing. Enjoy for FREE !!</p>
+          <p className="uppercase font-medium text-lg mb-8 text-rose-500">Currently no pricing. Enjoy for FREE !!</p>
         </MotionDiv>
         <div
           className="relative flex justify-center flex-col 

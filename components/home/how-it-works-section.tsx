@@ -9,8 +9,8 @@ interface Steps {
 const steps:Steps[] = [
     {
         icon: <FileText size={64} strokeWidth={1.5} />,
-        title: "Upload Your PDF",
-        description: "Simply drag and drop your PDF document or click to upload."
+        title: "Upload Your PDF / Paste the YouTube video link ",
+        description: "Simply put PDF or link and click to upload."
     },
     {
         icon: <BrainCircuit size={64} strokeWidth={1.5} />,
@@ -45,8 +45,8 @@ export default function HowItWorksSection() {
                     />
                 </div>
                 <div className="text-center mb-16">
-                    <MotionH2 initial={{opacity: 0, y:20}} whileInView={{opacity:1, y:0}} transition={{duration: 0.5}} className="font-bold text-xl uppercase mb-4 text-rose-500">How It Works ?</MotionH2>
-                    <MotionH3 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.2}} className="font-bold text-3xl max-w-2xl mx-auto">Transform any PDF into an easy-to-digest summary in three simple steps</MotionH3>
+                    <MotionH2 initial={{opacity: 0, y:20}} whileInView={{opacity:1, y:0}} transition={{duration: 0.5}} className="text-xl uppercase mb-4 text-rose-500">How It Works ?</MotionH2>
+                    <MotionH3 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y: 0}} transition={{duration: 0.5, delay: 0.2}} className="font-medium text-3xl max-w-2xl mx-auto">Transform any PDF / YouTube Video into flash cards in three simple steps</MotionH3>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto relative">
                     {steps.map((step, index) => (
@@ -78,7 +78,7 @@ function StepItem({ icon, title, description }: Steps) {
           <div className="text-rose-500">{icon}</div>
         </div>
         <div className="flex flex-col flex-1 gap-1 justify-between">
-          <h4 className="text-center font-bold text-xl">{title}</h4>
+          <h4 className="text-center font-medium text-xl">{title}</h4>
           <p className="text-center text-gray-600 text-sm">
             {description}
           </p>

@@ -37,19 +37,19 @@ export default function HeroSection() {
         </div>
       </div>
 
-      <MotionH1 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="font-bold text-3xl py-6 text-center ">
-        Transform PDFs into{" "}
+      <MotionH1 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="font-bold text-3xl md:text-4xl pt-5 pb-4 text-center ">
+        Transform PDFs/YouTube Videos into{" "}
         <span className="relative inline-block">
           <MotionSpan initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="relative z-10 px-2">concise</MotionSpan>
           <span
-            className="absolute inset-0 bg-rose-200/50 -rotate-2 rounded-lg transform -skew-1"
+            className="absolute inset-0 bg-rose-200/50 -rotate-2 rounded-lg transform -skew-1 "
             aria-hidden="true"
           ></span>
         </span>{" "}
         summaries{" "}
       </MotionH1>
       <MotionH2 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="text-lg sm:text-xl lg:text-2xl text-center px-4 lg:px-0 lg:max-w-4xl text-gray-600">
-        Get a beautiful summary reel of the document in seconds.
+        Get flash cards of what you study in seconds.
       </MotionH2>
       <MotionDiv initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="pt-16">
         <Button
@@ -57,8 +57,8 @@ export default function HeroSection() {
           size={"lg"}
           className="rounded-full text-white bg-linear-to-r from-slate-900 to-rose-400 hover:from-rose-400 hover:to-slate-900 transform transition duration-700 ease-in-out"
         >
-          <Link href={"/#pricing"} className="flex gap-2 items-center">
-            <MotionSpan>Try Sommaire</MotionSpan>
+          <Link href={"/sign-in"} className="flex gap-2 items-center">
+            <MotionSpan>Try SummariZE</MotionSpan>
             <ArrowRight className="animate-pulse" />
           </Link>
         </Button>
