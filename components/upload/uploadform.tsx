@@ -17,7 +17,6 @@ import userSummariesLength from "@/utils/summaries-length-for-user";
 import LimitCountBar from "../summaries/limit-count-bar";
 import {MotionDiv} from "../common/motion-wrapper";
 import LoadingSkeleton from "./upload-skeleton";
-import {SelectDemo} from "./selector";
 import {
   Select,
   SelectContent,
