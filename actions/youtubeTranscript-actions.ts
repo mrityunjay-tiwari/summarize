@@ -14,9 +14,9 @@ export async function youTubeTranscript(props : youTubeTranscriptProps) {
 
     const docs = await loader.load();
     const pageContent = docs[0].pageContent;
-    const title = docs[0].metadata.title
+    const videoTitle = docs[0].metadata.title
     console.log(docs);
     console.log('docs pagecontent : ',docs[0].pageContent);
     
-    return {pageContent, title}
+    return {pageContent, videoTitle}
 }

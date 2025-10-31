@@ -199,7 +199,7 @@ export default function UploadForm() {
       const formData = new FormData(e.currentTarget);
       const link = formData.get("youtubeLink") as string;
 
-      const {pageContent, title} = await youTubeTranscript({link});
+      const {pageContent, videoTitle} = await youTubeTranscript({link});
 
       console.log(link);
       
@@ -225,8 +225,8 @@ export default function UploadForm() {
 
           storeResult = await storeSummary({
             user_id: getuserIdFromClerk,
-            file_name: title,
-            title: title,
+            file_name: videoTitle,
+            title: videoTitle,
             summary_text: data.summary,
             original_file_urll: link,
           });
@@ -267,7 +267,7 @@ export default function UploadForm() {
       const formData = new FormData(e.currentTarget);
       const link = formData.get("youtubeLink") as string;
 
-      const {pageContent, title} = await youTubeTranscript({link});
+      const {pageContent, videoTitle} = await youTubeTranscript({link});
 
       console.log(link);
       
@@ -293,8 +293,8 @@ export default function UploadForm() {
 
           storeResult = await storeSummary({
             user_id: getuserIdFromClerk,
-            file_name: title,
-            title: title,
+            file_name: videoTitle,
+            title: videoTitle,
             summary_text: data.summary,
             original_file_urll: link,
           });
