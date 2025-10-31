@@ -1,8 +1,8 @@
-import { prismaClient } from "@/prisma/src";
+import { prisma } from "@/prisma/src";
 
 export async function getSummaryId(id : string) {
     try {
-        const sql =await prismaClient.pdfSummary.findMany({
+        const sql =await prisma.pdfSummary.findMany({
             where: {
                 id: id
             },
