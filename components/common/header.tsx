@@ -1,15 +1,14 @@
-import { FileText } from "lucide-react";
+import {FileText} from "lucide-react";
 import Link from "next/link";
-import { Button } from "../ui/button";
+import {Button} from "../ui/button";
 import NavLink from "./nav-link";
-import { SignedIn, SignedOut, SignInButton, UserButton } from "@clerk/nextjs";
-import Page from "@/app/sign-in/[[...sign-in]]/page";
-import { auth } from "@clerk/nextjs/server";
-import { redirect } from "next/navigation";
+import {redirect} from "next/navigation";
 import getSummaries from "@/lib/summaries";
+import {auth} from "@/utils/auth";
+import Image from "next/image";
 
 export default async function Header() {
-  
+  const user = await auth();
   return (
     <nav className="container flex items-center justify-between lg:px-10 px-2 py-4 mx-auto">
       <div className="flex">
@@ -22,29 +21,31 @@ export default async function Header() {
       </div>
       <div className="flex gap-3 md:gap-8 items-center">
         <div>
-        <SignedOut>
-          <NavLink href={"/#pricing"}>Pricing</NavLink>
-        </SignedOut>
-        <SignedIn>
-          <NavLink href={"/dashboard"}>Your SmmariEZ</NavLink>
-        </SignedIn>
-      </div>
-      <SignedIn>
-        <div className="flex items-center gap-4">
-            <SignedIn>
-              <NavLink href={"/upload"}>Upload a PDF</NavLink>
-            </SignedIn>
-          <div className="gap-1 flex items-center">
-            <SignedIn>
-              <UserButton />
-            </SignedIn>
-            <div className="text-rose-800">Pro</div>
-          </div>
+          {!user ? (
+            <NavLink href={"/#pricing"}>Pricing</NavLink>
+          ) : (
+            <NavLink href={"/dashboard"}>Your SmmariEZ</NavLink>
+          )}
         </div>
-      </SignedIn>
-      <SignedOut>
-        <NavLink href={"/sign-in"}>SignIn</NavLink>
-      </SignedOut>
+        {user && (
+          <div className="flex items-center gap-4">
+            <NavLink href={"/upload"}>Upload a PDF</NavLink>
+
+            <div className="gap-1 flex items-center">
+              <Image
+                src={user?.user?.image ?? ""}
+                alt=""
+                width={24}
+                height={24}
+                className="rounded-full"
+              />
+
+              <div className="text-rose-800">Pro</div>
+            </div>
+          </div>
+        )}
+
+        {!user && <NavLink href={"/sign-in"}>SignIn</NavLink>}
       </div>
     </nav>
   );

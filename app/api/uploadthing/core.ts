@@ -1,4 +1,5 @@
-import { currentUser } from "@clerk/nextjs/server";
+
+import { auth } from "@/utils/auth";
 import { createUploadthing, type FileRouter } from "uploadthing/next";
 import { UploadThingError } from 'uploadthing/server';
 
@@ -12,9 +13,9 @@ export const ourFileRouter = {
     })
     .middleware(
         async({req}) => {
-            const user = await currentUser();
+            const user = await auth();
             if (!user) throw new UploadThingError("Unauthorized");
-            return { userId: user.id };
+            return { userId: user?.user?.id };
         }
     ).onUploadComplete(
         async({metadata, file}) => {

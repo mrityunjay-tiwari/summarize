@@ -3,8 +3,8 @@
 import { generateSummaryFromGemini } from "@/lib/gemini"
 import { fetchAndExtractPDFText } from "@/lib/langchain"
 import { prisma } from "@/prisma/src/index"
+import { auth } from "@/utils/auth"
 import { formatFileNameAsTitle } from "@/utils/format-utils"
-import { auth } from "@clerk/nextjs/server"
 import { revalidatePath } from "next/cache"
 
 interface uploadResponseProps {

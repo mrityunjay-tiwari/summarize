@@ -1,7 +1,8 @@
 "use server"
 
 import { prisma } from "@/prisma/src"
-import { auth } from "@clerk/nextjs/server"
+import { auth } from "@/utils/auth"
+
 import { revalidatePath } from "next/cache"
 
 interface deleteSummaryProps {
@@ -10,7 +11,7 @@ interface deleteSummaryProps {
 export async function deleteSummaryAction({summaryId} : deleteSummaryProps) {
     try {
         const user = await auth()
-        const idOfUserForDeletion = user.userId
+        const idOfUserForDeletion = user?.user?.id
 
         if(!idOfUserForDeletion) {
             throw new Error ('user not found')

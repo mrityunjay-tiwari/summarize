@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Sans_3, Ubuntu } from "next/font/google";
 import "./globals.css";
 import Header from "@/components/common/header";
-import { ClerkProvider } from "@clerk/nextjs";
+
 import { Toaster } from "@/components/ui/sonner";
 
 // const geistSans = Geist({
@@ -44,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <ClerkProvider>
+
       <html lang="en">
         <body
           className={` ${ubuntu.className} `}
@@ -54,6 +54,6 @@ export default function RootLayout({
           <Toaster />
         </body>
       </html>
-    </ClerkProvider>
+
   );
 }

@@ -5,14 +5,15 @@ import LimitCountBar from "@/components/summaries/limit-count-bar";
 import SummaryCard from "@/components/summaries/summary-card";
 import { Button } from "@/components/ui/button";
 import getSummaries from "@/lib/summaries";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/utils/auth";
+
 import { ArrowRight, PlusIcon } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function DashboardPage() {
   const user = await auth();
-  const userId = user.userId;
+  const userId = user?.user?.id;
   if (!userId) {
     console.log("userId from clerk not found to server summaries");
     return redirect("/sign-in");

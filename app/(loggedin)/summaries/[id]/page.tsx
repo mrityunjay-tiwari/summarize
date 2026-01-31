@@ -5,7 +5,7 @@ import IndSourceInfo from "@/components/summaries/ind-source-info";
 import IndSummaryHeader from "@/components/summaries/ind-summary-header";
 import IndividualSummaryViewer from "@/components/summaries/ind-summary-viewer";
 import getSummaries, { getIndividualSummary } from "@/lib/summaries";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/utils/auth";
 import { FileText } from "lucide-react";
 import { redirect } from "next/navigation";
 
@@ -17,7 +17,7 @@ async function getInfo({ params }: SummaryPageProps) {
   const summaryId = (await params).id;
 
   const user = await auth();
-  const userId = user.userId;
+  const userId = user?.user?.id;
   if (!userId) {
     console.log("userId from clerk not found to server summaries");
     return redirect("/sign-in");
