@@ -1,4 +1,4 @@
-"use client";
+  "use client";
 
 import {useUploadThing} from "@/utils/uploadthing";
 import {
@@ -7,9 +7,13 @@ import {
   UploadFormInputYouTube,
   UploadFormWorkingOn,
 } from "./uploadforminput";
-import {uuid, z} from "zod";
+import {uuid, z} from "zod";  
 import {toast} from "sonner";
-import {generateSummary, generateYouTubeSummary, storeSummary} from "@/actions/upload-actions";
+import {
+  generateSummary,
+  generateYouTubeSummary,
+  storeSummary,
+} from "@/actions/upload-actions";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
 import CheckIfUserExists from "@/actions/checkUser";
@@ -26,7 +30,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { youTubeTranscript } from "@/actions/youtubeTranscript-actions";
+import {youTubeTranscript} from "@/actions/youtubeTranscript-actions";
 
 const schema = z.object({
   file: z
@@ -96,7 +100,8 @@ export default function UploadForm() {
 
       if (!validatedFiles.success) {
         console.log(
-          validatedFiles.error.flatten().fieldErrors.file?.[0] ?? "Invalid File"
+          validatedFiles.error.flatten().fieldErrors.file?.[0] ??
+            "Invalid File",
         );
         toast("something went wrong", {
           description:
@@ -148,18 +153,18 @@ export default function UploadForm() {
         if (data.summary) {
           console.log("data.summary is processing");
           console.log(
-            "following content to be sent as params in storeSummary : "
+            "following content to be sent as params in storeSummary : ",
           );
           console.log(
-            `resp[0].name : ${resp[0].name}, data.title : ${data.title}, data.summary : ${data.summary}, resp[0].ufsUrl : ${resp[0].ufsUrl}`
+            `resp[0].name : ${resp[0].name}, data.title : ${data.title}, data.summary : ${data.summary}, resp[0].ufsUrl : ${resp[0].ufsUrl}`,
           );
           console.log(data.summary);
 
-          const getuserIdFromClerk = await CheckIfUserExists();
-          console.log(`getuserIdFromClerk : ${getuserIdFromClerk}`);
+          const userId = await CheckIfUserExists();
+          console.log(`userId : ${userId}`);
 
           storeResult = await storeSummary({
-            user_id: getuserIdFromClerk,
+            user_id: userId,
             file_name: resp[0].name,
             title: data.title,
             summary_text: data.summary,
@@ -171,7 +176,7 @@ export default function UploadForm() {
           });
 
           console.log(
-            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`
+            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`,
           );
 
           router.push(`/summaries/${storeResult.data.id}`);
@@ -202,12 +207,14 @@ export default function UploadForm() {
       const {pageContent, videoTitle} = await youTubeTranscript({link});
 
       console.log(link);
-      
+
       console.log(pageContent);
 
-      const youTubeVideoSummary = await generateYouTubeSummary(pageContent)
-      
-      console.log(`youTubeVideoSummary is the following : ${youTubeVideoSummary}`)
+      const youTubeVideoSummary = await generateYouTubeSummary(pageContent);
+
+      console.log(
+        `youTubeVideoSummary is the following : ${youTubeVideoSummary}`,
+      );
 
       const {data = null, message = null} = youTubeVideoSummary || {};
 
@@ -221,10 +228,10 @@ export default function UploadForm() {
         });
 
         if (data.summary) {
-          const getuserIdFromClerk = await CheckIfUserExists();
+          const userId = await CheckIfUserExists();
 
           storeResult = await storeSummary({
-            user_id: getuserIdFromClerk,
+            user_id: userId,
             file_name: videoTitle,
             title: videoTitle,
             summary_text: data.summary,
@@ -236,14 +243,13 @@ export default function UploadForm() {
           });
 
           console.log(
-            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`
+            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`,
           );
 
           router.push(`/summaries/${storeResult.data.id}`);
           formRef.current?.reset();
         }
       }
-
     } catch (error) {
       setLoading(false);
       console.error("an error occured", error);
@@ -270,12 +276,14 @@ export default function UploadForm() {
       const {pageContent, videoTitle} = await youTubeTranscript({link});
 
       console.log(link);
-      
+
       console.log(pageContent);
 
-      const youTubeVideoSummary = await generateYouTubeSummary(pageContent)
-      
-      console.log(`youTubeVideoSummary is the following : ${youTubeVideoSummary}`)
+      const youTubeVideoSummary = await generateYouTubeSummary(pageContent);
+
+      console.log(
+        `youTubeVideoSummary is the following : ${youTubeVideoSummary}`,
+      );
 
       const {data = null, message = null} = youTubeVideoSummary || {};
 
@@ -289,10 +297,10 @@ export default function UploadForm() {
         });
 
         if (data.summary) {
-          const getuserIdFromClerk = await CheckIfUserExists();
+          const userId = await CheckIfUserExists();
 
           storeResult = await storeSummary({
-            user_id: getuserIdFromClerk,
+            user_id: userId,
             file_name: videoTitle,
             title: videoTitle,
             summary_text: data.summary,
@@ -304,14 +312,13 @@ export default function UploadForm() {
           });
 
           console.log(
-            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`
+            `storeResult.data.id from uploadform.tsx : ${storeResult.data.id}`,
           );
 
           router.push(`/summaries/${storeResult.data.id}`);
           formRef.current?.reset();
         }
       }
-
     } catch (error) {
       setLoading(false);
       console.error("an error occured", error);
@@ -323,7 +330,6 @@ export default function UploadForm() {
       setLoading(false);
     }
   };
-
 
   const [selectedType, setSelectedType] = useState("");
 

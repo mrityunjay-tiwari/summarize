@@ -1,14 +1,14 @@
 'use server'
 
 import getSummaries from "@/lib/summaries";
-import { auth } from "@clerk/nextjs/server";
+import { auth } from "@/utils/auth";
 import { redirect } from "next/navigation";
 
 export default async function userSummariesLength() {
     const user = await auth();
-    const userId = user.userId
+    const userId = user?.user?.id
     if(!userId) {
-        console.log("userId from clerk not found to server summaries")        
+        console.log("userId from auth not found to server summaries")        
         return redirect('/sign-in') 
     }
     console.log(`userId from dashboard/page.tsx ${userId}`);

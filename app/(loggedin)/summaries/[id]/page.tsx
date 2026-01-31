@@ -1,50 +1,41 @@
 import BgGradient from "@/components/common/bg-gradient";
-import { MotionDiv } from "@/components/common/motion-wrapper";
+import {MotionDiv} from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import IndSourceInfo from "@/components/summaries/ind-source-info";
 import IndSummaryHeader from "@/components/summaries/ind-summary-header";
 import IndividualSummaryViewer from "@/components/summaries/ind-summary-viewer";
-import getSummaries, { getIndividualSummary } from "@/lib/summaries";
-import { auth } from "@/utils/auth";
-import { FileText } from "lucide-react";
-import { redirect } from "next/navigation";
+import getSummaries, {getIndividualSummary} from "@/lib/summaries";
+import {auth} from "@/utils/auth";
+import {FileText} from "lucide-react";
+import {redirect} from "next/navigation";
 
 interface SummaryPageProps {
-  params: Promise<{ id: string }>;
+  params: Promise<{id: string}>;
 }
 
-async function getInfo({ params }: SummaryPageProps) {
+async function getInfo({params}: SummaryPageProps) {
   const summaryId = (await params).id;
 
   const user = await auth();
   const userId = user?.user?.id;
   if (!userId) {
-    console.log("userId from clerk not found to server summaries");
+    console.log("userId from auth not found to server summaries");
     return redirect("/sign-in");
   }
 
   console.log(`userId from summaries/[id]/page.tsx ${userId}`);
   const summaries = await getSummaries(userId);
   console.log(`summaries is -`);
-  console.log({ summaries });
+  console.log({summaries});
   console.log(summaries[0].id);
 
-  const idOfSUmmary = await getIndividualSummary({ userId, summaryId });
+  const idOfSUmmary = await getIndividualSummary({userId, summaryId});
 
   console.log(idOfSUmmary?.id, idOfSUmmary?.title);
 
-  return { summaries, user, summaryId, idOfSUmmary };
+  return {summaries, user, summaryId, idOfSUmmary};
 }
-export default async function SummaryPage({ params }: SummaryPageProps) {
-  // const summaryId = (await params).id
-
-  // const user = await auth();
-  // const userId = user.userId
-  // if(!userId) {
-  //     console.log("userId from clerk not found to server summaries")
-  //     return redirect('/sign-in')
-  // }
-
+export default async function SummaryPage({params}: SummaryPageProps) {
   // console.log(`userId from summaries/[id]/page.tsx ${userId}`);
   // const summaries = await getSummaries(userId)
   // console.log(`summaries is -`);
@@ -55,7 +46,7 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
 
   // console.log(idOfSUmmary?.id);
 
-  const info = await getInfo({ params });
+  const info = await getInfo({params});
   const idOfSUmmary = info.idOfSUmmary;
 
   return (
@@ -82,12 +73,12 @@ export default async function SummaryPage({ params }: SummaryPageProps) {
   );
 }
 
-const IndividualSummaryPage = async ({ params }: SummaryPageProps) => {
-  const info = await getInfo({ params });
+const IndividualSummaryPage = async ({params}: SummaryPageProps) => {
+  const info = await getInfo({params});
   const word_count = info.idOfSUmmary?.summary_text.length;
   const readingTime = Math.ceil(Number(word_count || 0) / 200);
   console.log(
-    `info.idOfSUmmary?.summary_text - ${info.idOfSUmmary?.summary_text}`
+    `info.idOfSUmmary?.summary_text - ${info.idOfSUmmary?.summary_text}`,
   );
 
   if (!info.idOfSUmmary?.title) {
@@ -99,9 +90,9 @@ const IndividualSummaryPage = async ({ params }: SummaryPageProps) => {
       <div className="flex flex-col gap-4 w-full">
         <div className="px-12 sm:px-20 lg:px-28 py-6 sm:py-12 lg:py-24 justify-center flex flex-col w-full">
           <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{opacity: 0, y: 20}}
+            whileInView={{opacity: 1, y: 0}}
+            transition={{duration: 0.5, ease: "easeOut"}}
           >
             <IndSummaryHeader
               title={info.idOfSUmmary?.title}
@@ -121,9 +112,9 @@ const IndividualSummaryPage = async ({ params }: SummaryPageProps) => {
           )}
 
           <MotionDiv
-            initial={{ opacity: 0, y: 40 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{opacity: 0, y: 40}}
+            whileInView={{opacity: 1, y: 0}}
+            transition={{duration: 0.5, ease: "easeOut"}}
             className="relative mt-4 sm:mt-8 lg:mt-16 w-full"
           >
             <div
@@ -152,9 +143,9 @@ const IndividualSummaryPage = async ({ params }: SummaryPageProps) => {
                 {word_count?.toLocaleString()} words
               </div>
               <MotionDiv
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
+                initial={{opacity: 0, y: 20}}
+                whileInView={{opacity: 1, y: 0}}
+                transition={{duration: 0.5, ease: "easeOut"}}
                 className="relative mt-8 sm:mt-16 flex justify-center"
               >
                 <IndividualSummaryViewer

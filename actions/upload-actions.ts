@@ -9,7 +9,7 @@ import { revalidatePath } from "next/cache"
 
 interface uploadResponseProps {
     serverData : {
-        userId: string,
+        userId?: string | null,
         file: {
             ufsUrl: string,
             name: string,

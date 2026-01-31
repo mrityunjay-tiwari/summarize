@@ -1,21 +1,21 @@
 import BgGradient from "@/components/common/bg-gradient";
-import { MotionDiv } from "@/components/common/motion-wrapper";
+import {MotionDiv} from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import LimitCountBar from "@/components/summaries/limit-count-bar";
 import SummaryCard from "@/components/summaries/summary-card";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 import getSummaries from "@/lib/summaries";
-import { auth } from "@/utils/auth";
+import {auth} from "@/utils/auth";
 
-import { ArrowRight, PlusIcon } from "lucide-react";
+import {ArrowRight, PlusIcon} from "lucide-react";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import {redirect} from "next/navigation";
 
 export default async function DashboardPage() {
   const user = await auth();
   const userId = user?.user?.id;
   if (!userId) {
-    console.log("userId from clerk not found to server summaries");
+    console.log("userId from auth not found to server summaries");
     return redirect("/sign-in");
   }
   console.log(`userId from dashboard/page.tsx ${userId}`);
@@ -39,9 +39,9 @@ export default async function DashboardPage() {
       <div className="container mx-auto flex flex-col gap-4 w-4/5">
         <div className="px-2 py-12 sm:py-24">
           <MotionDiv
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, ease: "easeOut" }}
+            initial={{opacity: 0, y: 20}}
+            whileInView={{opacity: 1, y: 0}}
+            transition={{duration: 0.5, ease: "easeOut"}}
             className="flex gap-4 mb-8 justify-between"
           >
             <div className="flex flex-col gap-2">
@@ -71,9 +71,9 @@ export default async function DashboardPage() {
             />
           ) : (
             <MotionDiv
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              initial={{opacity: 0, y: 20}}
+              whileInView={{opacity: 1, y: 0}}
+              transition={{duration: 0.5, ease: "easeOut"}}
               className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 sm:px-0"
             >
               {summaries?.map((summary, id) => (
