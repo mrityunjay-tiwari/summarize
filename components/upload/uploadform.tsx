@@ -12,7 +12,7 @@ import {toast} from "sonner";
 import {generateSummary, generateYouTubeSummary, storeSummary} from "@/actions/upload-actions";
 import {useEffect, useRef, useState} from "react";
 import {useRouter} from "next/navigation";
-import CheckIfUserExists from "@/lib/checkUser";
+import CheckIfUserExists from "@/actions/checkUser";
 import userSummariesLength from "@/utils/summaries-length-for-user";
 import LimitCountBar from "../summaries/limit-count-bar";
 import {MotionDiv} from "../common/motion-wrapper";
