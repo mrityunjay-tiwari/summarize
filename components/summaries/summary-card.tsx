@@ -40,14 +40,14 @@ export default function SummaryCard({ summary }: summaryCardProps) {
   );
   return (
     <div>
-      <Card className="relative h-full">
-        <span className="absolute top-2 right-2">
+      <Card className="relative h-full pr-5">
+        <span className="absolute top-2 right-2 ">
           <DeleteButton summaryId={summary.id} />
         </span>
         <Link href={`/summaries/${summary.id}`} className="block pl-6">
           <div className="flex flex-col gap-3 sm:gap-4">
             <div className="flex items-center gap-2 sm:gap-4">
-              <FileText className="w-6 h-6 sm:w-8 sm:h-8 text-rose-400 mt-1" />
+              <FileText className="w-6 h-6 sm:w-8 sm:h-8 text-blue-400 mt-1" />
               <div className="flex-1 min-w-0">
                 <h3 className="text-base xl:text-lg font-semibold text-gray-900 truncate w-4/5">
                   {summary.title}{" "}

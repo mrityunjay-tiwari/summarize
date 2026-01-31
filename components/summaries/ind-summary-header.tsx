@@ -26,7 +26,7 @@ export default function IndSummaryHeader({
           >
             <Sparkles
               className="h-4 w-4 mr-1.5 
-                            text-rose-500"
+                            text-blue-500"
             />
             AI Summary
           </Badge>
@@ -41,7 +41,7 @@ export default function IndSummaryHeader({
             >
             <Calendar
                 className="h-4 w-4 mr-1.5 
-                            text-rose-500"
+                            text-blue-500"
             />
             {new Date(createdAt!).toLocaleDateString('en-US', {
                 year: "numeric",
@@ -60,7 +60,7 @@ export default function IndSummaryHeader({
             >
             <Clock
                 className="h-4 w-4 mr-1.5 
-                            text-rose-500"
+                            text-blue-500"
             />
             {readingTime} minutes
             </Badge>
@@ -73,10 +73,10 @@ export default function IndSummaryHeader({
             <Link href={"/dashboard"}>
             <Button
                 size={"sm"}
-                className="group flex items-center gap-1 sm:gap-2 hover:bg-rose-50/80 hover:scale-105 hover:underline underline-offset-2
+                className="group flex items-center gap-1 sm:gap-2 hover:bg-blue-50/80 hover:scale-105 hover:underline underline-offset-2
                         backdrop-blur-xs rounded-full transition-all
                         duration-300 shadow-xs hover:shadow-md border
-                        border-rose-100/30 bg-rose-100 text-rose-700 p-2 sm:px-3 text-xs"
+                        border-blue-100/30 bg-blue-100 text-blue-700 p-2 sm:px-3 text-xs"
             >
                 <ChevronLeft className="w-3 h-3 transition-transform group-hover:-translate-x-0.5" />
 
@@ -89,7 +89,7 @@ export default function IndSummaryHeader({
 
         <div>
             <h1 className="text-2xl lg:text-4xl font-bold lg:tracking-tight">
-                <span className="bg-linear-to-r from-rose-500 to-orange-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-blue-500 to-sky-500 bg-clip-text text-transparent">
                     {title}
                 </span>
             </h1>

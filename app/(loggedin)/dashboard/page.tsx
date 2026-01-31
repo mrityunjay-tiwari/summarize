@@ -53,7 +53,7 @@ export default async function DashboardPage() {
             </div>
             {summaries.length <= 5 && (
               <div>
-                <Button className="bg-linear-to-r from-rose-500 to-rose-700 hover:from-rose-600 hover:to-rose-800 hover:scale-105 transition-all duration-300 group">
+                <Button className="bg-linear-to-r from-blue-500 to-blue-700 hover:from-blue-600 hover:to-blue-800 hover:scale-105 transition-all duration-300 group">
                   <Link href={"/upload"} className="flex items-center">
                     <PlusIcon className="w-5 h-5 mr-2" /> New Summary
                   </Link>

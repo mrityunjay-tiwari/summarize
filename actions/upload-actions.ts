@@ -42,7 +42,7 @@ export async function generateSummary(uploadResponse: uploadResponseProps[]) {
     if(!pdfUrl) {
         return {
             success: false,
-            message: "no pdf url received",
+            message: "PDF URL missing",
             data: null
         }
     }
@@ -65,7 +65,7 @@ export async function generateSummary(uploadResponse: uploadResponseProps[]) {
         if(!summary) {
             return {
                 success: false,
-                message: "no pdf url received",
+                message: "LLM failed to generate summary",
                 data: null 
             }
         }
@@ -114,7 +114,7 @@ export async function generateYouTubeSummary(link: string) {
         if(!summary) {
             return {
                 success: false,
-                message: "no pdf url received",
+                message: "LLM failed to generate summary",
                 data: null 
             }
         }
@@ -122,7 +122,7 @@ export async function generateYouTubeSummary(link: string) {
             success: true,
             message: "summary generated successfully",
             data: {
-                title: summary[0],
+                title: summary,
                 summary
             }
         }

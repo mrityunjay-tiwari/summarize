@@ -14,14 +14,14 @@ export default function IndSourceInfo({fileName, original_file_url, title, summa
     return (
         <MotionDiv initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="flex flex-col lg:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
         <div className="flex items-center justify-center gap-2">
-            <FileText className="h-4 w-4 text-rose-400" />
+            <FileText className="h-4 w-4 text-blue-400" />
             <span>Source: {fileName}</span>
         </div>
         <div className="flex gap-2">
             <Button
             variant="ghost"
             size="sm"
-            className="h-8 px-3 text-rose-600 hover:text-rose-700 hover:bg-rose-50"
+            className="h-8 px-3 text-blue-600 hover:text-blue-700 hover:bg-blue-50"
             asChild
             >
             <a href={original_file_url} target="_blank" rel="noopener noreferrer">

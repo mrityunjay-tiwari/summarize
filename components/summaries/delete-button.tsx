@@ -38,7 +38,7 @@ export default function DeleteButton({summaryId} : deleteButtonProps) {
         <div>
             <Dialog open={open} onOpenChange={setOpen} >
             <DialogTrigger asChild>
-                <Button variant={'ghost'} className="text-gray-500 bg-gray-50 border border-gray-200 hover:text-rose-400" >
+                <Button variant={'ghost'} className="text-gray-500 bg-gray-50 border border-gray-200 hover:text-blue-400" >
                     <Trash2 className="w-3 h-3" />
                 </Button>
             </DialogTrigger>
@@ -56,7 +56,7 @@ export default function DeleteButton({summaryId} : deleteButtonProps) {
                             Cancel
                         </Button>
                     </DialogClose>
-                    <Button className="bg-rose-400 border border-rose-400 hover:text-white hover:bg-gray-100" onClick={handleDelete} >
+                    <Button className="bg-blue-400 border border-blue-400 hover:text-white hover:bg-gray-100" onClick={handleDelete} >
                         {isPending ? "Deleting..." : "Delete"}
                     </Button>
                 </DialogFooter>

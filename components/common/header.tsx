@@ -20,7 +20,8 @@ export default async function Header() {
           </span>
         </NavLink>
       </div>
-      <div>
+      <div className="flex gap-3 md:gap-8 items-center">
+        <div>
         <SignedOut>
           <NavLink href={"/#pricing"}>Pricing</NavLink>
         </SignedOut>
@@ -44,6 +45,7 @@ export default async function Header() {
       <SignedOut>
         <NavLink href={"/sign-in"}>SignIn</NavLink>
       </SignedOut>
+      </div>
     </nav>
   );
 }
