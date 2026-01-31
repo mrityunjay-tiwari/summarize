@@ -5,7 +5,7 @@ import { SYSTEM_PROMPT } from "@/utils/prompt";
 dotenv.config();
 
 const client = new OpenAI({
-    apiKey: "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",
+    apiKey: process.env.OPENROUTER_API_KEY,
     baseURL: "https://openrouter.ai/api/v1"
 });
 
