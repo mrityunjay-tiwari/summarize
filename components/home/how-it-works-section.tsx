@@ -34,10 +34,10 @@ export default function HowItWorksSection() {
                     transform-gpu overflow-hidden blur-3xl"
                     >
                     <div
-                        className="relative left-[calc(50%+3rem)] aspect-[1155/678] 
-                        w-[36.125rem] -translate-x-1/2 bg-linear-to-br 
+                        className="relative left-[calc(50%+3rem)] aspect-1155/678 
+                        w-144.5 -translate-x-1/2 bg-linear-to-br 
                         from-emerald-500 via-teal-500 to-cyan-500 opacity-30 
-                        sm:left-[calc(50%+36rem)] sm:w-[72.1875rem]"
+                        sm:left-[calc(50%+36rem)] sm:w-288.75"
                         style={{
                         clipPath:
                             'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 38.4% 34.7%, 30.5% 17.6%, 20.4% 10.6%, 9% 10%, 27.6% 26.8%, 61.7% 97.7%, 74.1% 44.1%)',

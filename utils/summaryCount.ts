@@ -1,4 +1,4 @@
-import getSummaries from "@/lib/summaries";
+import { getSummaries } from "@/actions/summary-actions";
 import { auth } from "@/utils/auth";
 import { redirect } from "next/navigation";
 

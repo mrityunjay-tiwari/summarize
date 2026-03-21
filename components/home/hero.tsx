@@ -25,7 +25,7 @@ export default function Hero() {
               initial={{opacity: 0, y: 20}}
               whileInView={{opacity: 1, y: 0}}
               transition={{duration: 0.5, ease: "easeOut"}}
-              className="relative p-[1px] overflow-hidden rounded-full bg-linear-to-r from-rose-200 via-sky-500 to-sky-800 animate-gradient-x group"
+              className="relative p-px overflow-hidden rounded-full bg-linear-to-r from-rose-200 via-sky-500 to-sky-800 animate-gradient-x group"
             >
               <Badge
                 variant={"secondary"}

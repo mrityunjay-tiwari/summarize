@@ -2,7 +2,6 @@
 
 import {useFormStatus} from "react-dom";
 import {Button} from "../ui/button";
-import {Github} from "lucide-react";
 
 export function AuthButton() {
   const {pending} = useFormStatus();
@@ -62,29 +61,6 @@ export function AuthButton() {
             ></path>
           </svg>
           <span>Google</span>
-        </Button>
-      )}
-    </>
-  );
-}
-
-export function AuthButtonGithub() {
-  const {pending} = useFormStatus();
-
-  return (
-    <>
-      {pending ? (
-        <Button variant="outline" className="w-full" disabled>
-          <span className="flex gap-2 items-center">
-            <Github /> Github
-          </span>
-        </Button>
-      ) : (
-        <Button variant="outline" className="w-full hover:cursor-pointer">
-          <span className="flex gap-2 items-center">
-            <Github />
-            Github
-          </span>
         </Button>
       )}
     </>

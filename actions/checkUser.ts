@@ -4,11 +4,12 @@ import { auth } from "@/utils/auth";
 
 export default async function CheckIfUserExists() {
     const session = await auth()
-    const idOfUser = session?.user?.id;
+    const id = session?.user?.id;
 
-    if(!idOfUser) {
-        console.log('we can not get idOfUser from Auth');
-        return
+    if(!id) {
+        console.log("user id is not found, user is probably not logged in, log in first");
+        return null;
     }
-    return idOfUser
+
+    return id;
 }

@@ -6,87 +6,58 @@ import { prisma } from "@/prisma/src/index"
 import { auth } from "@/utils/auth"
 import { formatFileNameAsTitle } from "@/utils/format-utils"
 import { revalidatePath } from "next/cache"
+import CheckIfUserExists from "./checkUser"
+import { UTApi } from "uploadthing/server"
 
-interface uploadResponseProps {
-    serverData : {
-        userId?: string | null,
-        file: {
-            ufsUrl: string,
-            name: string,
-            size?: number;
-            type?: string;
-            customId?: string | null;
-            lastModified?: number;
-            fileHash?: string;
-        }
-    }
-}
-
-// Argument of type 'ClientUploadedFileData<{ userId: string; file: { name: string; ufsUrl: string; size: number; type: string; customId: string | null; lastModified: number | undefined; fileHash: string; }; }>[]' is not assignable to parameter of type 'uploadResponseProps[]'.
-export async function generateSummary(uploadResponse: uploadResponseProps[]) {
-    if(!uploadResponse) {
-        return {
-            success: false,
-            message: "file upload failed",
-            data: null
-        }
-    }
-
-    const {serverData: {userId, file: {ufsUrl: pdfUrl, name: filename}}} = uploadResponse[0]
-
-    // console.log('uploadResponse : ', uploadResponse );
-    // console.log('uploadResponse[0] : ', uploadResponse[0]);      
-    // console.log('pdfUrl from upload-actions - ', pdfUrl);
-    
-    
-    if(!pdfUrl) {
-        return {
-            success: false,
-            message: "PDF URL missing",
-            data: null
-        }
-    }
-
+const utapi = new UTApi();
+export const deletePdfFile = async () => {
     try {
-        const pdfText = await fetchAndExtractPDFText(pdfUrl)
-        console.log({pdfText});
-
-        let summary;
-        try {
-            summary = await generateSummaryFromGemini(pdfText)
-            console.log("summary from gemini : ");            
-            console.log(summary);
-            
-        } catch (err) {
-            console.log(err);
-            
-        }
-
-        if(!summary) {
-            return {
-                success: false,
-                message: "LLM failed to generate summary",
-                data: null 
-            }
-        }
-        
-        const fileFormatedName = formatFileNameAsTitle(filename)
-        return {
-            success: true,
-            message: "summary generated successfully",
-            data: {
-                title: fileFormatedName,
-                summary
-            }
-        }
-    } catch (error) {
-        return {
-            success: false,
-            message: "no pdf url received",
-            data: null
-        }
+        await utapi.deleteFiles("u8y7IgAVRiC1wG4Z5AV2Mu5S7XE1QzkTCcib0N3ZFdejfKLH");
+        console.log('file deleted successfully');    
+    } catch (err) {
+        console.log("error : ", err);
+    } finally {
+        console.log('sth done with deleted button execution');
     }
 }
+
+type UploadedFile = {
+  ufsUrl: string;
+  name: string;
+}
+
+export async function generateSummary(uploadResponse: UploadedFile[]) {
+  try {
+    const session = await CheckIfUserExists()
+    if(!session) {
+        return {
+            success: false,
+            message: "No user found",
+        }
+    }
+
+    const file = uploadResponse?.[0];
+    if (!file?.ufsUrl || !file?.name) {
+      return { success: false, message: "Invalid upload response", data: null };
+    }
+
+    const pdfText = await fetchAndExtractPDFText(file.ufsUrl);
+
+    const summary = await generateSummaryFromGemini(pdfText);
+
+    const title = formatFileNameAsTitle(file.name);
+
+    return {
+      success: true,
+      message: "Summary generated successfully",
+      data: { title, summary },
+    };
+  } catch (error) {
+    console.error("generateSummary FAILED:", error);
+    throw error; 
+  }
+}
+
 
 export async function generateYouTubeSummary(link: string) {
     if(!link) {
@@ -96,7 +67,6 @@ export async function generateYouTubeSummary(link: string) {
             data: null
         }
     }
-
 
     try {
         
@@ -144,40 +114,33 @@ interface savePDFSummaryProps {
     file_name: string,
 }
 
-async function savePDFSummary({user_id, original_file_urll, summary_text, title, file_name} : savePDFSummaryProps) {
-    try {
-        if(!user_id) {
-            return {
-                message: "userid not found"
-            }
-        }
-        
-        console.log("user_id is : ");
-        console.log(user_id);
-        
-        const summary = await prisma.pdfSummary.create({
-            data: {
-                user_id: user_id,                 
-                original_file_url: original_file_urll,
-                summary_text: summary_text,                   
-                title: title,
-                file_name: file_name,
-            }
-        })
+async function savePDFSummary({
+  original_file_urll,
+  summary_text,
+  title,
+  file_name,
+}: savePDFSummaryProps) {
 
-        console.log("summary is : ");
-        console.log({summary});
-        console.log("summayId from savePDFSummary is : ");
-        console.log(summary.id);
+  const session = await CheckIfUserExists();
 
-        return {summary}
-                
-    } catch (error) {
-        console.error("Error saving PDF summary", error)
-        throw error;        
+  if(!session) {
+    return {
+        success: false,
+        message: "session not found"
     }
+  }
 
-   
+  const summary = await prisma.pdfSummary.create({
+    data: {
+      user_id: session,
+      original_file_url: original_file_urll,
+      summary_text,
+      title,
+      file_name,
+    },
+  });
+
+  return { summary };
 }
 
 export async function storeSummary({user_id, file_name, original_file_urll, summary_text, title} : savePDFSummaryProps) {
@@ -193,7 +156,8 @@ export async function storeSummary({user_id, file_name, original_file_urll, summ
         console.log("userid : ");
         console.log({userId});
         
-        pdfSummary = await savePDFSummary({user_id, file_name, original_file_urll, summary_text, title})
+        // user_id is now handled inside savePDFSummary via auth()
+        pdfSummary = await savePDFSummary({original_file_urll, summary_text, title, file_name, user_id})
         console.log("pdfSummary is :");
         console.log(pdfSummary);
         console.log("pdfSummary.summary.id is : ");

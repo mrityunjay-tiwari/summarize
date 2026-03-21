@@ -1,38 +1,28 @@
+import CheckIfUserExists from "@/actions/checkUser";
+import { getSummaries } from "@/actions/summary-actions";
 import BgGradient from "@/components/common/bg-gradient";
 import {MotionDiv} from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import LimitCountBar from "@/components/summaries/limit-count-bar";
 import SummaryCard from "@/components/summaries/summary-card";
 import {Button} from "@/components/ui/button";
-import getSummaries from "@/lib/summaries";
-import {auth} from "@/utils/auth";
-
-import {ArrowRight, PlusIcon} from "lucide-react";
+import {PlusIcon} from "lucide-react";
 import Link from "next/link";
 import {redirect} from "next/navigation";
 
 export default async function DashboardPage() {
-  const user = await auth();
-  const userId = user?.user?.id;
+  const userId = await CheckIfUserExists()
   if (!userId) {
     console.log("userId from auth not found to server summaries");
     return redirect("/sign-in");
   }
+
   console.log(`userId from dashboard/page.tsx ${userId}`);
 
   const summaries = await getSummaries(userId);
+
   console.log(`summari is ${summaries}`);
 
-  const uploadLimit = 5;
-  // const summaries = [
-  //     {
-  //         id: 1,
-  //         title: "Sample title",
-  //         created_at: "2025-09-21 05:04:54.919",
-  //         summary_text: "description",
-  //         status: "completed"
-  //     }
-  // ]
   return (
     <main className="min-h-screen">
       <BgGradient className="from-emerald-200 via-teal-200 to-cyan-200" />

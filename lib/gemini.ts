@@ -1,37 +1,43 @@
 import OpenAI from "openai";
-
-import dotenv from 'dotenv';
 import { SYSTEM_PROMPT } from "@/utils/prompt";
-dotenv.config();
 
-const client = new OpenAI({
-    apiKey: process.env.OPENROUTER_API_KEY,
-    baseURL: "https://openrouter.ai/api/v1"
-});
+export async function generateSummaryFromGemini(pdfText: string) {
+  const apiKey = process.env.OPEN_ROUTER_API_KEY;
 
-export async function generateSummaryFromGemini(pdfText : string) {
+  if (!apiKey) {
+    throw new Error("OPEN_ROUTER_API_KEY is not defined");
+  }
 
-    try {
-        const response = await client.chat.completions.create({
-        model: "meta-llama/llama-3.1-8b-instruct",
-        messages: [
-            {
-                role: 'system',
-                content: SYSTEM_PROMPT
-            },
-            {
-                role: 'user',
-                content: `Transform this document into an engaging, easy-to-read summary with proper markdown summary ${pdfText}.`
-            }
-        ],
-        temperature: 0.7,
-        max_completion_tokens: 1500
-        });
+  const client = new OpenAI({
+    apiKey,
+    baseURL: "https://openrouter.ai/api/v1",
+    defaultHeaders: {
+      "HTTP-Referer": "http://localhost:3000",
+      "X-Title": "Summarize App",
+    },
+  });
 
-       
-        return response.choices[0].message.content 
-    } catch (error) {
-        console.error("OpenRouter error:", error);
-        throw new Error("Failed to generate summary from LLM");
+  try {
+    const response = await client.chat.completions.create({
+      model: "openai/gpt-4o-mini",
+      messages: [
+        { role: "system", content: SYSTEM_PROMPT },
+        {
+          role: "user",
+          content: `Transform this document into an engaging, easy-to-read summary with proper markdown.\n\n${pdfText.slice(0, 12000)}`,
+        },
+      ],
+      temperature: 0.7,
+      max_completion_tokens: 1500,
+    });
+
+    if (!response.choices?.length) {
+      throw new Error("No choices returned from OpenRouter");
     }
+
+    return response.choices[0].message.content;
+  } catch (error) {
+    console.error("OpenRouter error:", error);
+    throw error;
+  }
 }

@@ -4,23 +4,30 @@
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf'
 
 export async function fetchAndExtractPDFText(fileUrl: string) {
-    const response = await fetch(fileUrl);
+    console.log("fetchAndExtractPDFText: fetching url", fileUrl);
+    try {
+        const response = await fetch(fileUrl);
+        console.log("fetch response status:", response.status);
 
-    // const arrayBuffer = await response.arrayBuffer();
-    // const buffer = Buffer.from(arrayBuffer);
+        if (!response.ok) {
+             throw new Error(`Failed to fetch PDF: ${response.statusText}`);
+        }
 
-    // const data = await pdf(buffer);
+        const blob = await response.blob();
+        console.log("blob created, size:", blob.size);
 
-    const blob = await response.blob();
+        const arrayBuffer = await blob.arrayBuffer();
+        console.log("arrayBuffer created, byteLength:", arrayBuffer.byteLength);
 
-    const arrayBuffer = await blob.arrayBuffer();
+        const loader = new PDFLoader(new Blob([arrayBuffer]));
+        console.log("PDFLoader initialized");
 
-    const loader = new PDFLoader(new Blob([arrayBuffer]));
+        const docs = await loader.load();
+        console.log("docs loaded, count:", docs.length);
 
-    const docs = await loader.load();
-
-    // const docs = [new Document({ pageContent: data.text })];
-
-    // combine
-    return docs.map((doc) => doc.pageContent).join('\n')
+        return docs.map((doc) => doc.pageContent).join('\n');
+    } catch (error) {
+        console.error("Error in fetchAndExtractPDFText:", error);
+        throw error;
+    }
 }

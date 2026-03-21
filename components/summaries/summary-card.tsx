@@ -2,22 +2,6 @@ import Link from "next/link";
 import { Card } from "../ui/card";
 import DeleteButton from "./delete-button";
 import { FileText } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-const StatusBadge = ({ status }: { status: string }) => {
-  return (
-    <span
-      className={cn(
-        "px-3 py-1 text-xs font-medium rounded-full capitalize",
-        status == "completed"
-          ? "bg-green-100 text-green-800"
-          : "bg-yellow-100 text-yellow-800"
-      )}
-    >
-      {status}
-    </span>
-  );
-};
 
 interface summaryCardProps {
   summary: {
@@ -25,7 +9,6 @@ interface summaryCardProps {
     title: string | null; // allow null from Prisma
     created_at: Date; // Prisma returns Date, not string
     summary_text: string;
-    status: string;
     file_name?: string | null; // optional if you use it
     original_file_url?: string;
     user_id?: string | null;
@@ -74,9 +57,6 @@ export default function SummaryCard({ summary }: summaryCardProps) {
               {summary.summary_text}
             </p>
 
-            <div className="flex justify-between items-center mt-2 sm:mt-4">
-              <StatusBadge status={summary.status} />
-            </div>
           </div>
         </Link>
       </Card>

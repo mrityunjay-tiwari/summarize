@@ -18,7 +18,7 @@ export default function HeroSection() {
       <div className="">  
         <div className="flex pb-4">
           <MotionDiv initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}}
-            className="relative p-[1px] overflow-hidden
+            className="relative p-px overflow-hidden
             rounded-full bg-linear-to-r from-rose-200 via-rose-500
             to-rose-800 animate-gradient-x group"
           >
