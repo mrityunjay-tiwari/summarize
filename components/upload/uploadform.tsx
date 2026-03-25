@@ -21,17 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-
-const schema = z.object({
-  file: z
-    .instanceof(File, {message: "Invalid File type"})
-    .refine((file) => file.size <= 20 * 1024 * 1024, {
-      message: "File size must be less than 20MB",
-    })
-    .refine((file) => file.type.startsWith("application/pdf"), {
-      message: "File must be of type pdf",
-    }),
-});
+import { fetchAndExtractPDFText } from "@/lib/langchain";
+import { upload_file_schema } from "@/types/upload-file-type";
 
 export default function UploadForm() {
   const [summariesCount, setSummariesCount] = useState<number>(0);
@@ -53,21 +44,29 @@ export default function UploadForm() {
   const [loading, setLoading] = useState(false);
 
   const {startUpload} = useUploadThing("pdfUploader", {
-    onUploadBegin: (fileName) => {
-      console.log("upload has begun for", fileName);
-    },
-    onUploadError: (er) => {
-      console.error("error occurred while uploading", er);
-      toast("error occured while uploading", {
-        description:
-          "Due to some error you were unable to upload the file, please try again",
-      });
-    },
-    onClientUploadComplete: (file) => {
-      console.log("uploaded successfully!");
-      file.forEach((fl) => {
-        console.log('fl info : ', fl);
-      });
+    // onUploadBegin: (fileName) => {
+    //   console.log("upload has begun for", fileName);
+    // },
+    // onUploadError: (er) => {
+    //   console.error("error occurred while uploading", er);
+    //   toast("error occured while uploading", {
+    //     description:
+    //       "Due to some error you were unable to upload the file, please try again",
+    //   });
+    // },
+    // onClientUploadComplete: (file) => {
+    //   console.log("uploaded successfully!");
+    //   file.forEach((fl) => {
+    //     console.log('fl info : ', fl);
+    //   });
+    // }
+    onClientUploadComplete: async (res) => {  
+      console.log('Log from : ', res[0])    
+      const theUploadedFile = await fetch(res[0].ufsUrl)
+      console.log('The Second Log : ', res[0].ufsUrl)
+      const fileText = await fetch(`https://mrityunjay18-structured-pdf-data.hf.space/get-structured-data?source=${res[0].ufsUrl}`)
+      const fileJson = await fileText.json();
+      console.log('The Third Log : ', fileJson);
     }
   });
 
@@ -78,7 +77,7 @@ export default function UploadForm() {
       setLoading(true);
       const formData = new FormData(e.currentTarget);
       const file = formData.get("file") as File;
-      const validatedFiles = schema.safeParse({file});
+      const validatedFiles = upload_file_schema.safeParse({file});
 
       if(!validatedFiles.success) {
         toast("something went wrong");
@@ -97,6 +96,9 @@ export default function UploadForm() {
 
       toast("file uploaded successfully")
       setLoading(false);
+
+      console.log("uploadedFileInfo : ", uploadFile[0].key);
+     
       formRef.current?.reset();
     } catch {
       setLoading(false);

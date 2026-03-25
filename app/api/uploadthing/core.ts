@@ -22,7 +22,10 @@ export const ourFileRouter = {
             console.log("Upload completed for userId", metadata.userId);
             console.log('file url', file.ufsUrl);
             
-            return {userId : metadata.userId}
+            return {
+                userId : metadata.userId,
+                fileUrl : file.ufsUrl
+            }
         }
     )
 } satisfies FileRouter;

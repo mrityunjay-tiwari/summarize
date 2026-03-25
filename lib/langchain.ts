@@ -1,6 +1,3 @@
-// import { Document } from 'langchain/document'
-// import pdf from 'pdf-parse';
-
 import { PDFLoader } from '@langchain/community/document_loaders/fs/pdf'
 
 export async function fetchAndExtractPDFText(fileUrl: string) {
@@ -25,6 +22,8 @@ export async function fetchAndExtractPDFText(fileUrl: string) {
         const docs = await loader.load();
         console.log("docs loaded, count:", docs.length);
 
+        console.log("docs pagecontent : ",docs[0].pageContent);
+        
         return docs.map((doc) => doc.pageContent).join('\n');
     } catch (error) {
         console.error("Error in fetchAndExtractPDFText:", error);
