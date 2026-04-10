@@ -21,8 +21,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select";
-import { fetchAndExtractPDFText } from "@/lib/langchain";
 import { upload_file_schema } from "@/types/upload-file-type";
+import { TMindMapSchema } from "@/app/api/mind-map/schema";
 
 export default function UploadForm() {
   const [summariesCount, setSummariesCount] = useState<number>(0);
@@ -64,9 +64,40 @@ export default function UploadForm() {
       console.log('Log from : ', res[0])    
       const theUploadedFile = await fetch(res[0].ufsUrl)
       console.log('The Second Log : ', res[0].ufsUrl)
-      const fileText = await fetch(`https://mrityunjay18-structured-pdf-data.hf.space/get-structured-data?source=${res[0].ufsUrl}`)
+      const fileText = await fetch(`https://mrityunjay18-structured-pdf-retrieval.hf.space/get-chunks?source=${res[0].ufsUrl}`)
       const fileJson = await fileText.json();
       console.log('The Third Log : ', fileJson);
+      const chunks = fileJson.chunks;
+      const allTexts = chunks.map((chunk: any) => chunk.text)
+      const getFlashCardsDisplayableSummary = await fetch('/api/get-embeddings', {
+        method: 'POST',
+        body: JSON.stringify({
+          text: allTexts
+        })
+      });
+
+      const embeddingResponse = await getFlashCardsDisplayableSummary.json();
+      console.log('The Fourth Log(Embeddings) : ', embeddingResponse);
+
+      const finalEmbeddingData = chunks.map((chunk: any, index: any) => {
+        return {
+          text: chunk.text,
+          meta: chunk.meta,
+          embedding: embeddingResponse.embeddings.embeddings[index]
+        }
+      })
+
+      console.log('The Final Embedding Data : ', finalEmbeddingData)
+      // const flashCardsDisplayableSummary = await getFlashCardsDisplayableSummary.json();
+      // console.log('The Fourth Log(Summary) : ', flashCardsDisplayableSummary);
+      // const myMindMapArray: TMindMapSchema[] = [
+      //   {
+      //     index: 0,
+      //     point: flashCardsDisplayableSummary.result,
+      //     subPoints: flashCardsDisplayableSummary.topic
+      //   }
+      // ]
+      // console.log('The final mindMap: ', myMindMapArray[0])
     }
   });
 

@@ -1,7 +1,5 @@
 'use server'
 
-import { generateSummaryFromGemini } from "@/lib/gemini"
-import { fetchAndExtractPDFText } from "@/lib/langchain"
 import { prisma } from "@/prisma/src/index"
 import { auth } from "@/utils/auth"
 import { formatFileNameAsTitle } from "@/utils/format-utils"
@@ -24,85 +22,6 @@ export const deletePdfFile = async () => {
 type UploadedFile = {
   ufsUrl: string;
   name: string;
-}
-
-export async function generateSummary(uploadResponse: UploadedFile[]) {
-  try {
-    const session = await CheckIfUserExists()
-    if(!session) {
-        return {
-            success: false,
-            message: "No user found",
-        }
-    }
-
-    const file = uploadResponse?.[0];
-    if (!file?.ufsUrl || !file?.name) {
-      return { success: false, message: "Invalid upload response", data: null };
-    }
-
-    const pdfText = await fetchAndExtractPDFText(file.ufsUrl);
-
-    const summary = await generateSummaryFromGemini(pdfText);
-
-    const title = formatFileNameAsTitle(file.name);
-
-    return {
-      success: true,
-      message: "Summary generated successfully",
-      data: { title, summary },
-    };
-  } catch (error) {
-    console.error("generateSummary FAILED:", error);
-    throw error; 
-  }
-}
-
-
-export async function generateYouTubeSummary(link: string) {
-    if(!link) {
-        return {
-            success: false,
-            message: "file upload failed",
-            data: null
-        }
-    }
-
-    try {
-        
-        let summary;
-        try {
-            summary = await generateSummaryFromGemini(link)
-            console.log("summary from gemini : ");            
-            console.log(summary);
-            
-        } catch (err) {
-            console.log(err);
-            
-        }
-
-        if(!summary) {
-            return {
-                success: false,
-                message: "LLM failed to generate summary",
-                data: null 
-            }
-        }
-        return {
-            success: true,
-            message: "summary generated successfully",
-            data: {
-                title: summary,
-                summary
-            }
-        }
-    } catch (error) {
-        return {
-            success: false,
-            message: "no pdf url received",
-            data: null
-        }
-    }
 }
 
 interface savePDFSummaryProps {
@@ -143,52 +62,52 @@ async function savePDFSummary({
   return { summary };
 }
 
-export async function storeSummary({user_id, file_name, original_file_urll, summary_text, title} : savePDFSummaryProps) {
-    let pdfSummary: any;
-    try {
-        const userId = await auth();
-        if(!userId) {
-            return {
-                success: false,
-                message: "User not found"
-            }
-        }
-        console.log("userid : ");
-        console.log({userId});
+// export async function storeSummary({user_id, file_name, original_file_urll, summary_text, title} : savePDFSummaryProps) {
+//     let pdfSummary: any;
+//     try {
+//         const userId = await auth();
+//         if(!userId) {
+//             return {
+//                 success: false,
+//                 message: "User not found"
+//             }
+//         }
+//         console.log("userid : ");
+//         console.log({userId});
         
-        // user_id is now handled inside savePDFSummary via auth()
-        pdfSummary = await savePDFSummary({original_file_urll, summary_text, title, file_name, user_id})
-        console.log("pdfSummary is :");
-        console.log(pdfSummary);
-        console.log("pdfSummary.summary.id is : ");
-        console.log(pdfSummary.summary.id) 
+//         // user_id is now handled inside savePDFSummary via auth()
+//         pdfSummary = await savePDFSummary({original_file_urll, summary_text, title, file_name, user_id})
+//         console.log("pdfSummary is :");
+//         console.log(pdfSummary);
+//         console.log("pdfSummary.summary.id is : ");
+//         console.log(pdfSummary.summary.id) 
         
         
          
-        if(!pdfSummary) {
-            return {
-                success: false,
-                message: "failed to save pdf summary, please try again"
-            }
-        }
+//         if(!pdfSummary) {
+//             return {
+//                 success: false,
+//                 message: "failed to save pdf summary, please try again"
+//             }
+//         }
 
-        console.log("we have pdfSummary and it is being saved");
+//         console.log("we have pdfSummary and it is being saved");
         
-        revalidatePath(`/summaries/${pdfSummary.summary.id}`)
-        return {
-            success: true,
-            message:"pdf summary saved successfully",
-            data: {
-                id: pdfSummary.summary.id
-            }
-        }
+//         revalidatePath(`/summaries/${pdfSummary.summary.id}`)
+//         return {
+//             success: true,
+//             message:"pdf summary saved successfully",
+//             data: {
+//                 id: pdfSummary.summary.id
+//             }
+//         }
         
-    } catch (error) {
-        return {
-            success: false,
-            message: error instanceof Error ? error.message : "Error saving PDF summary"
-        }
-    }
+//     } catch (error) {
+//         return {
+//             success: false,
+//             message: error instanceof Error ? error.message : "Error saving PDF summary"
+//         }
+//     }
 
     
-}
+// }

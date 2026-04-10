@@ -42,7 +42,7 @@ export default function UploadHeader() {
                 <h2 className="text-lg sm:text-lg lg:text-lg text-center px-4 lg:px-0 lg:max-w-4xl text-gray-600">
                     Upload your pdf and let our AI do the magic !! 
                 </h2>
-                <Sparkles className="h-5 w-5 text-blue-900" />
+                {/* <Sparkles className="h-5 w-5 text-blue-900" /> */}
             </MotionDiv>
             <div>
                 <MotionH1 initial={{opacity: 0, y: 20}} whileInView={{opacity: 1, y:0}} transition={{duration:0.5, ease: 'easeOut'}} className="text-sm pt-6 text-gray-600">--------Uploadform--------</MotionH1>

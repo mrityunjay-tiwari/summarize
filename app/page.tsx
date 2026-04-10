@@ -7,18 +7,22 @@ import HeroSection from "@/components/home/hero-section";
 import HowItWorksSection from "@/components/home/how-it-works-section";
 import PricingSection from "@/components/home/pricing-section";
 import CardStack from "@/components/home/stack";
+import BGGrid from "@/components/ui/bg-pattern";
 
 export default function Home() {
   return (
-    <div className="relative w-full">
-        <BgGradient />
-      <div className="flex flex-col">
-        <Hero />
-        <HowItWorksSection />
-        <PricingSection />
-        <CTASection />
-        <Footer />
-      </div>
+    <div className="flex flex-col">
+      <BGGrid />
+
+  <div className="mt-16">
+    <Hero />
+
+  </div>
+    
+      <HowItWorksSection />
+      <PricingSection />
+      <CTASection />
+      <Footer />
     </div>
   );
 }

@@ -4,6 +4,9 @@ import "./globals.css";
 import Header from "@/components/common/header";
 
 import { Toaster } from "@/components/ui/sonner";
+import { ThemeProvider } from "@/components/ui/theme-provider";
+import { Navbar } from "@/components/navbar/nav";
+import { auth } from "@/utils/auth";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -38,20 +41,29 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const user = await auth();
+
   return (
 
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
           className={` ${ubuntu.className} `}
         >
-          <Header /> 
-          <main className="flex-1">{children}</main>  
-          <Toaster />
+          <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange
+        >
+            <Navbar user={user} />
+            <main className="flex-1">{children}</main>  
+            <Toaster />
+          </ThemeProvider>
         </body>
       </html>
 
