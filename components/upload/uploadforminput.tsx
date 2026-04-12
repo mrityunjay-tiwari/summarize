@@ -1,10 +1,10 @@
 "use client";
 
-import {forwardRef, Ref} from "react";
+import {forwardRef, useRef} from "react";
 import {Button} from "../ui/button";
-import {Input} from "../ui/input";
-import {cn} from "@/lib/utils";
 import {Loader2} from "lucide-react";
+import AnimatedFileUpload from "./upload-file";
+import InitialOption from "./choose-intial-option";
 
 interface UploadFormInputProps {
   onsubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -15,105 +15,55 @@ export const UploadFormInputPDF = forwardRef<
   HTMLFormElement,
   UploadFormInputProps
 >(({onsubmit, isLoading}, ref) => {
+  const hiddenInputRef = useRef<HTMLInputElement>(null);
+
   return (
-    <form action="" className="flex flex-col g-6" onSubmit={onsubmit} ref={ref}>
-      <div className="flex justify-center items-center gap-1.5">
-        <Input
-          id="file"
-          name="file"
-          accept="application/pdf"
-          required
-          className={cn(isLoading && "opacity-50 cursor-not-allowed")}
-          type="file"
+    <div>
+      <div className="w-full justify-items-center mb-10">
+        <h1 className="font-bold text-3xl text-center ">Upload your PDF</h1>
+        <p className="text-center text-muted-foreground">Upload PDF and choose what you want to do with it.</p>   
+      </div>
+    <form className="flex flex-col g-6" onSubmit={onsubmit} ref={ref}>
+      <div className="">
+        <AnimatedFileUpload
+          accept=".pdf"
           disabled={isLoading}
+          multiple={false}
+          maxSize={10 * 1024 * 1024}
+          className="mb-5 shadow-lg rounded-lg backdrop-blur-md"
+          onFilesSelected={(files: File[]) => {
+            if (hiddenInputRef.current) {
+              if (files.length > 0) {
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(files[0]);
+                hiddenInputRef.current.files = dataTransfer.files;
+              } else {
+                hiddenInputRef.current.value = "";
+              }
+            }
+          }}
         />
-        <Button disabled={isLoading}>
+
+        <input 
+          type="file" 
+          ref={hiddenInputRef} 
+          name="file" 
+          className="hidden" 
+        />
+        <InitialOption />
+        <p className="text-xs text-left font-light mt-2">*Choose any one option from above now, you can select other options later also for the same PDF.</p>
+        <Button type="submit" disabled={isLoading} className="w-full mt-8">
           {isLoading ? (
             <>
               <Loader2 className="mr-2 h-4 w-4 animate-spin" />
               Processing...{" "}
             </>
           ) : (
-            "summariZE PDF"
+            "Submit PDF"
           )}
         </Button>
       </div>
     </form>
+    </div>
   );
 });
-
-export const UploadFormInputYouTube = forwardRef<
-  HTMLFormElement,
-  UploadFormInputProps
->(({onsubmit, isLoading}, ref) => {
-  return (
-    <form action="" className="flex flex-col g-6" onSubmit={onsubmit} ref={ref}>
-      <div className="flex justify-center items-center gap-1.5">
-        <Input
-          id="youtubeLink"
-          name="youtubeLink"
-          required
-          className={cn(isLoading && "opacity-50 cursor-not-allowed")}
-          type="text"
-          disabled={isLoading}
-          placeholder="Paste your YouTube Video link here"
-        />
-        <Button disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...{" "}
-            </>
-          ) : (
-            "summariZE Video"
-          )}
-        </Button>
-      </div>
-    </form>
-  );
-});
-
-export const UploadFormInputWebsite = forwardRef<
-  HTMLFormElement,
-  UploadFormInputProps
->(({onsubmit, isLoading}, ref) => {
-  return (
-    <form action="" className="flex flex-col g-6" onSubmit={onsubmit} ref={ref}>
-      <div className="flex justify-center items-center gap-1.5">
-        <Input
-          id="website"
-          name="websiteLink"
-          required
-          className={cn(isLoading && "opacity-50 cursor-not-allowed")}
-          type="text"
-          disabled={isLoading}
-          placeholder="Paste your Website link here"
-        />
-        <Button disabled={isLoading}>
-          {isLoading ? (
-            <>
-              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-              Processing...{" "}
-            </>
-          ) : (
-            "summariZE IT"
-          )}
-        </Button>
-      </div>
-    </form>
-  );
-});
-
-export const UploadFormWorkingOn = () => {
-  return (
-    <>
-      <div className="mb-6">
-        <div className="bg-rose-50 border border-rose-200 rounded-md p-1 pl-4 text-rose-800 flex items-center j">
-          <p className="text-sm">
-            Currently Working on It
-          </p>
-        </div>
-      </div>
-    </>
-  );
-};

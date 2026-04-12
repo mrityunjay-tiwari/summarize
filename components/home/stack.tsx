@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
-import { useState } from "react";
-import { cn } from "@/lib/utils";
+import {motion} from "motion/react";
+import {useState} from "react";
+import {cn} from "@/lib/utils";
 
 interface Specification {
   label: string;
@@ -23,12 +23,13 @@ const products: Product[] = [
     id: "instant-pay",
     title: "Quick Revision",
     subtitle: "With Flash Cards",
-    image: "https://ik.imagekit.io/mrityunjay/TechStack/Typescript.svg.png?updatedAt=1769859234226",
+    image:
+      "https://ik.imagekit.io/mrityunjay/TechStack/Typescript.svg.png?updatedAt=1769859234226",
     specs: [
-      { label: "Speed", value: "Instant" },
-      { label: "Summary", value: "Download" },
-      { label: "Limit", value: "No" },
-      { label: "Fee", value: "100%" },
+      {label: "Speed", value: "Instant"},
+      {label: "Summary", value: "Download"},
+      {label: "Limit", value: "No"},
+      {label: "Fee", value: "100%"},
     ],
   },
   {
@@ -38,10 +39,10 @@ const products: Product[] = [
     image:
       "https://ik.imagekit.io/mrityunjay/TechStack/Typescript.svg.png?updatedAt=1769859234226",
     specs: [
-      { label: "Network", value: "Multi-chain" },
-      { label: "Gas", value: "Optimized" },
-      { label: "Support", value: "24/7" },
-      { label: "Free", value: "100%" },
+      {label: "Network", value: "Multi-chain"},
+      {label: "Gas", value: "Optimized"},
+      {label: "Support", value: "24/7"},
+      {label: "Free", value: "100%"},
     ],
   },
   {
@@ -51,10 +52,10 @@ const products: Product[] = [
     image:
       "https://ik.imagekit.io/mrityunjay/TechStack/Typescript.svg.png?updatedAt=1769859234226",
     specs: [
-      { label: "Volume", value: "Unlimited" },
-      { label: "API", value: "REST/SDK" },
-      { label: "Support", value: "Premium" },
-      { label: "Free", value: "100%" },
+      {label: "Volume", value: "Unlimited"},
+      {label: "API", value: "REST/SDK"},
+      {label: "Support", value: "Premium"},
+      {label: "Free", value: "100%"},
     ],
   },
   {
@@ -64,10 +65,10 @@ const products: Product[] = [
     image:
       "https://ik.imagekit.io/mrityunjay/TechStack/Typescript.svg.png?updatedAt=1769859234226",
     specs: [
-      { label: "Countries", value: "180+" },
-      { label: "FX Rate", value: "Real-time" },
-      { label: "Speed", value: "Same-day" },
-      { label: "Free", value: "100%" },
+      {label: "Countries", value: "180+"},
+      {label: "FX Rate", value: "Real-time"},
+      {label: "Speed", value: "Same-day"},
+      {label: "Free", value: "100%"},
     ],
   },
 ];
@@ -79,7 +80,7 @@ interface CardProps {
   isExpanded: boolean;
 }
 
-const Card = ({ product, index, totalCards, isExpanded }: CardProps) => {
+const Card = ({product, index, totalCards, isExpanded}: CardProps) => {
   // Calculate center offset based on total cards
   const centerOffset = (totalCards - 1) * 5;
 
@@ -132,7 +133,7 @@ const Card = ({ product, index, totalCards, isExpanded }: CardProps) => {
         "hover:bg-linear-to-br hover:from-white/50 hover:via-neutral-50/40 hover:to-neutral-100/30",
         "dark:hover:from-neutral-800/50 dark:hover:via-neutral-900/40 dark:hover:to-black/30",
         "transition-all duration-500 ease-out",
-        "transform-gpu overflow-hidden"
+        "transform-gpu overflow-hidden",
       )}
       initial={{
         x: defaultX,
@@ -193,7 +194,7 @@ const Card = ({ product, index, totalCards, isExpanded }: CardProps) => {
             "transition-transform duration-300 ease-out",
             "group-hover:scale-[1.02]",
             "border border-neutral-200/50 dark:border-neutral-700/50",
-            "shadow-inner"
+            "shadow-inner",
           )}
         >
           <img
@@ -214,7 +215,8 @@ const Card = ({ product, index, totalCards, isExpanded }: CardProps) => {
             </span>
           </div>
           <p className="mt-2 text-left text-gray-500 text-sm dark:text-gray-400">
-            Get flash cards of the pdf of YouTube video you are struggling with ! 
+            Get flash cards of the pdf of YouTube video you are struggling with
+            !
           </p>
         </div>
       </div>
@@ -226,7 +228,7 @@ interface CardStackProps {
   className?: string;
 }
 
-export default function CardStack({ className }: CardStackProps) {
+export default function CardStack({className}: CardStackProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleToggle = () => setIsExpanded(!isExpanded);
@@ -239,7 +241,7 @@ export default function CardStack({ className }: CardStackProps) {
         "min-h-[440px] w-full max-w-[90vw] md:w-2xl",
         "appearance-none border-0 bg-transparent p-0",
         "mb-8 flex items-center justify-center",
-        className
+        className,
       )}
       onClick={handleToggle}
       type="button"

@@ -9,7 +9,7 @@ export default async function LoginPage() {
           <div>
             
             <h1 className="mb-0.5 mt-4 text-xl font-medium">
-              Welcome to SummariZE!
+              Welcome to docuMind!
             </h1>
             <p className="text-gray-700 dark:text-inherit">
               Login to get started

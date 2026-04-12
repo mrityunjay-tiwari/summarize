@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Source_Sans_3, Ubuntu } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/common/header";
-
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/navbar/nav";
@@ -30,8 +28,8 @@ const ubuntu = Ubuntu({
   weight: ['300', '400', '500', '700']
 })
 export const metadata: Metadata = {
-  title: "Make pdf summaries",
-  description: "This application helps you make summaries of the pdf and put it like a set of flash cards before you",
+  title: "DocuMind",
+  description: "Turn your PDF into Ultimate study guide.",
   openGraph: {
     images: [
       {

@@ -10,7 +10,7 @@ export async function POST(req: Request) {
         })
 
         return Response.json({
-            embeddings,
+            embeddings
         })
     } catch (error) {
         console.error("Something went wrong while generting embeddings", error);

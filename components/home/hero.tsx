@@ -39,7 +39,7 @@ export default function Hero() {
         </h2>
 
         {/* FEATURE CARDS */}
-        <div className="mt-6 flex flex-col sm:flex-row justify-center gap-5 w-full max-w-3xl">
+        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5 w-full max-w-3xl">
           {/* Card 1: Powered by Docling */}
           <div className="flex items-center gap-4 bg-white rounded-xl p-4 text-left flex-1 shadow-md transition-shadow">
             <div className="rounded-lg bg-orange-100 p-2 text-orange-500">

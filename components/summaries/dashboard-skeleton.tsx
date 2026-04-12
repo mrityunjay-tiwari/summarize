@@ -1,9 +1,6 @@
-import BgGradient from "../common/bg-gradient";
 
 export default function LoadingSkeletonDashboard() {
     return <main className="min-h-screen relative">
-    
-      <BgGradient />
 
       <div className="relative container mx-auto flex flex-col gap-4 w-4/5">
         <div className="px-2 py-12 sm:py-24">

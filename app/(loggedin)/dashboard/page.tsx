@@ -1,7 +1,5 @@
 import CheckIfUserExists from "@/actions/checkUser";
 import { getSummaries } from "@/actions/summary-actions";
-import BgGradient from "@/components/common/bg-gradient";
-import {MotionDiv} from "@/components/common/motion-wrapper";
 import EmptySummaryState from "@/components/summaries/empty-summary";
 import LimitCountBar from "@/components/summaries/limit-count-bar";
 import SummaryCard from "@/components/summaries/summary-card";
@@ -25,13 +23,9 @@ export default async function DashboardPage() {
 
   return (
     <main className="min-h-screen">
-      <BgGradient className="from-emerald-200 via-teal-200 to-cyan-200" />
       <div className="container mx-auto flex flex-col gap-4 w-4/5">
         <div className="px-2 py-12 sm:py-24">
-          <MotionDiv
-            initial={{opacity: 0, y: 20}}
-            whileInView={{opacity: 1, y: 0}}
-            transition={{duration: 0.5, ease: "easeOut"}}
+          <div
             className="flex gap-4 mb-8 justify-between"
           >
             <div className="flex flex-col gap-2">
@@ -51,7 +45,7 @@ export default async function DashboardPage() {
                 </Button>
               </div>
             )}
-          </MotionDiv>
+          </div>
           {summaries.length >= 5 && <LimitCountBar />}
           {summaries.length === 0 ? (
             <EmptySummaryState
@@ -60,16 +54,13 @@ export default async function DashboardPage() {
               linkText="Create your first summary"
             />
           ) : (
-            <MotionDiv
-              initial={{opacity: 0, y: 20}}
-              whileInView={{opacity: 1, y: 0}}
-              transition={{duration: 0.5, ease: "easeOut"}}
+            <div
               className="grid grid-cols-1 gap-4 sm:gap-6 md:grid-cols-2 lg:grid-cols-3 sm:px-0"
             >
               {summaries?.map((summary, id) => (
                 <SummaryCard key={id} summary={summary} />
               ))}
-            </MotionDiv>
+            </div>
           )}
         </div>
       </div>
