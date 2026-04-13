@@ -5,14 +5,34 @@ import CheckIfUserExists from "./checkUser"
 import { UTApi } from "uploadthing/server"
 
 const utapi = new UTApi();
-export const deletePdfFile = async () => {
+export const deletePdfFile = async (documentId: string) => {
     try {
-        await utapi.deleteFiles("u8y7IgAVRiC1wG4Z5AV2Mu5S7XE1QzkTCcib0N3ZFdejfKLH");
-        console.log('file deleted successfully');    
-    } catch (err) {
-        console.log("error : ", err);
-    } finally {
-        console.log('sth done with deleted button execution');
+        const userId = await CheckIfUserExists();
+        if (!userId) {
+            return { success: false, message: "Unauthorized" };
+        }
+
+        const document = await prisma.document.findUnique({
+            where: { id: documentId, user_id: userId }
+        });
+
+        if (!document) {
+            return { success: false, message: "Document not found" };
+        }
+
+        await prisma.document.delete({
+            where: { id: documentId }
+        });
+
+        if (document.file_key) {
+            await utapi.deleteFiles(document.file_key);
+            console.log(`Successfully purged ${document.file_key} from UploadThing.`);
+        }
+
+        return { success: true };
+    } catch (err: any) {
+        console.error("Error completely deleting project: ", err);
+        return { success: false, message: err.message || "Failed to delete" };
     }
 }
 
@@ -26,6 +46,7 @@ type TSaveChatReadyDocumentProps = {
     original_file_url: string;
     file_name: string;
     file_key: string;
+    file_size?: string;
     finalEmbeddingData: TFinalEmbeddingData[];
 }
 
@@ -33,6 +54,7 @@ export async function saveChatReadyDocument({
     original_file_url,
     file_name,
     file_key,
+    file_size,
     finalEmbeddingData
 }: TSaveChatReadyDocumentProps) {
     try {
@@ -49,6 +71,7 @@ export async function saveChatReadyDocument({
                 original_file_url,
                 file_name,
                 file_key,
+                file_size,
             }
         });
 

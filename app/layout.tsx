@@ -58,7 +58,7 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-            <Navbar user={user} />
+            
             <main className="flex-1">{children}</main>  
             <Toaster />
           </ThemeProvider>

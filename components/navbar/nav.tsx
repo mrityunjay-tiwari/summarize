@@ -29,12 +29,9 @@ export const Navbar = ({user}: {user?: any}) => {
           scrolled && "bg-white/80 backdrop-blur-5xl",
         )}
       >
-        {/* FULL-WIDTH SHELL (IMPORTANT) */}
         <div className="w-full px-3.5 md:px-0 pt-5">
-          {/* CENTERED CONTENT COLUMN */}
           <div className="mx-auto max-w-3xl">
             <div className="flex items-center justify-between gap-3 py-3 lg:py-4">
-              {/* LEFT SIDE */}
               <div className="flex items-center gap-10 md:gap-16">
                 <Link
                   href="/"
@@ -100,7 +97,6 @@ export const Navbar = ({user}: {user?: any}) => {
                 </ul>
               </div>
 
-              {/* RIGHT SIDE */}
               <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0 pb-1">
                 {user ? (
                   <div className="flex items-center gap-1">

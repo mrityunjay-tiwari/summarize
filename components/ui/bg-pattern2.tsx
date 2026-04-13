@@ -10,7 +10,7 @@ export default function BGGrid2() {
         linear-gradient(to bottom, rgba(0,0,0,0.06) 1px, transparent 1px),
         radial-gradient(circle, rgba(51,65,85,0.08) 1px, transparent 1px)
       `,
-          backgroundSize: "20px 20px, 20px 20px, 20px 20px",
+          backgroundSize: "30px 30px, 30px 30px, 30px 30px",
           backgroundPosition: "0 0, 0 0, 0 0",
         }}
       />

@@ -7111,6 +7111,7 @@ export namespace Prisma {
     original_file_url: string | null
     file_name: string | null
     file_key: string | null
+    file_size: string | null
     markdown_text: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -7122,6 +7123,7 @@ export namespace Prisma {
     original_file_url: string | null
     file_name: string | null
     file_key: string | null
+    file_size: string | null
     markdown_text: string | null
     created_at: Date | null
     updated_at: Date | null
@@ -7133,6 +7135,7 @@ export namespace Prisma {
     original_file_url: number
     file_name: number
     file_key: number
+    file_size: number
     markdown_text: number
     created_at: number
     updated_at: number
@@ -7146,6 +7149,7 @@ export namespace Prisma {
     original_file_url?: true
     file_name?: true
     file_key?: true
+    file_size?: true
     markdown_text?: true
     created_at?: true
     updated_at?: true
@@ -7157,6 +7161,7 @@ export namespace Prisma {
     original_file_url?: true
     file_name?: true
     file_key?: true
+    file_size?: true
     markdown_text?: true
     created_at?: true
     updated_at?: true
@@ -7168,6 +7173,7 @@ export namespace Prisma {
     original_file_url?: true
     file_name?: true
     file_key?: true
+    file_size?: true
     markdown_text?: true
     created_at?: true
     updated_at?: true
@@ -7252,6 +7258,7 @@ export namespace Prisma {
     original_file_url: string
     file_name: string | null
     file_key: string
+    file_size: string | null
     markdown_text: string | null
     created_at: Date
     updated_at: Date
@@ -7280,6 +7287,7 @@ export namespace Prisma {
     original_file_url?: boolean
     file_name?: boolean
     file_key?: boolean
+    file_size?: boolean
     markdown_text?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7295,6 +7303,7 @@ export namespace Prisma {
     original_file_url?: boolean
     file_name?: boolean
     file_key?: boolean
+    file_size?: boolean
     markdown_text?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7307,6 +7316,7 @@ export namespace Prisma {
     original_file_url?: boolean
     file_name?: boolean
     file_key?: boolean
+    file_size?: boolean
     markdown_text?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -7319,12 +7329,13 @@ export namespace Prisma {
     original_file_url?: boolean
     file_name?: boolean
     file_key?: boolean
+    file_size?: boolean
     markdown_text?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "original_file_url" | "file_name" | "file_key" | "markdown_text" | "created_at" | "updated_at", ExtArgs["result"]["document"]>
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "original_file_url" | "file_name" | "file_key" | "file_size" | "markdown_text" | "created_at" | "updated_at", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     chunks?: boolean | Document$chunksArgs<ExtArgs>
@@ -7351,6 +7362,7 @@ export namespace Prisma {
       original_file_url: string
       file_name: string | null
       file_key: string
+      file_size: string | null
       markdown_text: string | null
       created_at: Date
       updated_at: Date
@@ -7785,6 +7797,7 @@ export namespace Prisma {
     readonly original_file_url: FieldRef<"Document", 'String'>
     readonly file_name: FieldRef<"Document", 'String'>
     readonly file_key: FieldRef<"Document", 'String'>
+    readonly file_size: FieldRef<"Document", 'String'>
     readonly markdown_text: FieldRef<"Document", 'String'>
     readonly created_at: FieldRef<"Document", 'DateTime'>
     readonly updated_at: FieldRef<"Document", 'DateTime'>
@@ -10457,6 +10470,7 @@ export namespace Prisma {
     original_file_url: 'original_file_url',
     file_name: 'file_name',
     file_key: 'file_key',
+    file_size: 'file_size',
     markdown_text: 'markdown_text',
     created_at: 'created_at',
     updated_at: 'updated_at'
@@ -10955,6 +10969,7 @@ export namespace Prisma {
     original_file_url?: StringFilter<"Document"> | string
     file_name?: StringNullableFilter<"Document"> | string | null
     file_key?: StringFilter<"Document"> | string
+    file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
@@ -10969,6 +10984,7 @@ export namespace Prisma {
     original_file_url?: SortOrder
     file_name?: SortOrderInput | SortOrder
     file_key?: SortOrder
+    file_size?: SortOrderInput | SortOrder
     markdown_text?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -10986,6 +11002,7 @@ export namespace Prisma {
     original_file_url?: StringFilter<"Document"> | string
     file_name?: StringNullableFilter<"Document"> | string | null
     file_key?: StringFilter<"Document"> | string
+    file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
@@ -11000,6 +11017,7 @@ export namespace Prisma {
     original_file_url?: SortOrder
     file_name?: SortOrderInput | SortOrder
     file_key?: SortOrder
+    file_size?: SortOrderInput | SortOrder
     markdown_text?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11017,6 +11035,7 @@ export namespace Prisma {
     original_file_url?: StringWithAggregatesFilter<"Document"> | string
     file_name?: StringNullableWithAggregatesFilter<"Document"> | string | null
     file_key?: StringWithAggregatesFilter<"Document"> | string
+    file_size?: StringNullableWithAggregatesFilter<"Document"> | string | null
     markdown_text?: StringNullableWithAggregatesFilter<"Document"> | string | null
     created_at?: DateTimeWithAggregatesFilter<"Document"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Document"> | Date | string
@@ -11512,6 +11531,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11526,6 +11546,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11538,6 +11559,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11552,6 +11574,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11565,6 +11588,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -11575,6 +11599,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11586,6 +11611,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -12098,6 +12124,7 @@ export namespace Prisma {
     original_file_url?: SortOrder
     file_name?: SortOrder
     file_key?: SortOrder
+    file_size?: SortOrder
     markdown_text?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -12109,6 +12136,7 @@ export namespace Prisma {
     original_file_url?: SortOrder
     file_name?: SortOrder
     file_key?: SortOrder
+    file_size?: SortOrder
     markdown_text?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -12120,6 +12148,7 @@ export namespace Prisma {
     original_file_url?: SortOrder
     file_name?: SortOrder
     file_key?: SortOrder
+    file_size?: SortOrder
     markdown_text?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -12869,6 +12898,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -12881,6 +12911,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13015,6 +13046,7 @@ export namespace Prisma {
     original_file_url?: StringFilter<"Document"> | string
     file_name?: StringNullableFilter<"Document"> | string | null
     file_key?: StringFilter<"Document"> | string
+    file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
@@ -13402,6 +13434,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13415,6 +13448,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13442,6 +13476,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13455,6 +13490,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13466,6 +13502,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13479,6 +13516,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13506,6 +13544,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13519,6 +13558,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13562,6 +13602,7 @@ export namespace Prisma {
     original_file_url: string
     file_name?: string | null
     file_key: string
+    file_size?: string | null
     markdown_text?: string | null
     created_at?: Date | string
     updated_at?: Date | string
@@ -13668,6 +13709,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13680,6 +13722,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -13692,6 +13735,7 @@ export namespace Prisma {
     original_file_url?: StringFieldUpdateOperationsInput | string
     file_name?: NullableStringFieldUpdateOperationsInput | string | null
     file_key?: StringFieldUpdateOperationsInput | string
+    file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string

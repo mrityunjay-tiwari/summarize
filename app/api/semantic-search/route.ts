@@ -1,96 +1,56 @@
 import { openrouter } from "@openrouter/ai-sdk-provider";
-import { cosineSimilarity, embed, embedMany } from "ai";
+import { embed } from "ai";
+import { prisma } from "@/prisma/src/index";
 
-export async function POST(req : Request) {
-    try{
-        const {query} = await req.json();
+type TRequest = {
+    query: string;
+    document_id: string;
+}
+export async function POST(req: Request) {
+    try {
+        const { query, document_id } : TRequest = await req.json();
 
-        const {embeddings: movieEmbeddings} = await embedMany({
-            model: openrouter.textEmbeddingModel("nvidia/llama-nemotron-embed-vl-1b-v2:free"),
-            values: movies.map((movie) => movie.description)
-        })
+        if (!query || !document_id) {
+            return Response.json({ error: "Missing query or document_id" }, { status: 400 });
+        }
 
-        const {embedding: queryEmbedding} = await embed({
+        console.log(`Generating query embedding for Document: ${document_id}`);
+
+        const { embedding: queryEmbedding } = await embed({
             model: openrouter.textEmbeddingModel("nvidia/llama-nemotron-embed-vl-1b-v2:free"),
             value: query
-        })
+        });
+        const stringifiedVector = JSON.stringify(queryEmbedding);
 
-        const movieScores = movies.map((movie, index) => {
-            const score = cosineSimilarity(queryEmbedding, movieEmbeddings[index])
+        const relevantChunks: Array<{
+             id: string;
+             text: string;
+             metadata: any;
+             similarity: number;
+        }> = await prisma.$queryRaw`
+            SELECT 
+                id, 
+                text, 
+                metadata, 
+                1 - (embedding <=> ${stringifiedVector}::vector) as similarity
+            FROM "DocumentChunk"
+            WHERE document_id = ${document_id}
+            ORDER BY embedding <=> ${stringifiedVector}::vector
+            LIMIT 15;
+        `;
 
-            return {
-                ...movie,
-                score
-            }
-        })
+        const MINIMUM_SIMILARITY = 0.05;
+        const topResults = relevantChunks.filter((chunk) => chunk.similarity > MINIMUM_SIMILARITY);
 
-        const arrangeInDescendingOrder = movieScores.sort((a, b) => b.score - a.score)
-        const moviesWithTopResults = arrangeInDescendingOrder.slice(0,3);
         return Response.json({
-            message : "Movie is searched for you",
-            result: moviesWithTopResults
-        })
+            message: "Relevant document chunks found",
+            chunks: topResults
+        });
+
     } catch (error) {
-        console.error("error in semantic search:", error)
+        console.error("Error in semantic search:", error);
         return Response.json({
-            error: "error in semantic search"
-        }, {status: 500})
+            error: "Failed to perform semantic search on DB"
+        }, { status: 500 });
     }
 }
-
-const movies = [
-  {
-    id: 1,
-    title: "The Matrix",
-    description:
-      "A science fiction action film exploring simulated reality and artificial worlds. A computer hacker discovers that reality as he knows it is actually a computer-generated simulation created by sentient machines, forcing him to question what is real versus artificial and choose between comfortable illusion and harsh truth.",
-  },
-  {
-    id: 2,
-    title: "Inception",
-    description:
-      "A science fiction thriller about dreams within dreams and the nature of reality. A skilled thief navigates multiple layers of shared dreaming where physics bends and time dilates, attempting to plant an idea deep in someone's subconscious while constantly questioning which level of reality is real.",
-  },
-  {
-    id: 3,
-    title: "The Notebook",
-    description:
-      "A romantic drama chronicling enduring love across decades and social classes. A young couple falls deeply in love during a magical summer in 1940s South Carolina, their romance surviving separation, war, and ultimately Alzheimer's disease as an elderly man reads their love story to rekindle his wife's fading memories.",
-  },
-  {
-    id: 4,
-    title: "Interstellar",
-    description:
-      "A science fiction epic about space exploration and humanity's survival among the stars. As Earth becomes uninhabitable, astronauts venture through a wormhole to find a new home for humanity, exploring concepts of time dilation, parallel dimensions, and how love transcends space and time.",
-  },
-  {
-    id: 5,
-    title: "The Godfather",
-    description:
-      "A crime drama masterpiece about family, power, and the American Dream's dark side. The youngest son of an Italian-American mafia family reluctantly transforms from war hero seeking legitimacy to ruthless crime boss, navigating loyalty, betrayal, and calculated violence in the criminal underworld.",
-  },
-  {
-    id: 6,
-    title: "Blade Runner",
-    description:
-      "A neo-noir science fiction film questioning humanity and consciousness in a dystopian future. In rain-soaked, neon-lit Los Angeles, a detective hunts bioengineered replicants while grappling with what defines humanity, consciousness, and the soul when artificial beings seem more human than humans.",
-  },
-  {
-    id: 7,
-    title: "When Harry Met Sally",
-    description:
-      "A romantic comedy exploring whether men and women can truly be just friends. Two university graduates repeatedly encounter each other over the years in New York City, debating relationships and friendship through witty banter, failed romances, and late-night conversations before discovering love was there all along.",
-  },
-  {
-    id: 8,
-    title: "The Terminator",
-    description:
-      "A science fiction action thriller about time travel and artificial intelligence gone rogue. A cyborg assassin from a post-apocalyptic future where machines have enslaved humanity travels back to 1984 to kill the mother of the future resistance leader, sparking a desperate race against time and technology.",
-  },
-  {
-    id: 9,
-    title: "Dhurandhar",
-    description:
-      "A spy movie which talks about how an Indian spy went to pakistan and been there for more than 10 years to destroy all the militants and the local goons and the terror activities going on thereby against India and the story also outlines how he killed the terriorists who were involved in multiple terror attacks in India.",
-  },
-];

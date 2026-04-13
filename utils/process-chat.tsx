@@ -10,6 +10,14 @@ export interface TUploadedFile {
     size: number;
 }
 
+const formatBytes = (bytes: number) => {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
 export const processChatUpload = async (uploadedFile: TUploadedFile) => {
     try {
         console.log("Starting Chat Processing for: ", uploadedFile.name);
@@ -40,6 +48,7 @@ export const processChatUpload = async (uploadedFile: TUploadedFile) => {
             original_file_url: uploadedFile.ufsUrl,
             file_name: uploadedFile.name,
             file_key: uploadedFile.key,
+            file_size: formatBytes(uploadedFile.size),
             finalEmbeddingData,
         });
 

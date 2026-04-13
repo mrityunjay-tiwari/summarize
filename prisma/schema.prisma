@@ -80,7 +80,8 @@ model Document {
   original_file_url String   @db.Text
   file_name         String?  @db.Text
   file_key          String   @db.Text
-  markdown_text     String?  @db.Text // Will be null if file is incredibly large
+  file_size         String?  @db.Text
+  markdown_text     String?  @db.Text 
   
   chunks            DocumentChunk[]
   generated_content GeneratedContent[]
@@ -95,9 +96,8 @@ model DocumentChunk {
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
   
   text        String   @db.Text
-  metadata    Json     // Stores Docling metadata (page_numbers, headings, types)
-  
-  // The PgVector column: Nemotron creates 2048-dimension embeddings
+  metadata    Json     
+ 
   embedding   Unsupported("vector(2048)")? 
   
   created_at  DateTime @default(now())
@@ -108,8 +108,8 @@ model GeneratedContent {
   document_id String
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
   
-  feature_type String   // e.g., "flashcard", "quiz", "mindmap"
-  data         Json     // Stores the massive generated JSON structure
+  feature_type String   
+  data         Json     
   
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt

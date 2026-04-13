@@ -80,6 +80,7 @@ model Document {
   original_file_url String  @db.Text
   file_name         String? @db.Text
   file_key          String  @db.Text
+  file_size         String? @db.Text
   markdown_text     String? @db.Text // Will be null if file is incredibly large
 
   chunks            DocumentChunk[]
