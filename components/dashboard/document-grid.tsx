@@ -142,7 +142,7 @@ export function DocumentGrid({
                 "group shadow-sm hover:shadow-md relative bg-background border-border hover:bg-accent/50 rounded-md cursor-pointer border p-4 transition-all duration-200 ease-in-out flex flex-col justify-between min-h-[150px]",
               )}
               onClick={() => {
-                router.push(`/dashboard/doc/${item.id}`);
+                router.push(`/dashboard/${item.id}`);
               }}
             >
               <div className="absolute end-2 top-2 z-10 flex items-center gap-1 opacity-80 transition-opacity group-hover:opacity-100">

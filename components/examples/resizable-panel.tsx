@@ -8,17 +8,17 @@ import {
 import {SelectTheTab} from "../individual-project/tabs";
 import { useState } from "react";
 
-export function ResizablePanelExample() {
-  const [page, setPage] = useState(10);
+export function ResizablePanelExample({url}: {url: string}) {
+  const [page, setPage] = useState(1);
 
   return (
-    <ResizablePanelGroup orientation="horizontal" className="h-screen w-full">
+    <ResizablePanelGroup orientation="horizontal" className="h-screen max-h-screen w-full">
       <ResizablePanel minSize={10} defaultSize={40}>
-        <div className="flex h-full items-center justify-center p-6">
+        <div className="flex h-full items-center justify-center p-6 pb-1">
           <iframe
             key={page}
-            src={`https://eny1dtmcsa.ufs.sh/f/u8y7IgAVRiC1uYPCcGnAVRiC1L5jaNTsFIPlXZEOSyWf3cxz#page=${page}`}
-            className="w-full h-full rounded-md"
+            src={`${url}#page=${page}`}
+            className="w-full h-full rounded-md rounded-b-none"
           />
         </div>
       </ResizablePanel>

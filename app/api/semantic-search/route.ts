@@ -16,10 +16,17 @@ export async function POST(req: Request) {
 
         console.log(`Generating query embedding for Document: ${document_id}`);
 
+        console.log(`[RAG] 1. Starting Embedding Generation via OpenRouter...`);
+
         const { embedding: queryEmbedding } = await embed({
             model: openrouter.textEmbeddingModel("nvidia/llama-nemotron-embed-vl-1b-v2:free"),
-            value: query
+            value: query,
+            maxRetries: 0
         });
+
+        console.log(`[RAG] 2. Embedding success!`);
+        console.log(`[RAG] 3. Querying Neon DB via Prisma pgvector...`);
+        
         const stringifiedVector = JSON.stringify(queryEmbedding);
 
         const relevantChunks: Array<{
@@ -36,7 +43,7 @@ export async function POST(req: Request) {
             FROM "DocumentChunk"
             WHERE document_id = ${document_id}
             ORDER BY embedding <=> ${stringifiedVector}::vector
-            LIMIT 15;
+            LIMIT 5;
         `;
 
         const MINIMUM_SIMILARITY = 0.05;

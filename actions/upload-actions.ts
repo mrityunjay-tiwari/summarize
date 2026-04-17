@@ -105,3 +105,56 @@ export async function saveChatReadyDocument({
         }
     }
 }
+
+export async function getDocumentById(documentId: string) {
+    try {
+        const userId = await CheckIfUserExists();
+
+        if(!userId) {
+            return { success: false, message: "User not authenticated" };
+        }
+
+        const document = await prisma.document.findUnique({
+            where: { id: documentId, user_id: userId }
+        });
+
+        if(!document) {
+            return { success: false, message: "Document not found" };
+        }
+
+        return { success: true, document };
+    } catch (error) {
+        console.error("Error getting document by ID: ", error);
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : "Database Error while getting document."
+        }
+    }
+}
+
+export async function getAllDocumentsByUserId() {
+    try {
+        const userId = await CheckIfUserExists();
+
+        if(!userId) {
+            return { success: false, message: "User not authenticated" };
+        }
+
+        const documents = await prisma.document.findMany({
+            where: { user_id: userId },
+            orderBy: { created_at: "desc" }
+        });
+
+        if(!documents) {
+            return { success: false, message: "Documents not found" };
+        }
+
+        return { success: true, documents };
+    } catch (error) {
+        console.error("Error getting documents by user ID: ", error);
+        return {
+            success: false,
+            message: error instanceof Error ? error.message : "Database Error while getting documents."
+        }
+    }
+}

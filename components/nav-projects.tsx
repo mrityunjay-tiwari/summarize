@@ -24,6 +24,7 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { IconType } from "react-icons/lib"
 
 export function NavProjects({
   projects,
@@ -31,7 +32,7 @@ export function NavProjects({
   projects: {
     name: string
     url: string
-    icon: LucideIcon
+    icon: IconType
   }[]
 }) {
   const { isMobile } = useSidebar()
@@ -41,7 +42,7 @@ export function NavProjects({
       <SidebarGroupLabel>Projects</SidebarGroupLabel>
       <SidebarMenu>
         {projects.map((item) => (
-          <SidebarMenuItem key={item.name}>
+          <SidebarMenuItem key={item.url}>
             <SidebarMenuButton asChild>
               <a href={item.url}>
                 <item.icon />

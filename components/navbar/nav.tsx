@@ -8,6 +8,8 @@ import {usePathname} from "next/navigation";
 import {AnimatedThemeToggler} from "../ui/animated-theme-toggler";
 import {sans} from "@/lib/fonts";
 import Image from "next/image";
+import UserAccountAvatar from "@/components/smoothui/user-account-avatar";
+import { signOut } from "next-auth/react";
 
 export const Navbar = ({user}: {user?: any}) => {
   const pathname = usePathname();
@@ -100,13 +102,15 @@ export const Navbar = ({user}: {user?: any}) => {
               <div className="flex items-center gap-3 sm:gap-5 flex-shrink-0 pb-1">
                 {user ? (
                   <div className="flex items-center gap-1">
-                    {user?.user?.image && (
-                      <Image
-                        src={user.user.image}
-                        alt="Profile"
-                        width={28}
-                        height={28}
-                        className="rounded-full flex-shrink-0 border border-border"
+                    {user?.user && (
+                      <UserAccountAvatar
+                        className="h-8 w-8 overflow-hidden"
+                        user={{
+                          name: user.user.name || "User",
+                          email: user.user.email || "",
+                          avatar: user.user.image || "",
+                        }}
+                        onLogout={() => signOut()}
                       />
                     )}
                   </div>

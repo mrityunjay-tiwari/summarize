@@ -10,12 +10,54 @@ import {
 } from "@/components/ui/sidebar";
 import {PlusIcon} from "lucide-react";
 import Link from "next/link";
+import { getAllDocumentsByUserId, getDocumentById } from "@/actions/upload-actions";
+import CheckIfUserExists from "@/actions/checkUser";
+import { auth } from "@/utils/auth";
 
-export default function Page() {
+type TDocumentInfo = {
+  file_name: string;
+  file_size: string;
+}
+
+type TUserInfo = {
+  name: string;
+  email: string;
+  image: string;
+}
+
+export default async function Page({params}: {params: Promise<{id: string}>}) {
+  const {id} = await params;
+  const document = await getDocumentById(id);
+  const user = await CheckIfUserExists();
+
+  const userIn = await auth();
+  const userInfo : TUserInfo = {
+    name: userIn?.user?.name ?? "",
+    email: userIn?.user?.email ?? "",
+    image: userIn?.user?.image ?? "",
+  }
+  const documents = await getAllDocumentsByUserId();
+  const allDocuments = documents.documents?.map((doc) => ({
+    name: doc.file_name || "Untitled PDF",
+    url: `/dashboard/${doc.id}`,
+    id: doc.id
+  })) || [];
+
+  const documentData = document.document;
+  
+  if(!documentData) {
+      return <div>Document not found</div>;
+    }
+
+    const documentInfo : TDocumentInfo = {
+      file_name: documentData.file_name ?? "Untitled PDF",
+      file_size: documentData.file_size ?? "0 KB",
+    };
+    
   return (
     <SidebarProvider defaultOpen={false}>
-      <AppSidebar />
-      <SidebarInset>
+      <AppSidebar allDocuments={allDocuments} documentInfo={documentInfo} user={userInfo}/>
+      <SidebarInset className="max-h-screen">
         <header className="flex h-16 shrink-0 items-center justify-between gap-2 transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-12 pr-5">
           <div className="flex items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
@@ -37,7 +79,7 @@ export default function Page() {
           </div>
         </header>
         <Separator />
-        <ResizablePanelExample />
+        <ResizablePanelExample url={documentData.original_file_url} />
       </SidebarInset>
     </SidebarProvider>
   );
