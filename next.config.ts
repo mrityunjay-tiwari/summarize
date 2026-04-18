@@ -12,8 +12,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "ik.imagekit.io",
       },
+      {
+        protocol: "https",
+        hostname: "picsum.photos",
+      },
     ],
   },
+  allowedDevOrigins: ['10.80.188.220'],
 };
 
 export default nextConfig;
