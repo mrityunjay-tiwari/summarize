@@ -8,6 +8,8 @@ const ChatRequestSchema = z.object({
     document_id: z.string().min(1, "document_id is required"),
 }).loose();
 
+type TChatRequestSchema = z.infer<typeof ChatRequestSchema>;
+
 export async function POST(req: Request) {
     try {
         const body = await req.json();
@@ -50,7 +52,12 @@ export async function POST(req: Request) {
         const relevantChunks: Array<{
              id: string;
              text: string;
-             metadata: any;
+             metadata: {
+                types: Array<string>,
+                filename: string,
+                headings: Array<string>,
+                page_numbers: Array<number>,
+             };
              similarity: number;
         }> = await prisma.$queryRaw`
             SELECT 
@@ -66,6 +73,7 @@ export async function POST(req: Request) {
 
         const MINIMUM_SIMILARITY = 0.05;
         const topResults = relevantChunks.filter((chunk) => chunk.similarity > MINIMUM_SIMILARITY);
+        console.log("Top results:", topResults);
 
         const formattedContexts = topResults.map((chunk, index) => {
             const meta = typeof chunk.metadata === 'string' ? JSON.parse(chunk.metadata) : chunk.metadata;
@@ -82,7 +90,9 @@ export async function POST(req: Request) {
         2. If the context does not contain the answer, politely state that you cannot find the answer in the provided document.
         3. IMPORTANT: When providing your answer, you MUST cite your sources using the [Citation X] format. You can do this inline like this: "According to the document [Citation 1], the revenue increased."
         4. At the very end of your response, ALWAYS include a nicely formatted "## Sources" section tracing back your [Citation X]'s to their exact Source Pages.
-
+        5. Not always give answers in bullet points, give answers in tables also if needed, it definitely not means that never answer in bullet points, answer in both the formats as required and best suited for the answer, just prefer table if you can for some cases.
+        6. ALWAYS USE SEARCH and send sources.
+        
         --- CONTEXT PIPELINE ---
         ${formattedContexts.length > 0 ? formattedContexts.join("\n\n") : "No relevant context found in document."}
         --- END CONTEXT PIPELINE ---`;
@@ -90,14 +100,17 @@ export async function POST(req: Request) {
         console.log(`[RAG] Streaming ${topResults.length} chunks to LLM for Document: ${document_id}`);
 
         const result = await streamText({
-            model: openrouter("openai/gpt-4o-mini"),
+            // model: openrouter("openai/gpt-4o-mini"),
+            model: openrouter("openai/gpt-oss-120b:free"),
             system: systemMessage,
+
             messages: convertToModelMessages(messages),
         });
 
-        // console.log("Result content:", await (result.content))
+        console.log("Result content:", await (result.content))
         return result.toUIMessageStreamResponse({
-            sendReasoning: true
+            sendReasoning: true,
+            sendSources: true,
         });
     } catch (error) {
         console.error("Error in RAG chat route:", error);

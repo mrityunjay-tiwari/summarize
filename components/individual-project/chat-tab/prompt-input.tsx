@@ -40,7 +40,19 @@ import {
 } from "@/components/ai-elements/message";
 import {useChat} from "@ai-sdk/react";
 import {useParams} from "next/navigation";
-import {ThumbsUp, ThumbsDown, RotateCw, Copy} from "lucide-react";
+import {
+  Reasoning,
+  ReasoningContent,
+  ReasoningTrigger,
+} from "@/components/ai-elements/reasoning";
+import {AIResponseWrapper} from "./chat-reactions";
+import {Spinner} from "@/components/ui/spinner";
+import {
+  Source,
+  Sources,
+  SourcesContent,
+  SourcesTrigger,
+} from "@/components/ai-elements/sources";
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
@@ -90,118 +102,6 @@ const PromptInputAttachmentsDisplay = () => {
   );
 };
 
-interface AIResponseWrapperProps {
-  children: React.ReactNode;
-  isStreaming?: boolean;
-  handleRefresh: () => void;
-}
-
-const AIResponseWrapper = ({
-  children,
-  isStreaming = false,
-  handleRefresh
-}: AIResponseWrapperProps) => {
-  const [copied, setCopied] = useState(false);
-  const [messageTimestamp, setMessageTimestamp] = useState<Date | null>(null);
-
-  const formatTime = (date: Date) => {
-    return date.toLocaleTimeString("en-US", {
-      hour: "numeric",
-      minute: "2-digit",
-      hour12: true,
-    });
-  };
-
-  // Set timestamp when component first mounts (when message is created)
-  useEffect(() => {
-    if (!messageTimestamp) {
-      setMessageTimestamp(new Date());
-    }
-  }, []);
-
-  const handleCopy = () => {
-    const text = typeof children === "string" ? children : "";
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleThumbsUp = () => {
-    console.log("Thumbs up clicked");
-  };
-
-  const handleThumbsDown = () => {
-    console.log("Thumbs down clicked");
-  };
-
-  // const handleRefresh = () => {
-  //   console.log("Refresh clicked");
-  // };
-
-  return (
-    <div className="w-full flex flex-col gap-2">
-      <div className="bg-gray-200/30 rounded-tl-none border-t-2 dark:bg-zinc-800/50 rounded-lg p-4 flex flex-col gap-3 max-w-[85%]">
-        <div className="flex justify-between items-start gap-4">
-          <div className="flex-1 text-sm text-slate-900 dark:text-slate-100">
-            {children}
-          </div>
-        </div>
-
-        <div className="flex justify-between items-center ">
-          <div className="flex gap-1 pt-2">
-            <button
-              onClick={handleThumbsUp}
-              className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-              title="Helpful"
-            >
-              <ThumbsUp
-                size={12}
-                className="text-gray-600 dark:text-gray-400"
-              />
-            </button>
-
-            <button
-              onClick={handleThumbsDown}
-              className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-              title="Not helpful"
-            >
-              <ThumbsDown
-                size={12}
-                className="text-gray-600 dark:text-gray-400"
-              />
-            </button>
-
-            <button
-              onClick={handleRefresh}
-              className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-              title="Regenerate"
-              disabled={isStreaming}
-            >
-              <RotateCw
-                size={12}
-                className="text-gray-600 dark:text-gray-400"
-              />
-            </button>
-
-            <button
-              onClick={handleCopy}
-              className="p-0.5 hover:bg-gray-200 dark:hover:bg-gray-700 rounded transition-colors"
-              title={copied ? "Copied!" : "Copy"}
-            >
-              <Copy size={12} className="text-gray-600 dark:text-gray-400" />
-            </button>
-          </div>
-          <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap ml-4">
-            {messageTimestamp
-              ? formatTime(messageTimestamp)
-              : formatTime(new Date())}
-          </span>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const PromptInputBox = () => {
   const [isFormattingInput, setIsFormattingInput] = useState(false);
   const params = useParams();
@@ -211,16 +111,46 @@ const PromptInputBox = () => {
     id: document_id,
   });
 
+  const isStreaming = status === "streaming";
+
+  const handleRefresh = useCallback(() => {
+    const lastUserMessage = messages.filter((m) => m.role === "user").pop();
+
+    if (!lastUserMessage) {
+      console.warn("No previous user message");
+      return;
+    }
+
+    if (!document_id) {
+      console.warn("Missing document_id");
+      return;
+    }
+
+    const text = lastUserMessage.parts
+      ?.filter((p: any) => p.type === "text")
+      .map((p: any) => p.text)
+      .join(" ");
+
+    sendMessage(
+      {text},
+      {
+        body: {document_id},
+      },
+    );
+  }, [messages, document_id, sendMessage]);
+
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       if (status !== "ready") return;
 
+      if (!document_id) {
+        console.warn("Document ID is missing; cannot send chat request.");
+        return;
+      }
+
       console.log("Submitting message:", message);
 
-      sendMessage(
-        {text: message.text},
-        {body: {document_id: document_id || ""}},
-      );
+      sendMessage({text: message.text}, {body: {document_id}});
     },
     [sendMessage, status, document_id],
   );
@@ -230,31 +160,100 @@ const PromptInputBox = () => {
       <div className="flex flex-col h-full">
         <Conversation className="h-full thin-scrollbar">
           <ConversationContent>
-            {messages.map((message) => (
-              <Message from={message.role} key={message.id}>
-                <MessageContent>
-                  {message.parts ? (
-                    message.role === "assistant" ? (
-                      <AIResponseWrapper handleRefresh={regenerate} isStreaming={status === "streaming"}>
+            {messages.map((message, index) => {
+              const isLastMessage = index === messages.length - 1;
+              const reasoningParts =
+                message.parts?.filter((p: any) => p.type === "reasoning") || [];
+              const hasReasoning = reasoningParts.length > 0;
+              const reasoningText = reasoningParts
+                .map((p: any) => p.text)
+                .join("\n\n");
+              const lastPart = message.parts?.at(-1);
+              const isReasoningStreaming =
+                isLastMessage &&
+                status === "streaming" &&
+                lastPart?.type === "reasoning";
+
+              return (
+                <Message from={message.role} key={message.id}>
+                  <MessageContent>
+                    {message.parts ? (
+                      message.role === "assistant" ? (
+                        <AIResponseWrapper
+                          copyResponse={() => {
+                            navigator.clipboard.writeText(
+                              message.parts
+                                ?.filter((part: any) => part.type === "text")
+                                .map((part: any) => part.text)
+                                .join("") || "",
+                            );
+                          }}
+                          handleRefresh={handleRefresh}
+                          isStreaming={status === "streaming" && isLastMessage}
+                        >
+                          {hasReasoning && (
+                            <Reasoning
+                              className="w-full"
+                              isStreaming={isReasoningStreaming}
+                            >
+                              <ReasoningTrigger />
+                              <ReasoningContent>
+                                {reasoningText}
+                              </ReasoningContent>
+                            </Reasoning>
+                          )}
+                          <MessageResponse key={message.id}>
+                            {message.parts
+                              .filter((part: any) => part.type === "text")
+                              .map((part: any) => part.text)
+                              .join("")}
+                          </MessageResponse>
+                          <Sources className="mt-5">
+                            <SourcesTrigger
+                              count={
+                                message.parts.filter(
+                                  (part) => part.type === "source-url",
+                                ).length
+                              }
+                            />
+                            {message.parts.map((part, i) => {
+                              switch (part.type) {
+                                case "source-url":
+                                  return (
+                                    <SourcesContent key={`${message.id}-${i}`}>
+                                      <Source
+                                        key={`${message.id}-${i}`}
+                                        href={part.url}
+                                        title={part.url}
+                                      />
+                                    </SourcesContent>
+                                  );
+                              }
+                            })}
+                          </Sources>
+                        </AIResponseWrapper>
+                      ) : (
                         <MessageResponse key={message.id}>
                           {message.parts
                             .filter((part: any) => part.type === "text")
                             .map((part: any) => part.text)
                             .join("")}
                         </MessageResponse>
-                      </AIResponseWrapper>
-                    ) : (
-                      <MessageResponse key={message.id}>
-                        {message.parts
-                          .filter((part: any) => part.type === "text")
-                          .map((part: any) => part.text)
-                          .join("")}
-                      </MessageResponse>
-                    )
-                  ) : null}
-                </MessageContent>
-              </Message>
-            ))}
+                      )
+                    ) : null}
+                  </MessageContent>
+                </Message>
+              );
+            })}
+            {status === "submitted" && (
+              <div className="text-left flex items-center gap-2">
+                <Spinner />{" "}
+                <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
+                  Thinking...
+                </p>
+                
+              </div>
+            )}
           </ConversationContent>
           <ConversationScrollButton />
         </Conversation>
