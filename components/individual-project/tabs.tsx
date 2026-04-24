@@ -1,3 +1,6 @@
+"use client";
+
+import { useSearchParams } from "next/navigation";
 import {Card, CardContent} from "@/components/ui/card";
 import {Tabs, TabsContent, TabsList, TabsTrigger} from "@/components/ui/tabs";
 import {
@@ -17,11 +20,25 @@ import {FcMindMap} from "react-icons/fc";
 import {SiLivechat} from "react-icons/si";
 import {HiOutlineChatBubbleBottomCenter} from "react-icons/hi2";
 import {PiCardsThreeBold} from "react-icons/pi";
+import { Suspense } from "react";
 
-export function SelectTheTab() {
+type TTabSelectionContentProps = {
+  url: string;
+  generatedContent?: any[];
+  documentContextForChat?: any;
+}
+
+function TabSelectionContent({ url, generatedContent = [], documentContextForChat }: TTabSelectionContentProps) {
+  const searchParams = useSearchParams();
+  const defaultTab = searchParams.get("tab") || "chat";
+
+  const flashCards = generatedContent.filter(c => c.feature_type === 'flash-cards');
+  const quizzes = generatedContent.filter(c => c.feature_type === 'quiz');
+  const mindmaps = generatedContent.filter(c => c.feature_type === 'mind-map');
+
   return (
     <div className="flex w-full h-full flex-col gap-4">
-      <Tabs defaultValue="chat" className="flex flex-col h-full">
+      <Tabs defaultValue={defaultTab} className="flex flex-col h-full">
         <TabsList className="w-full shrink-0 rounded-sm">
           <TabsTrigger value="chat" className="rounded">
             <SiLivechat className="size-4" />
@@ -44,27 +61,35 @@ export function SelectTheTab() {
           value="chat"
           className="flex-1 mt-0 border-0 p-0 overflow-hidden"
         >
-          <ChatTab />
+          <ChatTab url={url} documentContextForChat={documentContextForChat} />
         </TabsContent>
         <TabsContent
           value="flash-cards"
           className="flex-1 mt-0 border-0 p-0 overflow-hidden"
         >
-          <FlashCardsTab />
+          <FlashCardsTab flashCards={flashCards} documentContextForChat={documentContextForChat} />
         </TabsContent>
         <TabsContent
           value="quiz"
           className="flex-1 mt-0 border-0 p-0 overflow-hidden"
         >
-          <QuizTab />
+          <QuizTab quizzes={quizzes} documentContextForChat={documentContextForChat} />
         </TabsContent>
         <TabsContent
           value="mind-map"
           className="flex-1 mt-0 border-0 p-0 overflow-hidden"
         >
-          <MindMapTab />
+          <MindMapTab mindmaps={mindmaps} documentContextForChat={documentContextForChat} />
         </TabsContent>
       </Tabs>
     </div>
+  );
+}
+
+export function SelectTheTab({ url, generatedContent = [], documentContextForChat }: { url: string, generatedContent?: any[], documentContextForChat?: any }) {
+  return (
+    <Suspense fallback={<div className="p-4">Loading tabs...</div>}>
+      <TabSelectionContent url={url} generatedContent={generatedContent} documentContextForChat={documentContextForChat} />
+    </Suspense>
   );
 }

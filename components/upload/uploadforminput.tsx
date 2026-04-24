@@ -2,10 +2,13 @@
 
 import {forwardRef, useRef} from "react";
 import {Button} from "../ui/button";
-import {Loader2} from "lucide-react";
+import {ArrowBigLeft, ArrowLeftIcon, Loader2} from "lucide-react";
 import AnimatedFileUpload from "./upload-file";
 import InitialOption from "./choose-intial-option";
 import {FormEvent} from "react";
+import { Separator } from "../ui/separator";
+import { AnimatedThemeToggler } from "../ui/animated-theme-toggler";
+import { useRouter } from "next/navigation";
 
 interface UploadFormInputProps {
   onsubmit: (e: FormEvent<HTMLFormElement>) => void;
@@ -17,9 +20,17 @@ export const UploadFormInputPDF = forwardRef<
   UploadFormInputProps
 >(({onsubmit, isLoading}, ref) => {
   const hiddenInputRef = useRef<HTMLInputElement>(null);
+const router = useRouter();
 
   return (
     <div>
+      <div className="mb-5 flex flex-col gap-1.5 justify-start items-start w-full">
+        <div className="flex justify-between items-baseline w-full">
+          <Button variant={"outline"} className="shadow-md flex gap-1 rounded-full hover:cursor-pointer" onClick={() => {router.push("/dashboard")}}> <ArrowLeftIcon className="size-4"/> Back </Button>
+          <AnimatedThemeToggler />
+        </div>
+        <Separator />
+      </div>
       <div className="w-full justify-items-center mb-10">
         <h1 className="font-bold text-3xl text-center ">Upload your PDF</h1>
         <p className="text-center text-muted-foreground">
@@ -33,7 +44,7 @@ export const UploadFormInputPDF = forwardRef<
             disabled={isLoading}
             multiple={false}
             maxSize={10 * 1024 * 1024}
-            className="mb-5 shadow-lg rounded-lg backdrop-blur-md"
+            className="mb-5 shadow-lg dark:shadow-zinc-600/40 rounded-lg backdrop-blur-md"
             onFilesSelected={(files: File[]) => {
               if (hiddenInputRef.current) {
                 if (files.length > 0) {
@@ -58,7 +69,7 @@ export const UploadFormInputPDF = forwardRef<
             *Choose any one option from above now, you can select other options
             later also for the same PDF.
           </p>
-          <Button type="submit" disabled={isLoading} className="w-full mt-8">
+          <Button type="submit" disabled={isLoading} className="w-full mt-8 rounded-xl">
             {isLoading ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />

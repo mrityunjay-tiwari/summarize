@@ -3,7 +3,7 @@ import { QuizCarousel } from "@/components/individual-project/quiz-tab/quiz-caro
 export default function QuizPage() {
   return (
     <div>
-      <QuizCarousel />
+      <QuizCarousel quizzes={[]} />
     </div>
   );
 }

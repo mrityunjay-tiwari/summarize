@@ -28,7 +28,7 @@ export const Navbar = ({user}: {user?: any}) => {
       <nav
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-colors duration-200 ",
-          scrolled && "bg-white/80 backdrop-blur-5xl",
+          scrolled && "bg-white/80 dark:bg-black/20 backdrop-blur-5xl",
         )}
       >
         <div className="w-full px-3.5 md:px-0 pt-5">
@@ -41,13 +41,22 @@ export const Navbar = ({user}: {user?: any}) => {
                   className="flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
                 >
                   <Image
-                    className="flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                    className="flex dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
                     src={
                       "https://ik.imagekit.io/mrityunjay/DocuMind/teach__4_-removebg-preview.png"
                     }
                     alt="logo"
                     width={100}
                     height={100}
+                  />
+                  <Image
+                    className="hidden dark:flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                    src={
+                      "https://ik.imagekit.io/mrityunjay/DocuMind/darklogo-removebg-preview.png"
+                    }
+                    alt="logo"
+                    width={95}
+                    height={95}
                   />
                 </Link>
 

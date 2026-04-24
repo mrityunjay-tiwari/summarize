@@ -6,13 +6,26 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import {SelectTheTab} from "../individual-project/tabs";
-import { useState } from "react";
+import {useState} from "react";
 
-export function ResizablePanelExample({url}: {url: string}) {
+type TResizablePanelExampleProps = {
+  url: string;
+  generatedContent?: any[];
+  documentContextForChat?: any;
+};
+
+export function ResizablePanelExample({
+  url,
+  generatedContent = [],
+  documentContextForChat,
+}: TResizablePanelExampleProps) {
   const [page, setPage] = useState(1);
 
   return (
-    <ResizablePanelGroup orientation="horizontal" className="h-screen max-h-screen w-full">
+    <ResizablePanelGroup
+      orientation="horizontal"
+      className="h-screen max-h-screen w-full"
+    >
       <ResizablePanel minSize={10} defaultSize={40}>
         <div className="flex h-full items-center justify-center p-6 pb-1">
           <iframe
@@ -27,7 +40,11 @@ export function ResizablePanelExample({url}: {url: string}) {
 
       <ResizablePanel minSize={10} defaultSize={60}>
         <div className="h-full p-5 pt-1">
-          <SelectTheTab />
+          <SelectTheTab
+            url={url}
+            generatedContent={generatedContent}
+            documentContextForChat={documentContextForChat}
+          />
         </div>
       </ResizablePanel>
     </ResizablePanelGroup>

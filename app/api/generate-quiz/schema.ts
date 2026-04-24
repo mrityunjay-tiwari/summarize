@@ -11,7 +11,11 @@ export const quizSchema = z.object({
                     option: z.string()
                 })
             ).length(4),
-            correctOption: z.number()
+            correctOption: z.number(),
+            explanation: z.string(),
+            source: z.array(z.number()).optional()
         })
     )
 })
+
+export type QuizSchema = z.infer<typeof quizSchema>;

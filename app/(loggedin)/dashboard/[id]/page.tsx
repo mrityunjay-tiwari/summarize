@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/sidebar";
 import {PlusIcon} from "lucide-react";
 import Link from "next/link";
-import { getAllDocumentsByUserId, getDocumentById } from "@/actions/upload-actions";
+import { getAllDocumentsByUserId, getDocumentById, checkIfEmbeddingsExist } from "@/actions/upload-actions";
 import CheckIfUserExists from "@/actions/checkUser";
 import { auth } from "@/utils/auth";
 
@@ -27,8 +27,11 @@ type TUserInfo = {
 
 export default async function Page({params}: {params: Promise<{id: string}>}) {
   const {id} = await params;
-  const document = await getDocumentById(id);
-  const user = await CheckIfUserExists();
+  const [document, user, embeddingsStatus] = await Promise.all([
+    getDocumentById(id),
+    CheckIfUserExists(),
+    checkIfEmbeddingsExist(id)
+  ]);
 
   const userIn = await auth();
   const userInfo : TUserInfo = {
@@ -52,6 +55,16 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
     const documentInfo : TDocumentInfo = {
       file_name: documentData.file_name ?? "Untitled PDF",
       file_size: documentData.file_size ?? "0 KB",
+    };
+    
+    const documentContextForChat = {
+      id: documentData.id,
+      url: documentData.original_file_url,
+      name: documentData.file_name || "Untitled PDF",
+      key: documentData.file_key || "",
+      size: documentData.file_size || "",
+      totalChunks: embeddingsStatus?.total || 0,
+      isReady: embeddingsStatus?.isReady || false,
     };
     
   return (
@@ -79,7 +92,7 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
           </div>
         </header>
         <Separator />
-        <ResizablePanelExample url={documentData.original_file_url} />
+        <ResizablePanelExample url={documentData.original_file_url} generatedContent={documentData.generated_content} documentContextForChat={documentContextForChat} />
       </SidebarInset>
     </SidebarProvider>
   );

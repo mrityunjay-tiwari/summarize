@@ -1,8 +1,8 @@
 "use client";
 
-import { motion } from "motion/react";
-import { cn } from "@/lib/utils";
-import { MdOutlineDone } from "react-icons/md";
+import {motion} from "motion/react";
+import {cn} from "@/lib/utils";
+import {MdOutlineDone} from "react-icons/md";
 import Image from "next/image";
 
 export interface ActivityData {
@@ -50,7 +50,7 @@ const defaultActivities: ActivityData[] = [
   },
 ];
 
-const CircleProgress = ({ data, index }: CircleProgressProps) => {
+const CircleProgress = ({data, index}: CircleProgressProps) => {
   const strokeWidth = 16;
   const radius = (data.size - strokeWidth) / 2;
   const circumference = radius * 2 * Math.PI;
@@ -61,10 +61,10 @@ const CircleProgress = ({ data, index }: CircleProgressProps) => {
 
   return (
     <motion.div
-      animate={{ opacity: 1, scale: 1 }}
+      animate={{opacity: 1, scale: 1}}
       className="absolute inset-0 flex items-center justify-center"
-      initial={{ opacity: 0, scale: 0.8 }}
-      transition={{ duration: 0.8, delay: index * 0.2, ease: "easeOut" }}
+      initial={{opacity: 0, scale: 0.8}}
+      transition={{duration: 0.8, delay: index * 0.2, ease: "easeOut"}}
     >
       <div className="relative">
         <svg
@@ -111,11 +111,11 @@ const CircleProgress = ({ data, index }: CircleProgressProps) => {
           />
 
           <motion.circle
-            animate={{ strokeDashoffset: progress }}
+            animate={{strokeDashoffset: progress}}
             cx={data.size / 2}
             cy={data.size / 2}
             fill="none"
-            initial={{ strokeDashoffset: circumference }}
+            initial={{strokeDashoffset: circumference}}
             r={radius}
             stroke={gradientUrl}
             strokeDasharray={circumference}
@@ -136,13 +136,13 @@ const CircleProgress = ({ data, index }: CircleProgressProps) => {
   );
 };
 
-const DetailedActivityInfo = ({ activities }: { activities: ActivityData[] }) => {
+const DetailedActivityInfo = ({activities}: {activities: ActivityData[]}) => {
   return (
     <motion.div
-      animate={{ opacity: 1, x: 0 }}
+      animate={{opacity: 1, x: 0}}
       className="ml-8 flex flex-col gap-6"
-      initial={{ opacity: 0, x: 20 }}
-      transition={{ duration: 0.5, delay: 0.3 }}
+      initial={{opacity: 0, x: 20}}
+      transition={{duration: 0.5, delay: 0.3}}
     >
       {activities.map((activity) => (
         <motion.div className="flex flex-col" key={activity.label}>
@@ -151,7 +151,7 @@ const DetailedActivityInfo = ({ activities }: { activities: ActivityData[] }) =>
           </span>
           <span
             className="font-semibold text-2xl"
-            style={{ color: activity.color }}
+            style={{color: activity.color}}
           >
             {activity.current}/{activity.target}
             <span className="ml-1 text-base text-zinc-600 dark:text-zinc-400">
@@ -178,23 +178,29 @@ export default function AppleActivityCard({
       className={cn(
         "relative mx-auto w-full max-w-3xl rounded-3xl p-8",
         "text-zinc-900 dark:text-white",
-        className
+        className,
       )}
     >
       <div className="flex flex-col items-center gap-8">
         <motion.div
-          animate={{ opacity: 1, y: 0 }}
+          animate={{opacity: 1, y: 0}}
           className="font-medium text-2xl text-zinc-900 dark:text-white flex items-center gap-2"
-          initial={{ opacity: 0, y: -20 }}
-          transition={{ duration: 0.5 }}
+          initial={{opacity: 0, y: -20}}
+          transition={{duration: 0.5}}
         >
-            {/* <div className="bg-green-500 rounded-full p-0.5">
+          {/* <div className="bg-green-500 rounded-full p-0.5">
                 <MdOutlineDone className="text-white w-5 h-5" />
             </div> */}
-            <div>
-                <Image src="https://ik.imagekit.io/mrityunjay/DocuMind/marked%20complete.png" alt="marked-done" width={30} height={30} className="rounded-full"/>
-            </div>
-            {title}
+          <div>
+            <Image
+              src="https://ik.imagekit.io/mrityunjay/DocuMind/marked%20complete.png"
+              alt="marked-done"
+              width={30}
+              height={30}
+              className="rounded-full"
+            />
+          </div>
+          {title}
         </motion.div>
 
         <div className="flex items-center">

@@ -3,20 +3,18 @@
 import {ArrowRight, Repeat2} from "lucide-react";
 import {useState, useEffect} from "react";
 import {cn} from "@/lib/utils";
-import { Button } from "@/components/ui/button";
+import {Button} from "@/components/ui/button";
 
 export interface CardFlipProps {
-  title?: string;
-  subtitle?: string;
-  description?: string;
-  features?: string[];
+  question?: string;
+  answer?: string;
+  index?: number;
 }
 
 export default function CardFlip({
-  title = "UnDesign Systems",
-  subtitle = "Hover to see answer",
-  description = "Dive deep into the world of modern UI/UX design.",
-  features = ["UI/UX", "Modern Design", "Tailwind CSS", "Kokonut UI"],
+  question = "UnDesign Systems",
+  answer = "Dive deep into the world of modern UI/UX design.",
+  index,
 }: CardFlipProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -86,25 +84,18 @@ export default function CardFlip({
             isFlipped ? "opacity-0" : "opacity-100",
           )}
         >
-          <div style={{ pointerEvents: isFlipped ? "none" : "auto" }} className="relative h-full overflow-hidden bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black">
-            <div className="absolute inset-0 flex items-start justify-center pt-24">
-              <div className="relative flex h-[100px] w-[200px] items-center justify-center">
-                {/* {[...Array(10)].map((_, i) => (
-                  <div
-                    className={cn(
-                      "absolute h-[50px] w-[50px]",
-                      "rounded-[140px]",
-                      "animate-[scale_3s_linear_infinite]",
-                      "opacity-0",
-                      "shadow-[0_0_50px_rgba(255,165,0,0.5)]",
-                      "group-hover:animate-[scale_2s_linear_infinite]",
-                    )}
-                    key={i}
-                    style={{
-                      animationDelay: `${i * 0.3}s`,
-                    }}
-                  />
-                ))} */}
+          <div
+            style={{pointerEvents: isFlipped ? "none" : "auto"}}
+            className="relative h-full overflow-hidden bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black"
+          >
+            <div className="absolute top-6 left-6">
+              <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-indigo-700/60 tracking-tight">
+                Q.
+              </span>
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center px-8 pb-8 pt-12">
+              <div className="relative w-full text-center text-[17px] font-medium text-zinc-800 dark:text-zinc-200 leading-snug">
+                {question}
               </div>
             </div>
           </div>
@@ -112,11 +103,20 @@ export default function CardFlip({
           <div className="absolute right-0 bottom-0 left-0 p-5">
             <div className="flex items-center justify-between gap-3">
               <div className="space-y-1.5">
-                <h3 className={`font-semibold text-lg text-zinc-900 leading-snug tracking-tighter transition-all duration-500 ease-out-expo dark:text-white ${isHoverable ? "group-hover:translate-y-[-4px]" : ""}`}>
+                {/* <h3 className={`font-semibold text-lg text-zinc-900 leading-snug tracking-tighter transition-all duration-500 ease-out-expo dark:text-white ${isHoverable ? "group-hover:translate-y-[-4px]" : ""}`}>
                   {title}
-                </h3>
-                <p className={`line-clamp-2 text-sm text-zinc-600 tracking-tight transition-all delay-[50ms] duration-500 ease-out-expo dark:text-zinc-200 ${isHoverable ? "group-hover:translate-y-[-4px]" : ""}`}>
-                  {subtitle}
+                </h3> */}
+                <p
+                  className={`hidden md:inline line-clamp-2 text-xs text-zinc-400 tracking-tight transition-all delay-[50ms] duration-500 ease-out-expo dark:text-zinc-200 ${isHoverable ? "group-hover:translate-y-[-4px]" : ""}`}
+                >
+                  {/* {subtitle} */}
+                  Hover to see answer
+                </p>
+                <p
+                  className={`inline md:hidden line-clamp-2 text-xs text-zinc-400 tracking-tight transition-all delay-[50ms] duration-500 ease-out-expo dark:text-zinc-200 ${isHoverable ? "group-hover:translate-y-[-4px]" : ""}`}
+                >
+                  {/* {subtitle} */}
+                  Tap to see answer
                 </p>
               </div>
               <div className="group/icon relative">
@@ -126,7 +126,12 @@ export default function CardFlip({
                     "bg-gradient-to-br from-orange-500/20 via-orange-500/10 to-transparent",
                   )}
                 />
-                <Repeat2 className={`relative z-10 h-4 w-4 text-orange-500 transition-transform duration-300 ${isHoverable ? "group-hover/icon:-rotate-12 group-hover/icon:scale-110" : ""}`} />
+                {/* <Repeat2 className={`relative z-10 h-4 w-4 text-orange-500 transition-transform duration-300 ${isHoverable ? "group-hover/icon:-rotate-12 group-hover/icon:scale-110" : ""}`} /> */}
+                <div
+                  className={`relative flex justify-center items-center z-10 w-7 h-7 text-sm font-semibold text-orange-500 transition-transform duration-300 ${isHoverable ? "group-hover/icon:-rotate-12 group-hover/icon:scale-110" : ""}`}
+                >
+                  {index !== undefined ? index + 1 : 1}
+                </div>
               </div>
             </div>
           </div>
@@ -134,7 +139,7 @@ export default function CardFlip({
 
         {/* Back of card */}
         <div
-          style={{ pointerEvents: isFlipped ? "auto" : "none" }}
+          style={{pointerEvents: isFlipped ? "auto" : "none"}}
           className={cn(
             "absolute inset-0 h-full w-full",
             "[backface-visibility:hidden] [transform:rotateY(180deg)]",
@@ -148,33 +153,19 @@ export default function CardFlip({
             isFlipped ? "opacity-100" : "opacity-0",
           )}
         >
-          <div className="flex-1 space-y-6">
-            <div className="space-y-2">
-              <h3 className="font-semibold text-lg text-zinc-900 leading-snug tracking-tight transition-all duration-500 ease-out-expo group-hover:translate-y-[-2px] dark:text-white">
-                {title}
-              </h3>
-              <p className="line-clamp-2 text-sm text-zinc-600 tracking-tight transition-all duration-500 ease-out-expo group-hover:translate-y-[-2px] dark:text-zinc-400">
-                {description}
-              </p>
+          <div className="w-full flex justify-start">
+            <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-indigo-700/60 tracking-tight">
+              A.
+            </span>
+          </div>
+          {/* <div className="flex-1 flex justify-start items-center pb-8 pt-2">
+            <div className="text-left text-[16px] leading-relaxed font-medium text-zinc-700 dark:text-zinc-300 w-full overflow-y-auto max-h-full pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-800 [&::-webkit-scrollbar-thumb]:rounded-full">
+              {answer}
             </div>
-
-            <div className="space-y-2">
-              {features.map((feature, index) => (
-                <div
-                  className="flex items-center gap-2 text-sm text-zinc-700 transition-all duration-500 dark:text-zinc-300"
-                  key={feature}
-                  style={{
-                    transform: isFlipped
-                      ? "translateX(0)"
-                      : "translateX(-10px)",
-                    opacity: isFlipped ? 1 : 0,
-                    transitionDelay: `${index * 100 + 200}ms`,
-                  }}
-                >
-                  <ArrowRight className="h-3 w-3 text-orange-500" />
-                  <span>{feature}</span>
-                </div>
-              ))}
+          </div> */}
+          <div className="flex-1 min-h-0 flex justify-start items-start pb-4 pt-2">
+            <div className="text-left text-[16px] leading-relaxed font-medium text-zinc-700 dark:text-zinc-300 w-full overflow-y-auto h-full pr-2 [&::-webkit-scrollbar]:w-1 [&::-webkit-scrollbar-track]:bg-transparent [&::-webkit-scrollbar-thumb]:bg-zinc-200 dark:[&::-webkit-scrollbar-thumb]:bg-zinc-800 [&::-webkit-scrollbar-thumb]:rounded-full">
+              {answer}
             </div>
           </div>
 
@@ -183,7 +174,7 @@ export default function CardFlip({
               className={cn(
                 "group/start relative",
                 "flex items-center justify-between",
-                "-m-3 rounded-xl p-3",
+                "-m-3 rounded-md px-3.5 py-1.5",
                 "transition-all duration-300",
                 "bg-gradient-to-r from-zinc-100 via-zinc-100 to-zinc-100",
                 "dark:from-zinc-800 dark:via-zinc-800 dark:to-zinc-800",
@@ -192,9 +183,7 @@ export default function CardFlip({
                 "hover:scale-[1.02] hover:cursor-pointer",
               )}
             >
-              <Button variant={"ghost"} size={"sm"} onClick={() => {console.log("started")}} className="font-medium text-sm text-zinc-900 transition-colors duration-300 group-hover/start:text-orange-600 dark:text-white dark:group-hover/start:text-orange-400">
-                Start today
-              </Button>
+              <p className="text-xs">Source : </p>
               <div className="group/icon relative">
                 <div
                   className={cn(

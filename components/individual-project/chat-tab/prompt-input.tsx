@@ -102,7 +102,7 @@ const PromptInputAttachmentsDisplay = () => {
   );
 };
 
-const PromptInputBox = () => {
+const PromptInputBox = ({file_url}: {file_url: string}) => {
   const [isFormattingInput, setIsFormattingInput] = useState(false);
   const params = useParams();
   const document_id = params?.id as string | undefined;
@@ -141,7 +141,7 @@ const PromptInputBox = () => {
 
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
-      if (status !== "ready") return;
+      if (status === "submitted" || status === "streaming") return;
 
       if (!document_id) {
         console.warn("Document ID is missing; cannot send chat request.");
@@ -150,7 +150,7 @@ const PromptInputBox = () => {
 
       console.log("Submitting message:", message);
 
-      sendMessage({text: message.text}, {body: {document_id}});
+      sendMessage({text: message.text}, {body: {document_id, file_url}});
     },
     [sendMessage, status, document_id],
   );
@@ -251,7 +251,6 @@ const PromptInputBox = () => {
                 <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
                   Thinking...
                 </p>
-                
               </div>
             )}
           </ConversationContent>

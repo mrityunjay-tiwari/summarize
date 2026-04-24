@@ -17,16 +17,18 @@ export interface Question {
 export default function Quiz({ 
   question, 
   onAttempt, 
-  onRestart 
+  onRestart,
+  initialSelectedOptionId = null
 }: { 
   question: Question, 
-  onAttempt?: (isCorrect: boolean) => void,
-  onRestart?: () => void
+  onAttempt?: (isCorrect: boolean, selectedOptionId: string) => void,
+  onRestart?: () => void,
+  initialSelectedOptionId?: string | null
 }) {
-  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(null);
+  const [selectedOptionId, setSelectedOptionId] = useState<string | null>(initialSelectedOptionId);
 
   return (
-    <div>
+    <div className="w-full">
       <div className="bg-muted px-5 py-2 flex justify-between items-center">
         <h1 className="text-lg font-medium">Question {question.number}</h1>
         <button 
@@ -45,7 +47,7 @@ export default function Quiz({
           onSelect={(id) => {
             if (!selectedOptionId) {
               setSelectedOptionId(id);
-              onAttempt?.(id === question.correctOptionId);
+              onAttempt?.(id === question.correctOptionId, id);
             }
           }}
         />

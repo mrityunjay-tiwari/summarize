@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, Source_Sans_3, Ubuntu } from "next/font/google";
+import { Geist, Geist_Mono, Instrument_Serif, Source_Sans_3, Ubuntu } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/ui/theme-provider";
 import { Navbar } from "@/components/navbar/nav";
 import { auth } from "@/utils/auth";
+import "katex/dist/katex.min.css";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 // const geistSans = Geist({
 //   variable: "--font-geist-sans",
@@ -20,6 +22,12 @@ const fontSans = Source_Sans_3({
   variable: "--font-sans",
   subsets: ["latin"],
   weight: ['200', '300', '400', '500', '600', '700', '800', '900']
+})
+
+const instrumentSerif = Instrument_Serif({
+  variable: "--font-sans",
+  subsets: ["latin"],
+  weight: ['400']
 })
 
 const ubuntu = Ubuntu({
@@ -50,7 +58,7 @@ export default async function RootLayout({
 
       <html lang="en" suppressHydrationWarning>
         <body
-          className={` ${ubuntu.className} `}
+          className={` ${ubuntu.className} thin-scrollbar`}
         >
           <ThemeProvider
           attribute="class"
@@ -58,9 +66,13 @@ export default async function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
+          <TooltipProvider>
             
             <main className="flex-1">{children}</main>  
             <Toaster />
+            
+          </TooltipProvider>
+
           </ThemeProvider>
         </body>
       </html>

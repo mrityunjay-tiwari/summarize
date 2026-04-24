@@ -22,9 +22,7 @@ export default function LoadingSkeletonUpload() {
           ))}
         </div>
 
-        <div className="h-3 w-80 bg-gray-200/60 rounded-sm mt-2" />
-
-        <div className="w-full h-10 bg-gray-200 rounded-md mt-6" />
+         <div className="w-full h-10 bg-gray-200 rounded-md mt-6" />
       </div>
     </section>
   );

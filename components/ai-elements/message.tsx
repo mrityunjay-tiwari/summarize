@@ -34,6 +34,30 @@ export type MessageProps = HTMLAttributes<HTMLDivElement> & {
   from: UIMessage["role"];
 };
 
+function normalizeLatex(text: string) {
+  return text
+    // Fix double escapes
+    .replace(/\\\\\[/g, "\\[")
+    .replace(/\\\\\]/g, "\\]")
+
+    // Convert inline $ to \( \)
+    .replace(/\$(.*?)\$/g, "\\($1\\)")
+
+    // Remove problematic spacing
+    .replace(/\\\\\[\d+pt\]/g, "\\\\")
+
+    // Fix common broken inequalities
+    .replace(/\\le/g, "\\leq")
+    .replace(/\\ge/g, "\\geq");
+}
+
+function autoWrapMath(text: string) {
+  return text.replace(
+    /([a-zA-Z0-9]+\s*\\(leq|geq|le|ge|times|cdot)\s*[a-zA-Z0-9]+)/g,
+    "\\($1\\)"
+  );
+}
+
 export const Message = ({ className, from, ...props }: MessageProps) => (
   <div
     className={cn(
@@ -325,6 +349,7 @@ const streamdownPlugins = { cjk, code, math, mermaid };
 
 export const MessageResponse = memo(
   ({ className, ...props }: MessageResponseProps) => (
+    
     <Streamdown
       className={cn(
         "size-full [&>*:first-child]:mt-0 [&>*:last-child]:mb-0",

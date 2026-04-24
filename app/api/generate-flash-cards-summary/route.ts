@@ -4,13 +4,13 @@ import { flashCardStackSchema } from "./schema";
 
 export const POST = async (req : Request) => {
     try {
-        const {pdfFile} = await req.json();
+        const { text, targetCount } = await req.json();
 
         const result = await generateObject({
-            model: openrouter("arcee-ai/trinity-large-preview:free"),
-            prompt: pdfFile,
+            model: openrouter("openai/gpt-oss-120b:free"),
+            prompt: text,
             schema: flashCardStackSchema,
-            system: "Given the text content you need to generate an flash cards, return a JSON object containing a 'flashcards' array with around 10-15 objects where each has an index each index should be continuously increasing strarting from 1 (continuing to 2,3,4,5 so on depending on the number of objects thereby, this will help in identifying the order of the flash cards) one question and answer in each object on the basis of the content provided by the user."
+            system: `Given the text content you need to generate flash cards. Return a JSON object containing a 'flashCards' array with EXACTLY ${targetCount || 5} objects where each has an index. Each index should be continuously increasing starting from 1 (this will help in identifying the order of the flash cards). One question and answer in each object on the basis of the content provided by the user.`
         })
 
         return Response.json({

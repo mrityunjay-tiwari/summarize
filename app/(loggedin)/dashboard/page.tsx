@@ -9,6 +9,7 @@ import { redirect } from "next/navigation";
 import BGGrid2 from "@/components/ui/bg-pattern2";
 import BGGrid3 from "@/components/ui/bg-pattern3";
 import { Separator } from "@/components/ui/separator";
+import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 export default async function DashboardPage() {
   const userId = await CheckIfUserExists();
@@ -29,23 +30,24 @@ export default async function DashboardPage() {
         <div className="px-2 py-12 sm:py-24">
           <div className="flex gap-4 mb-1.5 justify-between">
             <div className="flex flex-col gap-2">
-              <h1 className="text-4xl font-bold tracking-tight bg-linear-to-r from-gray-700 to-gray-900 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-bold tracking-tight bg-linear-to-r from-gray-700 to-gray-900 dark:from-gray-200 dark:to-gray-400 bg-clip-text text-transparent">
                 Your Projects
               </h1>
-              <p className="text-gray-600">
-                Transform your PDFs into interactive chat, quizzes, and flashcards.
+              <p className="text-gray-600 dark:text-gray-200">
+                Transform your PDFs into interactive chat, quizzes, mindmaps and flashcards.
               </p>
             </div>
             
-            <div>
+            <div className="flex items-baseline gap-2.5">
               <Button className="bg-linear-to-r from-blue-400 to-blue-500 hover:from-blue-600 hover:to-blue-800 hover:scale-105 transition-all duration-300 group">
                 <Link href={"/upload"} className="flex items-center">
                   <PlusIcon className="w-5 h-5 mr-2" /> Upload PDF
                 </Link>
               </Button>
+              <AnimatedThemeToggler />
             </div>
           </div>
-          <Separator className="mb-5" />
+          <Separator className="mb-5 dark:bg-neutral-500" />
           {/* New Robust Prisma Document Grid */}
           <DocumentGrid initialDocuments={documents} />
           

@@ -23,6 +23,7 @@ model User {
   sessions      Session[]
   summaries     PdfSummary[]
   documents     Document[]
+  feature_progress FeatureProgress[]
 }
 
 model Account {
@@ -109,8 +110,29 @@ model GeneratedContent {
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
   
   feature_type String   
+  title        String?
   data         Json     
   
+  progress    FeatureProgress[]
+
   created_at  DateTime @default(now())
   updated_at  DateTime @updatedAt
+}
+
+model FeatureProgress {
+  id                    String           @id @default(uuid())
+  user_id               String
+  user                  User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  
+  generated_content_id  String
+  generated_content     GeneratedContent @relation(fields: [generated_content_id], references: [id], onDelete: Cascade)
+  
+  is_completed          Boolean          @default(false)
+  scores                Json?            
+  attempts              Json?            
+  
+  created_at            DateTime         @default(now())
+  updated_at            DateTime         @updatedAt
+
+  @@unique([user_id, generated_content_id])
 }

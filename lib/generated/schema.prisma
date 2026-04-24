@@ -12,17 +12,18 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String       @unique
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  image         String?
-  emailVerified DateTime?
-  accounts      Account[]
-  sessions      Session[]
-  summaries     PdfSummary[]
-  documents     Document[]
+  id               String            @id @default(cuid())
+  name             String?
+  email            String            @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  image            String?
+  emailVerified    DateTime?
+  accounts         Account[]
+  sessions         Session[]
+  summaries        PdfSummary[]
+  documents        Document[]
+  feature_progress FeatureProgress[]
 }
 
 model Account {
@@ -81,7 +82,7 @@ model Document {
   file_name         String? @db.Text
   file_key          String  @db.Text
   file_size         String? @db.Text
-  markdown_text     String? @db.Text // Will be null if file is incredibly large
+  markdown_text     String? @db.Text
 
   chunks            DocumentChunk[]
   generated_content GeneratedContent[]
@@ -96,9 +97,8 @@ model DocumentChunk {
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
 
   text     String @db.Text
-  metadata Json // Stores Docling metadata (page_numbers, headings, types)
+  metadata Json
 
-  // The PgVector column: Nemotron creates 2048-dimension embeddings
   embedding Unsupported("vector(2048)")?
 
   created_at DateTime @default(now())
@@ -109,9 +109,30 @@ model GeneratedContent {
   document_id String
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
 
-  feature_type String // e.g., "flashcard", "quiz", "mindmap"
-  data         Json // Stores the massive generated JSON structure
+  feature_type String
+  title        String?
+  data         Json
+
+  progress FeatureProgress[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
+}
+
+model FeatureProgress {
+  id      String @id @default(uuid())
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  generated_content_id String
+  generated_content    GeneratedContent @relation(fields: [generated_content_id], references: [id], onDelete: Cascade)
+
+  is_completed Boolean @default(false)
+  scores       Json?
+  attempts     Json?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@unique([user_id, generated_content_id])
 }

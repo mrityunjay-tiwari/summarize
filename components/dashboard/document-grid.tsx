@@ -67,7 +67,7 @@ export function DocumentGrid({
           <Badge
             variant="primary-light"
             size="sm"
-            className="bg-green-100/60 font-normal text-green-700/70"
+            className="bg-green-100/60 font-normal text-green-700/70 dark:bg-green-900/50 dark:text-green-500/90"
           >
             Chat
           </Badge>
@@ -139,7 +139,7 @@ export function DocumentGrid({
           <SortableItem key={item.id} value={item.id}>
             <div
               className={cn(
-                "group shadow-sm hover:shadow-md relative bg-background border-border hover:bg-accent/50 rounded-md cursor-pointer border p-4 transition-all duration-200 ease-in-out flex flex-col justify-between min-h-[150px]",
+                "group shadow-sm hover:shadow-md relative bg-slate-50 dark:bg-zinc-950 border-border hover:bg-accent/50 dark:hover:bg-accent/95 rounded-md cursor-pointer border p-4 transition-all duration-200 ease-in-out flex flex-col justify-between min-h-[150px]",
               )}
               onClick={() => {
                 router.push(`/dashboard/${item.id}`);

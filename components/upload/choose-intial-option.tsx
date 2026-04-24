@@ -49,7 +49,7 @@ const InitialOption = () => {
       >
         {options.map((option) => (
           <ChoiceboxItem
-            className="rounded-lg! border-dashed! bg-white!"
+            className="rounded-lg! border-dashed! bg-white! dark:bg-zinc-950! dark:border-zinc-200!"
             key={option.id}
             value={option.id}
           >

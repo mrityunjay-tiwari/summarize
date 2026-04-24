@@ -1,9 +1,10 @@
-export async function generateEmbeddingsInBatches(allTexts: string[]) {
-    const BATCH_SIZE = 15
+export async function generateEmbeddingsInBatches(allTexts: string[], signal?: AbortSignal) {
+    const BATCH_SIZE = 5
     let allEmbeddings: number[][] = []
 
     try {
         for (let i = 0; i < allTexts.length; i += BATCH_SIZE) {
+            if (signal?.aborted) throw new Error("AbortError");
             const textBatch = allTexts.slice(i, i + BATCH_SIZE);
             console.log(`Processing embedding batch ${Math.floor(i / BATCH_SIZE) + 1} of ${Math.ceil(allTexts.length / BATCH_SIZE)}...`)
 
@@ -11,7 +12,8 @@ export async function generateEmbeddingsInBatches(allTexts: string[]) {
               method: 'POST',
               body: JSON.stringify({
                 text: textBatch
-              })
+              }),
+              signal
             });
 
             if (!response.ok) {
@@ -25,6 +27,7 @@ export async function generateEmbeddingsInBatches(allTexts: string[]) {
             allEmbeddings.push(...batchVectors)
 
             if (i + BATCH_SIZE < allTexts.length) {
+                if (signal?.aborted) throw new Error("AbortError");
                 await new Promise((resolve) => setTimeout(resolve, 500))
             }
         }
@@ -32,7 +35,10 @@ export async function generateEmbeddingsInBatches(allTexts: string[]) {
         console.log('All embeddings fully generated! Total count:', allEmbeddings.length)
         return allEmbeddings;
         
-    } catch (error) {
+    } catch (error: any) {
+        if (error.name === "AbortError" || error.message === "AbortError") {
+            throw new Error("AbortError");
+        }
         console.error("Critical error during batch embedding generation:", error)
         throw error;
     }

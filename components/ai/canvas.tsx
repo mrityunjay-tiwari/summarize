@@ -19,7 +19,7 @@ import {
   useEdgesState,
   useNodesState,
 } from "@xyflow/react";
-import {PlusIcon, ZapIcon} from "lucide-react";
+import {PlusIcon, ZapIcon, MaximizeIcon, MinimizeIcon} from "lucide-react";
 import {useCallback, useMemo, useRef} from "react";
 import {Button} from "@/components/ui/button";
 
@@ -50,12 +50,19 @@ export const Canvas = ({children, ...props}: CanvasProps) => (
   </ReactFlow>
 );
 
-const AgentNode = ({data}: {data: {label: string}}) => (
-  <Node handles={{target: true, source: true}} className="w-[100px] h-[50px]">
-    <NodeHeader className="p-2">
-      <NodeTitle className="flex items-center gap-1.5 text-xs">
-        <VscActivateBreakpoints className="size-3" />
-        {data.label}
+export const AgentNode = ({data, id}: {data: {label: string, isCollapsed?: boolean, hasChildren?: boolean, onToggleCollapse?: (id: string) => void}, id: string}) => (
+  <Node handles={{target: true, source: true}} className="w-[200px] h-auto min-h-[50px] shadow-sm rounded-xl overflow-hidden border-border/60">
+    <NodeHeader className="p-3 cursor-pointer bg-transparent border-b-0" onClick={() => data.onToggleCollapse && data.onToggleCollapse(id)}>
+      <NodeTitle className="flex items-center justify-between gap-2 text-sm font-medium leading-snug whitespace-pre-wrap">
+        <div className="flex items-start gap-1.5">
+          <VscActivateBreakpoints className="size-3.5 shrink-0 mt-0.5 text-muted-foreground" />
+          <span className="text-foreground/90">{data.label}</span>
+        </div>
+        {data.hasChildren && (
+            <span className="text-muted-foreground/60 text-xs shrink-0 font-bold ml-1 bg-muted rounded-sm px-1.5 py-0.5">
+                {data.isCollapsed ? ">" : "<"}
+            </span>
+        )}
       </NodeTitle>
     </NodeHeader>
   </Node>
@@ -63,21 +70,18 @@ const AgentNode = ({data}: {data: {label: string}}) => (
 
 const initialNodes: ReactFlowNode[] = [
   {id: "1", type: "agent", position: {x: 50, y: 100}, data: {label: "Input"}},
-  {
-    id: "2",
-    type: "agent",
-    position: {x: 300, y: 100},
-    data: {label: "Process"},
-  },
+  {id: "2", type: "agent", position: {x: 300, y: 100}, data: {label: "Process"}},
   {id: "3", type: "agent", position: {x: 550, y: 100}, data: {label: "Output"}},
+  {id: "4", type: "agent", position: {x: 550, y: 200}, data: {label: "Node 4"}},
 ];
 
 const initialEdges: Edge[] = [
   {id: "e1-2", source: "1", target: "2"},
   {id: "e2-3", source: "2", target: "3"},
+  {id: "e2-4", source: "2", target: "4"},
 ];
 
-type FlowContentProps = {
+export type FlowContentProps = {
   nodes: ReactFlowNode[];
   edges: Edge[];
   onNodesChange: ReturnType<typeof useNodesState>[2];
@@ -86,9 +90,11 @@ type FlowContentProps = {
   nodeTypes: ReactFlowProps["nodeTypes"];
   flowRef: React.RefObject<HTMLDivElement | null>;
   addNode: () => void;
+  isFullscreen?: boolean;
+  toggleFullscreen?: () => void;
 };
 
-function FlowContent({
+export function FlowContent({
   nodes,
   edges,
   onNodesChange,
@@ -97,6 +103,8 @@ function FlowContent({
   nodeTypes,
   flowRef,
   addNode,
+  isFullscreen,
+  toggleFullscreen
 }: FlowContentProps) {
   const {fitView} = useReactFlow();
 
@@ -165,6 +173,11 @@ function FlowContent({
           {" "}
           <PlusIcon className="size-4" />
         </Button>
+        {toggleFullscreen && (
+          <Button variant={"outline"} size={"sm"} onClick={toggleFullscreen}>
+            {isFullscreen ? <MinimizeIcon className="size-4" /> : <MaximizeIcon className="size-4" />}
+          </Button>
+        )}
       </Panel>
     </Canvas>
   );
@@ -194,7 +207,7 @@ export default function CanvasDemo() {
   const flowRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={flowRef} className="h-screen w-full">
+    <div ref={flowRef} className="h-full w-full">
       <ReactFlowProvider>
         {/* <Canvas
           nodes={nodes}
@@ -229,3 +242,5 @@ export default function CanvasDemo() {
     </div>
   );
 }
+
+

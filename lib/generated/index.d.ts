@@ -53,6 +53,11 @@ export type DocumentChunk = $Result.DefaultSelection<Prisma.$DocumentChunkPayloa
  * 
  */
 export type GeneratedContent = $Result.DefaultSelection<Prisma.$GeneratedContentPayload>
+/**
+ * Model FeatureProgress
+ * 
+ */
+export type FeatureProgress = $Result.DefaultSelection<Prisma.$FeatureProgressPayload>
 
 /**
  * ##  Prisma Client ʲˢ
@@ -251,6 +256,16 @@ export class PrismaClient<
     * ```
     */
   get generatedContent(): Prisma.GeneratedContentDelegate<ExtArgs, ClientOptions>;
+
+  /**
+   * `prisma.featureProgress`: Exposes CRUD operations for the **FeatureProgress** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more FeatureProgresses
+    * const featureProgresses = await prisma.featureProgress.findMany()
+    * ```
+    */
+  get featureProgress(): Prisma.FeatureProgressDelegate<ExtArgs, ClientOptions>;
 }
 
 export namespace Prisma {
@@ -699,7 +714,8 @@ export namespace Prisma {
     PdfSummary: 'PdfSummary',
     Document: 'Document',
     DocumentChunk: 'DocumentChunk',
-    GeneratedContent: 'GeneratedContent'
+    GeneratedContent: 'GeneratedContent',
+    FeatureProgress: 'FeatureProgress'
   };
 
   export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -718,7 +734,7 @@ export namespace Prisma {
       omit: GlobalOmitOptions
     }
     meta: {
-      modelProps: "user" | "account" | "session" | "verificationToken" | "pdfSummary" | "document" | "documentChunk" | "generatedContent"
+      modelProps: "user" | "account" | "session" | "verificationToken" | "pdfSummary" | "document" | "documentChunk" | "generatedContent" | "featureProgress"
       txIsolationLevel: Prisma.TransactionIsolationLevel
     }
     model: {
@@ -1314,6 +1330,80 @@ export namespace Prisma {
           }
         }
       }
+      FeatureProgress: {
+        payload: Prisma.$FeatureProgressPayload<ExtArgs>
+        fields: Prisma.FeatureProgressFieldRefs
+        operations: {
+          findUnique: {
+            args: Prisma.FeatureProgressFindUniqueArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload> | null
+          }
+          findUniqueOrThrow: {
+            args: Prisma.FeatureProgressFindUniqueOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          findFirst: {
+            args: Prisma.FeatureProgressFindFirstArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload> | null
+          }
+          findFirstOrThrow: {
+            args: Prisma.FeatureProgressFindFirstOrThrowArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          findMany: {
+            args: Prisma.FeatureProgressFindManyArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>[]
+          }
+          create: {
+            args: Prisma.FeatureProgressCreateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          createMany: {
+            args: Prisma.FeatureProgressCreateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          createManyAndReturn: {
+            args: Prisma.FeatureProgressCreateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>[]
+          }
+          delete: {
+            args: Prisma.FeatureProgressDeleteArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          update: {
+            args: Prisma.FeatureProgressUpdateArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          deleteMany: {
+            args: Prisma.FeatureProgressDeleteManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateMany: {
+            args: Prisma.FeatureProgressUpdateManyArgs<ExtArgs>
+            result: BatchPayload
+          }
+          updateManyAndReturn: {
+            args: Prisma.FeatureProgressUpdateManyAndReturnArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>[]
+          }
+          upsert: {
+            args: Prisma.FeatureProgressUpsertArgs<ExtArgs>
+            result: $Utils.PayloadToResult<Prisma.$FeatureProgressPayload>
+          }
+          aggregate: {
+            args: Prisma.FeatureProgressAggregateArgs<ExtArgs>
+            result: $Utils.Optional<AggregateFeatureProgress>
+          }
+          groupBy: {
+            args: Prisma.FeatureProgressGroupByArgs<ExtArgs>
+            result: $Utils.Optional<FeatureProgressGroupByOutputType>[]
+          }
+          count: {
+            args: Prisma.FeatureProgressCountArgs<ExtArgs>
+            result: $Utils.Optional<FeatureProgressCountAggregateOutputType> | number
+          }
+        }
+      }
     }
   } & {
     other: {
@@ -1418,6 +1508,7 @@ export namespace Prisma {
     document?: DocumentOmit
     documentChunk?: DocumentChunkOmit
     generatedContent?: GeneratedContentOmit
+    featureProgress?: FeatureProgressOmit
   }
 
   /* Types for Logging */
@@ -1502,6 +1593,7 @@ export namespace Prisma {
     sessions: number
     summaries: number
     documents: number
+    feature_progress: number
   }
 
   export type UserCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -1509,6 +1601,7 @@ export namespace Prisma {
     sessions?: boolean | UserCountOutputTypeCountSessionsArgs
     summaries?: boolean | UserCountOutputTypeCountSummariesArgs
     documents?: boolean | UserCountOutputTypeCountDocumentsArgs
+    feature_progress?: boolean | UserCountOutputTypeCountFeature_progressArgs
   }
 
   // Custom InputTypes
@@ -1550,6 +1643,13 @@ export namespace Prisma {
     where?: DocumentWhereInput
   }
 
+  /**
+   * UserCountOutputType without action
+   */
+  export type UserCountOutputTypeCountFeature_progressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FeatureProgressWhereInput
+  }
+
 
   /**
    * Count Type DocumentCountOutputType
@@ -1588,6 +1688,37 @@ export namespace Prisma {
    */
   export type DocumentCountOutputTypeCountGenerated_contentArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     where?: GeneratedContentWhereInput
+  }
+
+
+  /**
+   * Count Type GeneratedContentCountOutputType
+   */
+
+  export type GeneratedContentCountOutputType = {
+    progress: number
+  }
+
+  export type GeneratedContentCountOutputTypeSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    progress?: boolean | GeneratedContentCountOutputTypeCountProgressArgs
+  }
+
+  // Custom InputTypes
+  /**
+   * GeneratedContentCountOutputType without action
+   */
+  export type GeneratedContentCountOutputTypeDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the GeneratedContentCountOutputType
+     */
+    select?: GeneratedContentCountOutputTypeSelect<ExtArgs> | null
+  }
+
+  /**
+   * GeneratedContentCountOutputType without action
+   */
+  export type GeneratedContentCountOutputTypeCountProgressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FeatureProgressWhereInput
   }
 
 
@@ -1779,6 +1910,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     summaries?: boolean | User$summariesArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    feature_progress?: boolean | User$feature_progressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["user"]>
 
@@ -1818,6 +1950,7 @@ export namespace Prisma {
     sessions?: boolean | User$sessionsArgs<ExtArgs>
     summaries?: boolean | User$summariesArgs<ExtArgs>
     documents?: boolean | User$documentsArgs<ExtArgs>
+    feature_progress?: boolean | User$feature_progressArgs<ExtArgs>
     _count?: boolean | UserCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type UserIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {}
@@ -1830,6 +1963,7 @@ export namespace Prisma {
       sessions: Prisma.$SessionPayload<ExtArgs>[]
       summaries: Prisma.$PdfSummaryPayload<ExtArgs>[]
       documents: Prisma.$DocumentPayload<ExtArgs>[]
+      feature_progress: Prisma.$FeatureProgressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
@@ -2237,6 +2371,7 @@ export namespace Prisma {
     sessions<T extends User$sessionsArgs<ExtArgs> = {}>(args?: Subset<T, User$sessionsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$SessionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     summaries<T extends User$summariesArgs<ExtArgs> = {}>(args?: Subset<T, User$summariesArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$PdfSummaryPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     documents<T extends User$documentsArgs<ExtArgs> = {}>(args?: Subset<T, User$documentsArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+    feature_progress<T extends User$feature_progressArgs<ExtArgs> = {}>(args?: Subset<T, User$feature_progressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2754,6 +2889,30 @@ export namespace Prisma {
     take?: number
     skip?: number
     distinct?: DocumentScalarFieldEnum | DocumentScalarFieldEnum[]
+  }
+
+  /**
+   * User.feature_progress
+   */
+  export type User$feature_progressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    where?: FeatureProgressWhereInput
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    cursor?: FeatureProgressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FeatureProgressScalarFieldEnum | FeatureProgressScalarFieldEnum[]
   }
 
   /**
@@ -9331,6 +9490,7 @@ export namespace Prisma {
     id: string | null
     document_id: string | null
     feature_type: string | null
+    title: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -9339,6 +9499,7 @@ export namespace Prisma {
     id: string | null
     document_id: string | null
     feature_type: string | null
+    title: string | null
     created_at: Date | null
     updated_at: Date | null
   }
@@ -9347,6 +9508,7 @@ export namespace Prisma {
     id: number
     document_id: number
     feature_type: number
+    title: number
     data: number
     created_at: number
     updated_at: number
@@ -9358,6 +9520,7 @@ export namespace Prisma {
     id?: true
     document_id?: true
     feature_type?: true
+    title?: true
     created_at?: true
     updated_at?: true
   }
@@ -9366,6 +9529,7 @@ export namespace Prisma {
     id?: true
     document_id?: true
     feature_type?: true
+    title?: true
     created_at?: true
     updated_at?: true
   }
@@ -9374,6 +9538,7 @@ export namespace Prisma {
     id?: true
     document_id?: true
     feature_type?: true
+    title?: true
     data?: true
     created_at?: true
     updated_at?: true
@@ -9456,6 +9621,7 @@ export namespace Prisma {
     id: string
     document_id: string
     feature_type: string
+    title: string | null
     data: JsonValue
     created_at: Date
     updated_at: Date
@@ -9482,16 +9648,20 @@ export namespace Prisma {
     id?: boolean
     document_id?: boolean
     feature_type?: boolean
+    title?: boolean
     data?: boolean
     created_at?: boolean
     updated_at?: boolean
     document?: boolean | DocumentDefaultArgs<ExtArgs>
+    progress?: boolean | GeneratedContent$progressArgs<ExtArgs>
+    _count?: boolean | GeneratedContentCountOutputTypeDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["generatedContent"]>
 
   export type GeneratedContentSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
     id?: boolean
     document_id?: boolean
     feature_type?: boolean
+    title?: boolean
     data?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -9502,6 +9672,7 @@ export namespace Prisma {
     id?: boolean
     document_id?: boolean
     feature_type?: boolean
+    title?: boolean
     data?: boolean
     created_at?: boolean
     updated_at?: boolean
@@ -9512,14 +9683,17 @@ export namespace Prisma {
     id?: boolean
     document_id?: boolean
     feature_type?: boolean
+    title?: boolean
     data?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type GeneratedContentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "document_id" | "feature_type" | "data" | "created_at" | "updated_at", ExtArgs["result"]["generatedContent"]>
+  export type GeneratedContentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "document_id" | "feature_type" | "title" | "data" | "created_at" | "updated_at", ExtArgs["result"]["generatedContent"]>
   export type GeneratedContentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     document?: boolean | DocumentDefaultArgs<ExtArgs>
+    progress?: boolean | GeneratedContent$progressArgs<ExtArgs>
+    _count?: boolean | GeneratedContentCountOutputTypeDefaultArgs<ExtArgs>
   }
   export type GeneratedContentIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     document?: boolean | DocumentDefaultArgs<ExtArgs>
@@ -9532,11 +9706,13 @@ export namespace Prisma {
     name: "GeneratedContent"
     objects: {
       document: Prisma.$DocumentPayload<ExtArgs>
+      progress: Prisma.$FeatureProgressPayload<ExtArgs>[]
     }
     scalars: $Extensions.GetPayloadResult<{
       id: string
       document_id: string
       feature_type: string
+      title: string | null
       data: Prisma.JsonValue
       created_at: Date
       updated_at: Date
@@ -9935,6 +10111,7 @@ export namespace Prisma {
   export interface Prisma__GeneratedContentClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
     readonly [Symbol.toStringTag]: "PrismaPromise"
     document<T extends DocumentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, DocumentDefaultArgs<ExtArgs>>): Prisma__DocumentClient<$Result.GetResult<Prisma.$DocumentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    progress<T extends GeneratedContent$progressArgs<ExtArgs> = {}>(args?: Subset<T, GeneratedContent$progressArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
     /**
      * Attaches callbacks for the resolution and/or rejection of the Promise.
      * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -9967,6 +10144,7 @@ export namespace Prisma {
     readonly id: FieldRef<"GeneratedContent", 'String'>
     readonly document_id: FieldRef<"GeneratedContent", 'String'>
     readonly feature_type: FieldRef<"GeneratedContent", 'String'>
+    readonly title: FieldRef<"GeneratedContent", 'String'>
     readonly data: FieldRef<"GeneratedContent", 'Json'>
     readonly created_at: FieldRef<"GeneratedContent", 'DateTime'>
     readonly updated_at: FieldRef<"GeneratedContent", 'DateTime'>
@@ -10366,6 +10544,30 @@ export namespace Prisma {
   }
 
   /**
+   * GeneratedContent.progress
+   */
+  export type GeneratedContent$progressArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    where?: FeatureProgressWhereInput
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    cursor?: FeatureProgressWhereUniqueInput
+    take?: number
+    skip?: number
+    distinct?: FeatureProgressScalarFieldEnum | FeatureProgressScalarFieldEnum[]
+  }
+
+  /**
    * GeneratedContent without action
    */
   export type GeneratedContentDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
@@ -10381,6 +10583,1103 @@ export namespace Prisma {
      * Choose, which related nodes to fetch as well
      */
     include?: GeneratedContentInclude<ExtArgs> | null
+  }
+
+
+  /**
+   * Model FeatureProgress
+   */
+
+  export type AggregateFeatureProgress = {
+    _count: FeatureProgressCountAggregateOutputType | null
+    _min: FeatureProgressMinAggregateOutputType | null
+    _max: FeatureProgressMaxAggregateOutputType | null
+  }
+
+  export type FeatureProgressMinAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    generated_content_id: string | null
+    is_completed: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type FeatureProgressMaxAggregateOutputType = {
+    id: string | null
+    user_id: string | null
+    generated_content_id: string | null
+    is_completed: boolean | null
+    created_at: Date | null
+    updated_at: Date | null
+  }
+
+  export type FeatureProgressCountAggregateOutputType = {
+    id: number
+    user_id: number
+    generated_content_id: number
+    is_completed: number
+    scores: number
+    attempts: number
+    created_at: number
+    updated_at: number
+    _all: number
+  }
+
+
+  export type FeatureProgressMinAggregateInputType = {
+    id?: true
+    user_id?: true
+    generated_content_id?: true
+    is_completed?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type FeatureProgressMaxAggregateInputType = {
+    id?: true
+    user_id?: true
+    generated_content_id?: true
+    is_completed?: true
+    created_at?: true
+    updated_at?: true
+  }
+
+  export type FeatureProgressCountAggregateInputType = {
+    id?: true
+    user_id?: true
+    generated_content_id?: true
+    is_completed?: true
+    scores?: true
+    attempts?: true
+    created_at?: true
+    updated_at?: true
+    _all?: true
+  }
+
+  export type FeatureProgressAggregateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FeatureProgress to aggregate.
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FeatureProgresses to fetch.
+     */
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the start position
+     */
+    cursor?: FeatureProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FeatureProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FeatureProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Count returned FeatureProgresses
+    **/
+    _count?: true | FeatureProgressCountAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the minimum value
+    **/
+    _min?: FeatureProgressMinAggregateInputType
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+     * 
+     * Select which fields to find the maximum value
+    **/
+    _max?: FeatureProgressMaxAggregateInputType
+  }
+
+  export type GetFeatureProgressAggregateType<T extends FeatureProgressAggregateArgs> = {
+        [P in keyof T & keyof AggregateFeatureProgress]: P extends '_count' | 'count'
+      ? T[P] extends true
+        ? number
+        : GetScalarType<T[P], AggregateFeatureProgress[P]>
+      : GetScalarType<T[P], AggregateFeatureProgress[P]>
+  }
+
+
+
+
+  export type FeatureProgressGroupByArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    where?: FeatureProgressWhereInput
+    orderBy?: FeatureProgressOrderByWithAggregationInput | FeatureProgressOrderByWithAggregationInput[]
+    by: FeatureProgressScalarFieldEnum[] | FeatureProgressScalarFieldEnum
+    having?: FeatureProgressScalarWhereWithAggregatesInput
+    take?: number
+    skip?: number
+    _count?: FeatureProgressCountAggregateInputType | true
+    _min?: FeatureProgressMinAggregateInputType
+    _max?: FeatureProgressMaxAggregateInputType
+  }
+
+  export type FeatureProgressGroupByOutputType = {
+    id: string
+    user_id: string
+    generated_content_id: string
+    is_completed: boolean
+    scores: JsonValue | null
+    attempts: JsonValue | null
+    created_at: Date
+    updated_at: Date
+    _count: FeatureProgressCountAggregateOutputType | null
+    _min: FeatureProgressMinAggregateOutputType | null
+    _max: FeatureProgressMaxAggregateOutputType | null
+  }
+
+  type GetFeatureProgressGroupByPayload<T extends FeatureProgressGroupByArgs> = Prisma.PrismaPromise<
+    Array<
+      PickEnumerable<FeatureProgressGroupByOutputType, T['by']> &
+        {
+          [P in ((keyof T) & (keyof FeatureProgressGroupByOutputType))]: P extends '_count'
+            ? T[P] extends boolean
+              ? number
+              : GetScalarType<T[P], FeatureProgressGroupByOutputType[P]>
+            : GetScalarType<T[P], FeatureProgressGroupByOutputType[P]>
+        }
+      >
+    >
+
+
+  export type FeatureProgressSelect<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    generated_content_id?: boolean
+    is_completed?: boolean
+    scores?: boolean
+    attempts?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["featureProgress"]>
+
+  export type FeatureProgressSelectCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    generated_content_id?: boolean
+    is_completed?: boolean
+    scores?: boolean
+    attempts?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["featureProgress"]>
+
+  export type FeatureProgressSelectUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetSelect<{
+    id?: boolean
+    user_id?: boolean
+    generated_content_id?: boolean
+    is_completed?: boolean
+    scores?: boolean
+    attempts?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }, ExtArgs["result"]["featureProgress"]>
+
+  export type FeatureProgressSelectScalar = {
+    id?: boolean
+    user_id?: boolean
+    generated_content_id?: boolean
+    is_completed?: boolean
+    scores?: boolean
+    attempts?: boolean
+    created_at?: boolean
+    updated_at?: boolean
+  }
+
+  export type FeatureProgressOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "generated_content_id" | "is_completed" | "scores" | "attempts" | "created_at" | "updated_at", ExtArgs["result"]["featureProgress"]>
+  export type FeatureProgressInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }
+  export type FeatureProgressIncludeCreateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }
+  export type FeatureProgressIncludeUpdateManyAndReturn<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    user?: boolean | UserDefaultArgs<ExtArgs>
+    generated_content?: boolean | GeneratedContentDefaultArgs<ExtArgs>
+  }
+
+  export type $FeatureProgressPayload<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    name: "FeatureProgress"
+    objects: {
+      user: Prisma.$UserPayload<ExtArgs>
+      generated_content: Prisma.$GeneratedContentPayload<ExtArgs>
+    }
+    scalars: $Extensions.GetPayloadResult<{
+      id: string
+      user_id: string
+      generated_content_id: string
+      is_completed: boolean
+      scores: Prisma.JsonValue | null
+      attempts: Prisma.JsonValue | null
+      created_at: Date
+      updated_at: Date
+    }, ExtArgs["result"]["featureProgress"]>
+    composites: {}
+  }
+
+  type FeatureProgressGetPayload<S extends boolean | null | undefined | FeatureProgressDefaultArgs> = $Result.GetResult<Prisma.$FeatureProgressPayload, S>
+
+  type FeatureProgressCountArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> =
+    Omit<FeatureProgressFindManyArgs, 'select' | 'include' | 'distinct' | 'omit'> & {
+      select?: FeatureProgressCountAggregateInputType | true
+    }
+
+  export interface FeatureProgressDelegate<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> {
+    [K: symbol]: { types: Prisma.TypeMap<ExtArgs>['model']['FeatureProgress'], meta: { name: 'FeatureProgress' } }
+    /**
+     * Find zero or one FeatureProgress that matches the filter.
+     * @param {FeatureProgressFindUniqueArgs} args - Arguments to find a FeatureProgress
+     * @example
+     * // Get one FeatureProgress
+     * const featureProgress = await prisma.featureProgress.findUnique({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUnique<T extends FeatureProgressFindUniqueArgs>(args: SelectSubset<T, FeatureProgressFindUniqueArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findUnique", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find one FeatureProgress that matches the filter or throw an error with `error.code='P2025'`
+     * if no matches were found.
+     * @param {FeatureProgressFindUniqueOrThrowArgs} args - Arguments to find a FeatureProgress
+     * @example
+     * // Get one FeatureProgress
+     * const featureProgress = await prisma.featureProgress.findUniqueOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findUniqueOrThrow<T extends FeatureProgressFindUniqueOrThrowArgs>(args: SelectSubset<T, FeatureProgressFindUniqueOrThrowArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FeatureProgress that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressFindFirstArgs} args - Arguments to find a FeatureProgress
+     * @example
+     * // Get one FeatureProgress
+     * const featureProgress = await prisma.featureProgress.findFirst({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirst<T extends FeatureProgressFindFirstArgs>(args?: SelectSubset<T, FeatureProgressFindFirstArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findFirst", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find the first FeatureProgress that matches the filter or
+     * throw `PrismaKnownClientError` with `P2025` code if no matches were found.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressFindFirstOrThrowArgs} args - Arguments to find a FeatureProgress
+     * @example
+     * // Get one FeatureProgress
+     * const featureProgress = await prisma.featureProgress.findFirstOrThrow({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     */
+    findFirstOrThrow<T extends FeatureProgressFindFirstOrThrowArgs>(args?: SelectSubset<T, FeatureProgressFindFirstOrThrowArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findFirstOrThrow", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Find zero or more FeatureProgresses that matches the filter.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressFindManyArgs} args - Arguments to filter and select certain fields only.
+     * @example
+     * // Get all FeatureProgresses
+     * const featureProgresses = await prisma.featureProgress.findMany()
+     * 
+     * // Get first 10 FeatureProgresses
+     * const featureProgresses = await prisma.featureProgress.findMany({ take: 10 })
+     * 
+     * // Only select the `id`
+     * const featureProgressWithIdOnly = await prisma.featureProgress.findMany({ select: { id: true } })
+     * 
+     */
+    findMany<T extends FeatureProgressFindManyArgs>(args?: SelectSubset<T, FeatureProgressFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
+
+    /**
+     * Create a FeatureProgress.
+     * @param {FeatureProgressCreateArgs} args - Arguments to create a FeatureProgress.
+     * @example
+     * // Create one FeatureProgress
+     * const FeatureProgress = await prisma.featureProgress.create({
+     *   data: {
+     *     // ... data to create a FeatureProgress
+     *   }
+     * })
+     * 
+     */
+    create<T extends FeatureProgressCreateArgs>(args: SelectSubset<T, FeatureProgressCreateArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "create", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Create many FeatureProgresses.
+     * @param {FeatureProgressCreateManyArgs} args - Arguments to create many FeatureProgresses.
+     * @example
+     * // Create many FeatureProgresses
+     * const featureProgress = await prisma.featureProgress.createMany({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     *     
+     */
+    createMany<T extends FeatureProgressCreateManyArgs>(args?: SelectSubset<T, FeatureProgressCreateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Create many FeatureProgresses and returns the data saved in the database.
+     * @param {FeatureProgressCreateManyAndReturnArgs} args - Arguments to create many FeatureProgresses.
+     * @example
+     * // Create many FeatureProgresses
+     * const featureProgress = await prisma.featureProgress.createManyAndReturn({
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Create many FeatureProgresses and only return the `id`
+     * const featureProgressWithIdOnly = await prisma.featureProgress.createManyAndReturn({
+     *   select: { id: true },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    createManyAndReturn<T extends FeatureProgressCreateManyAndReturnArgs>(args?: SelectSubset<T, FeatureProgressCreateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "createManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Delete a FeatureProgress.
+     * @param {FeatureProgressDeleteArgs} args - Arguments to delete one FeatureProgress.
+     * @example
+     * // Delete one FeatureProgress
+     * const FeatureProgress = await prisma.featureProgress.delete({
+     *   where: {
+     *     // ... filter to delete one FeatureProgress
+     *   }
+     * })
+     * 
+     */
+    delete<T extends FeatureProgressDeleteArgs>(args: SelectSubset<T, FeatureProgressDeleteArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "delete", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Update one FeatureProgress.
+     * @param {FeatureProgressUpdateArgs} args - Arguments to update one FeatureProgress.
+     * @example
+     * // Update one FeatureProgress
+     * const featureProgress = await prisma.featureProgress.update({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    update<T extends FeatureProgressUpdateArgs>(args: SelectSubset<T, FeatureProgressUpdateArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "update", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+    /**
+     * Delete zero or more FeatureProgresses.
+     * @param {FeatureProgressDeleteManyArgs} args - Arguments to filter FeatureProgresses to delete.
+     * @example
+     * // Delete a few FeatureProgresses
+     * const { count } = await prisma.featureProgress.deleteMany({
+     *   where: {
+     *     // ... provide filter here
+     *   }
+     * })
+     * 
+     */
+    deleteMany<T extends FeatureProgressDeleteManyArgs>(args?: SelectSubset<T, FeatureProgressDeleteManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FeatureProgresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressUpdateManyArgs} args - Arguments to update one or more rows.
+     * @example
+     * // Update many FeatureProgresses
+     * const featureProgress = await prisma.featureProgress.updateMany({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: {
+     *     // ... provide data here
+     *   }
+     * })
+     * 
+     */
+    updateMany<T extends FeatureProgressUpdateManyArgs>(args: SelectSubset<T, FeatureProgressUpdateManyArgs<ExtArgs>>): Prisma.PrismaPromise<BatchPayload>
+
+    /**
+     * Update zero or more FeatureProgresses and returns the data updated in the database.
+     * @param {FeatureProgressUpdateManyAndReturnArgs} args - Arguments to update many FeatureProgresses.
+     * @example
+     * // Update many FeatureProgresses
+     * const featureProgress = await prisma.featureProgress.updateManyAndReturn({
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * 
+     * // Update zero or more FeatureProgresses and only return the `id`
+     * const featureProgressWithIdOnly = await prisma.featureProgress.updateManyAndReturn({
+     *   select: { id: true },
+     *   where: {
+     *     // ... provide filter here
+     *   },
+     *   data: [
+     *     // ... provide data here
+     *   ]
+     * })
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * 
+     */
+    updateManyAndReturn<T extends FeatureProgressUpdateManyAndReturnArgs>(args: SelectSubset<T, FeatureProgressUpdateManyAndReturnArgs<ExtArgs>>): Prisma.PrismaPromise<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "updateManyAndReturn", GlobalOmitOptions>>
+
+    /**
+     * Create or update one FeatureProgress.
+     * @param {FeatureProgressUpsertArgs} args - Arguments to update or create a FeatureProgress.
+     * @example
+     * // Update or create a FeatureProgress
+     * const featureProgress = await prisma.featureProgress.upsert({
+     *   create: {
+     *     // ... data to create a FeatureProgress
+     *   },
+     *   update: {
+     *     // ... in case it already exists, update
+     *   },
+     *   where: {
+     *     // ... the filter for the FeatureProgress we want to update
+     *   }
+     * })
+     */
+    upsert<T extends FeatureProgressUpsertArgs>(args: SelectSubset<T, FeatureProgressUpsertArgs<ExtArgs>>): Prisma__FeatureProgressClient<$Result.GetResult<Prisma.$FeatureProgressPayload<ExtArgs>, T, "upsert", GlobalOmitOptions>, never, ExtArgs, GlobalOmitOptions>
+
+
+    /**
+     * Count the number of FeatureProgresses.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressCountArgs} args - Arguments to filter FeatureProgresses to count.
+     * @example
+     * // Count the number of FeatureProgresses
+     * const count = await prisma.featureProgress.count({
+     *   where: {
+     *     // ... the filter for the FeatureProgresses we want to count
+     *   }
+     * })
+    **/
+    count<T extends FeatureProgressCountArgs>(
+      args?: Subset<T, FeatureProgressCountArgs>,
+    ): Prisma.PrismaPromise<
+      T extends $Utils.Record<'select', any>
+        ? T['select'] extends true
+          ? number
+          : GetScalarType<T['select'], FeatureProgressCountAggregateOutputType>
+        : number
+    >
+
+    /**
+     * Allows you to perform aggregations operations on a FeatureProgress.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressAggregateArgs} args - Select which aggregations you would like to apply and on what fields.
+     * @example
+     * // Ordered by age ascending
+     * // Where email contains prisma.io
+     * // Limited to the 10 users
+     * const aggregations = await prisma.user.aggregate({
+     *   _avg: {
+     *     age: true,
+     *   },
+     *   where: {
+     *     email: {
+     *       contains: "prisma.io",
+     *     },
+     *   },
+     *   orderBy: {
+     *     age: "asc",
+     *   },
+     *   take: 10,
+     * })
+    **/
+    aggregate<T extends FeatureProgressAggregateArgs>(args: Subset<T, FeatureProgressAggregateArgs>): Prisma.PrismaPromise<GetFeatureProgressAggregateType<T>>
+
+    /**
+     * Group by FeatureProgress.
+     * Note, that providing `undefined` is treated as the value not being there.
+     * Read more here: https://pris.ly/d/null-undefined
+     * @param {FeatureProgressGroupByArgs} args - Group by arguments.
+     * @example
+     * // Group by city, order by createdAt, get count
+     * const result = await prisma.user.groupBy({
+     *   by: ['city', 'createdAt'],
+     *   orderBy: {
+     *     createdAt: true
+     *   },
+     *   _count: {
+     *     _all: true
+     *   },
+     * })
+     * 
+    **/
+    groupBy<
+      T extends FeatureProgressGroupByArgs,
+      HasSelectOrTake extends Or<
+        Extends<'skip', Keys<T>>,
+        Extends<'take', Keys<T>>
+      >,
+      OrderByArg extends True extends HasSelectOrTake
+        ? { orderBy: FeatureProgressGroupByArgs['orderBy'] }
+        : { orderBy?: FeatureProgressGroupByArgs['orderBy'] },
+      OrderFields extends ExcludeUnderscoreKeys<Keys<MaybeTupleToUnion<T['orderBy']>>>,
+      ByFields extends MaybeTupleToUnion<T['by']>,
+      ByValid extends Has<ByFields, OrderFields>,
+      HavingFields extends GetHavingFields<T['having']>,
+      HavingValid extends Has<ByFields, HavingFields>,
+      ByEmpty extends T['by'] extends never[] ? True : False,
+      InputErrors extends ByEmpty extends True
+      ? `Error: "by" must not be empty.`
+      : HavingValid extends False
+      ? {
+          [P in HavingFields]: P extends ByFields
+            ? never
+            : P extends string
+            ? `Error: Field "${P}" used in "having" needs to be provided in "by".`
+            : [
+                Error,
+                'Field ',
+                P,
+                ` in "having" needs to be provided in "by"`,
+              ]
+        }[HavingFields]
+      : 'take' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "take", you also need to provide "orderBy"'
+      : 'skip' extends Keys<T>
+      ? 'orderBy' extends Keys<T>
+        ? ByValid extends True
+          ? {}
+          : {
+              [P in OrderFields]: P extends ByFields
+                ? never
+                : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+            }[OrderFields]
+        : 'Error: If you provide "skip", you also need to provide "orderBy"'
+      : ByValid extends True
+      ? {}
+      : {
+          [P in OrderFields]: P extends ByFields
+            ? never
+            : `Error: Field "${P}" in "orderBy" needs to be provided in "by"`
+        }[OrderFields]
+    >(args: SubsetIntersection<T, FeatureProgressGroupByArgs, OrderByArg> & InputErrors): {} extends InputErrors ? GetFeatureProgressGroupByPayload<T> : Prisma.PrismaPromise<InputErrors>
+  /**
+   * Fields of the FeatureProgress model
+   */
+  readonly fields: FeatureProgressFieldRefs;
+  }
+
+  /**
+   * The delegate class that acts as a "Promise-like" for FeatureProgress.
+   * Why is this prefixed with `Prisma__`?
+   * Because we want to prevent naming conflicts as mentioned in
+   * https://github.com/prisma/prisma-client-js/issues/707
+   */
+  export interface Prisma__FeatureProgressClient<T, Null = never, ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
+    readonly [Symbol.toStringTag]: "PrismaPromise"
+    user<T extends UserDefaultArgs<ExtArgs> = {}>(args?: Subset<T, UserDefaultArgs<ExtArgs>>): Prisma__UserClient<$Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    generated_content<T extends GeneratedContentDefaultArgs<ExtArgs> = {}>(args?: Subset<T, GeneratedContentDefaultArgs<ExtArgs>>): Prisma__GeneratedContentClient<$Result.GetResult<Prisma.$GeneratedContentPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+    /**
+     * Attaches callbacks for the resolution and/or rejection of the Promise.
+     * @param onfulfilled The callback to execute when the Promise is resolved.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of which ever callback is executed.
+     */
+    then<TResult1 = T, TResult2 = never>(onfulfilled?: ((value: T) => TResult1 | PromiseLike<TResult1>) | undefined | null, onrejected?: ((reason: any) => TResult2 | PromiseLike<TResult2>) | undefined | null): $Utils.JsPromise<TResult1 | TResult2>
+    /**
+     * Attaches a callback for only the rejection of the Promise.
+     * @param onrejected The callback to execute when the Promise is rejected.
+     * @returns A Promise for the completion of the callback.
+     */
+    catch<TResult = never>(onrejected?: ((reason: any) => TResult | PromiseLike<TResult>) | undefined | null): $Utils.JsPromise<T | TResult>
+    /**
+     * Attaches a callback that is invoked when the Promise is settled (fulfilled or rejected). The
+     * resolved value cannot be modified from the callback.
+     * @param onfinally The callback to execute when the Promise is settled (fulfilled or rejected).
+     * @returns A Promise for the completion of the callback.
+     */
+    finally(onfinally?: (() => void) | undefined | null): $Utils.JsPromise<T>
+  }
+
+
+
+
+  /**
+   * Fields of the FeatureProgress model
+   */
+  interface FeatureProgressFieldRefs {
+    readonly id: FieldRef<"FeatureProgress", 'String'>
+    readonly user_id: FieldRef<"FeatureProgress", 'String'>
+    readonly generated_content_id: FieldRef<"FeatureProgress", 'String'>
+    readonly is_completed: FieldRef<"FeatureProgress", 'Boolean'>
+    readonly scores: FieldRef<"FeatureProgress", 'Json'>
+    readonly attempts: FieldRef<"FeatureProgress", 'Json'>
+    readonly created_at: FieldRef<"FeatureProgress", 'DateTime'>
+    readonly updated_at: FieldRef<"FeatureProgress", 'DateTime'>
+  }
+    
+
+  // Custom InputTypes
+  /**
+   * FeatureProgress findUnique
+   */
+  export type FeatureProgressFindUniqueArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which FeatureProgress to fetch.
+     */
+    where: FeatureProgressWhereUniqueInput
+  }
+
+  /**
+   * FeatureProgress findUniqueOrThrow
+   */
+  export type FeatureProgressFindUniqueOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which FeatureProgress to fetch.
+     */
+    where: FeatureProgressWhereUniqueInput
+  }
+
+  /**
+   * FeatureProgress findFirst
+   */
+  export type FeatureProgressFindFirstArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which FeatureProgress to fetch.
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FeatureProgresses to fetch.
+     */
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FeatureProgresses.
+     */
+    cursor?: FeatureProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FeatureProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FeatureProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FeatureProgresses.
+     */
+    distinct?: FeatureProgressScalarFieldEnum | FeatureProgressScalarFieldEnum[]
+  }
+
+  /**
+   * FeatureProgress findFirstOrThrow
+   */
+  export type FeatureProgressFindFirstOrThrowArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which FeatureProgress to fetch.
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FeatureProgresses to fetch.
+     */
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for searching for FeatureProgresses.
+     */
+    cursor?: FeatureProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FeatureProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FeatureProgresses.
+     */
+    skip?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/distinct Distinct Docs}
+     * 
+     * Filter by unique combinations of FeatureProgresses.
+     */
+    distinct?: FeatureProgressScalarFieldEnum | FeatureProgressScalarFieldEnum[]
+  }
+
+  /**
+   * FeatureProgress findMany
+   */
+  export type FeatureProgressFindManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter, which FeatureProgresses to fetch.
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/sorting Sorting Docs}
+     * 
+     * Determine the order of FeatureProgresses to fetch.
+     */
+    orderBy?: FeatureProgressOrderByWithRelationInput | FeatureProgressOrderByWithRelationInput[]
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination#cursor-based-pagination Cursor Docs}
+     * 
+     * Sets the position for listing FeatureProgresses.
+     */
+    cursor?: FeatureProgressWhereUniqueInput
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Take `±n` FeatureProgresses from the position of the cursor.
+     */
+    take?: number
+    /**
+     * {@link https://www.prisma.io/docs/concepts/components/prisma-client/pagination Pagination Docs}
+     * 
+     * Skip the first `n` FeatureProgresses.
+     */
+    skip?: number
+    distinct?: FeatureProgressScalarFieldEnum | FeatureProgressScalarFieldEnum[]
+  }
+
+  /**
+   * FeatureProgress create
+   */
+  export type FeatureProgressCreateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * The data needed to create a FeatureProgress.
+     */
+    data: XOR<FeatureProgressCreateInput, FeatureProgressUncheckedCreateInput>
+  }
+
+  /**
+   * FeatureProgress createMany
+   */
+  export type FeatureProgressCreateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to create many FeatureProgresses.
+     */
+    data: FeatureProgressCreateManyInput | FeatureProgressCreateManyInput[]
+    skipDuplicates?: boolean
+  }
+
+  /**
+   * FeatureProgress createManyAndReturn
+   */
+  export type FeatureProgressCreateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelectCreateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * The data used to create many FeatureProgresses.
+     */
+    data: FeatureProgressCreateManyInput | FeatureProgressCreateManyInput[]
+    skipDuplicates?: boolean
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressIncludeCreateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FeatureProgress update
+   */
+  export type FeatureProgressUpdateArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * The data needed to update a FeatureProgress.
+     */
+    data: XOR<FeatureProgressUpdateInput, FeatureProgressUncheckedUpdateInput>
+    /**
+     * Choose, which FeatureProgress to update.
+     */
+    where: FeatureProgressWhereUniqueInput
+  }
+
+  /**
+   * FeatureProgress updateMany
+   */
+  export type FeatureProgressUpdateManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * The data used to update FeatureProgresses.
+     */
+    data: XOR<FeatureProgressUpdateManyMutationInput, FeatureProgressUncheckedUpdateManyInput>
+    /**
+     * Filter which FeatureProgresses to update
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * Limit how many FeatureProgresses to update.
+     */
+    limit?: number
+  }
+
+  /**
+   * FeatureProgress updateManyAndReturn
+   */
+  export type FeatureProgressUpdateManyAndReturnArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelectUpdateManyAndReturn<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * The data used to update FeatureProgresses.
+     */
+    data: XOR<FeatureProgressUpdateManyMutationInput, FeatureProgressUncheckedUpdateManyInput>
+    /**
+     * Filter which FeatureProgresses to update
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * Limit how many FeatureProgresses to update.
+     */
+    limit?: number
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressIncludeUpdateManyAndReturn<ExtArgs> | null
+  }
+
+  /**
+   * FeatureProgress upsert
+   */
+  export type FeatureProgressUpsertArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * The filter to search for the FeatureProgress to update in case it exists.
+     */
+    where: FeatureProgressWhereUniqueInput
+    /**
+     * In case the FeatureProgress found by the `where` argument doesn't exist, create a new FeatureProgress with this data.
+     */
+    create: XOR<FeatureProgressCreateInput, FeatureProgressUncheckedCreateInput>
+    /**
+     * In case the FeatureProgress was found with the provided `where` argument, update it with this data.
+     */
+    update: XOR<FeatureProgressUpdateInput, FeatureProgressUncheckedUpdateInput>
+  }
+
+  /**
+   * FeatureProgress delete
+   */
+  export type FeatureProgressDeleteArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
+    /**
+     * Filter which FeatureProgress to delete.
+     */
+    where: FeatureProgressWhereUniqueInput
+  }
+
+  /**
+   * FeatureProgress deleteMany
+   */
+  export type FeatureProgressDeleteManyArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Filter which FeatureProgresses to delete
+     */
+    where?: FeatureProgressWhereInput
+    /**
+     * Limit how many FeatureProgresses to delete.
+     */
+    limit?: number
+  }
+
+  /**
+   * FeatureProgress without action
+   */
+  export type FeatureProgressDefaultArgs<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
+    /**
+     * Select specific fields to fetch from the FeatureProgress
+     */
+    select?: FeatureProgressSelect<ExtArgs> | null
+    /**
+     * Omit specific fields from the FeatureProgress
+     */
+    omit?: FeatureProgressOmit<ExtArgs> | null
+    /**
+     * Choose, which related nodes to fetch as well
+     */
+    include?: FeatureProgressInclude<ExtArgs> | null
   }
 
 
@@ -10494,12 +11793,27 @@ export namespace Prisma {
     id: 'id',
     document_id: 'document_id',
     feature_type: 'feature_type',
+    title: 'title',
     data: 'data',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
 
   export type GeneratedContentScalarFieldEnum = (typeof GeneratedContentScalarFieldEnum)[keyof typeof GeneratedContentScalarFieldEnum]
+
+
+  export const FeatureProgressScalarFieldEnum: {
+    id: 'id',
+    user_id: 'user_id',
+    generated_content_id: 'generated_content_id',
+    is_completed: 'is_completed',
+    scores: 'scores',
+    attempts: 'attempts',
+    created_at: 'created_at',
+    updated_at: 'updated_at'
+  };
+
+  export type FeatureProgressScalarFieldEnum = (typeof FeatureProgressScalarFieldEnum)[keyof typeof FeatureProgressScalarFieldEnum]
 
 
   export const SortOrder: {
@@ -10515,6 +11829,14 @@ export namespace Prisma {
   };
 
   export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+  export const NullableJsonNullValueInput: {
+    DbNull: typeof DbNull,
+    JsonNull: typeof JsonNull
+  };
+
+  export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
   export const QueryMode: {
@@ -10604,6 +11926,13 @@ export namespace Prisma {
 
 
   /**
+   * Reference to a field of type 'Boolean'
+   */
+  export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
+    
+
+
+  /**
    * Reference to a field of type 'Float'
    */
   export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
@@ -10635,6 +11964,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     summaries?: PdfSummaryListRelationFilter
     documents?: DocumentListRelationFilter
+    feature_progress?: FeatureProgressListRelationFilter
   }
 
   export type UserOrderByWithRelationInput = {
@@ -10649,6 +11979,7 @@ export namespace Prisma {
     sessions?: SessionOrderByRelationAggregateInput
     summaries?: PdfSummaryOrderByRelationAggregateInput
     documents?: DocumentOrderByRelationAggregateInput
+    feature_progress?: FeatureProgressOrderByRelationAggregateInput
   }
 
   export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -10666,6 +11997,7 @@ export namespace Prisma {
     sessions?: SessionListRelationFilter
     summaries?: PdfSummaryListRelationFilter
     documents?: DocumentListRelationFilter
+    feature_progress?: FeatureProgressListRelationFilter
   }, "id" | "email">
 
   export type UserOrderByWithAggregationInput = {
@@ -11103,20 +12435,24 @@ export namespace Prisma {
     id?: StringFilter<"GeneratedContent"> | string
     document_id?: StringFilter<"GeneratedContent"> | string
     feature_type?: StringFilter<"GeneratedContent"> | string
+    title?: StringNullableFilter<"GeneratedContent"> | string | null
     data?: JsonFilter<"GeneratedContent">
     created_at?: DateTimeFilter<"GeneratedContent"> | Date | string
     updated_at?: DateTimeFilter<"GeneratedContent"> | Date | string
     document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    progress?: FeatureProgressListRelationFilter
   }
 
   export type GeneratedContentOrderByWithRelationInput = {
     id?: SortOrder
     document_id?: SortOrder
     feature_type?: SortOrder
+    title?: SortOrderInput | SortOrder
     data?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     document?: DocumentOrderByWithRelationInput
+    progress?: FeatureProgressOrderByRelationAggregateInput
   }
 
   export type GeneratedContentWhereUniqueInput = Prisma.AtLeast<{
@@ -11126,16 +12462,19 @@ export namespace Prisma {
     NOT?: GeneratedContentWhereInput | GeneratedContentWhereInput[]
     document_id?: StringFilter<"GeneratedContent"> | string
     feature_type?: StringFilter<"GeneratedContent"> | string
+    title?: StringNullableFilter<"GeneratedContent"> | string | null
     data?: JsonFilter<"GeneratedContent">
     created_at?: DateTimeFilter<"GeneratedContent"> | Date | string
     updated_at?: DateTimeFilter<"GeneratedContent"> | Date | string
     document?: XOR<DocumentScalarRelationFilter, DocumentWhereInput>
+    progress?: FeatureProgressListRelationFilter
   }, "id">
 
   export type GeneratedContentOrderByWithAggregationInput = {
     id?: SortOrder
     document_id?: SortOrder
     feature_type?: SortOrder
+    title?: SortOrderInput | SortOrder
     data?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -11151,9 +12490,84 @@ export namespace Prisma {
     id?: StringWithAggregatesFilter<"GeneratedContent"> | string
     document_id?: StringWithAggregatesFilter<"GeneratedContent"> | string
     feature_type?: StringWithAggregatesFilter<"GeneratedContent"> | string
+    title?: StringNullableWithAggregatesFilter<"GeneratedContent"> | string | null
     data?: JsonWithAggregatesFilter<"GeneratedContent">
     created_at?: DateTimeWithAggregatesFilter<"GeneratedContent"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"GeneratedContent"> | Date | string
+  }
+
+  export type FeatureProgressWhereInput = {
+    AND?: FeatureProgressWhereInput | FeatureProgressWhereInput[]
+    OR?: FeatureProgressWhereInput[]
+    NOT?: FeatureProgressWhereInput | FeatureProgressWhereInput[]
+    id?: StringFilter<"FeatureProgress"> | string
+    user_id?: StringFilter<"FeatureProgress"> | string
+    generated_content_id?: StringFilter<"FeatureProgress"> | string
+    is_completed?: BoolFilter<"FeatureProgress"> | boolean
+    scores?: JsonNullableFilter<"FeatureProgress">
+    attempts?: JsonNullableFilter<"FeatureProgress">
+    created_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+    updated_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    generated_content?: XOR<GeneratedContentScalarRelationFilter, GeneratedContentWhereInput>
+  }
+
+  export type FeatureProgressOrderByWithRelationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    generated_content_id?: SortOrder
+    is_completed?: SortOrder
+    scores?: SortOrderInput | SortOrder
+    attempts?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    user?: UserOrderByWithRelationInput
+    generated_content?: GeneratedContentOrderByWithRelationInput
+  }
+
+  export type FeatureProgressWhereUniqueInput = Prisma.AtLeast<{
+    id?: string
+    user_id_generated_content_id?: FeatureProgressUser_idGenerated_content_idCompoundUniqueInput
+    AND?: FeatureProgressWhereInput | FeatureProgressWhereInput[]
+    OR?: FeatureProgressWhereInput[]
+    NOT?: FeatureProgressWhereInput | FeatureProgressWhereInput[]
+    user_id?: StringFilter<"FeatureProgress"> | string
+    generated_content_id?: StringFilter<"FeatureProgress"> | string
+    is_completed?: BoolFilter<"FeatureProgress"> | boolean
+    scores?: JsonNullableFilter<"FeatureProgress">
+    attempts?: JsonNullableFilter<"FeatureProgress">
+    created_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+    updated_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+    user?: XOR<UserScalarRelationFilter, UserWhereInput>
+    generated_content?: XOR<GeneratedContentScalarRelationFilter, GeneratedContentWhereInput>
+  }, "id" | "user_id_generated_content_id">
+
+  export type FeatureProgressOrderByWithAggregationInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    generated_content_id?: SortOrder
+    is_completed?: SortOrder
+    scores?: SortOrderInput | SortOrder
+    attempts?: SortOrderInput | SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+    _count?: FeatureProgressCountOrderByAggregateInput
+    _max?: FeatureProgressMaxOrderByAggregateInput
+    _min?: FeatureProgressMinOrderByAggregateInput
+  }
+
+  export type FeatureProgressScalarWhereWithAggregatesInput = {
+    AND?: FeatureProgressScalarWhereWithAggregatesInput | FeatureProgressScalarWhereWithAggregatesInput[]
+    OR?: FeatureProgressScalarWhereWithAggregatesInput[]
+    NOT?: FeatureProgressScalarWhereWithAggregatesInput | FeatureProgressScalarWhereWithAggregatesInput[]
+    id?: StringWithAggregatesFilter<"FeatureProgress"> | string
+    user_id?: StringWithAggregatesFilter<"FeatureProgress"> | string
+    generated_content_id?: StringWithAggregatesFilter<"FeatureProgress"> | string
+    is_completed?: BoolWithAggregatesFilter<"FeatureProgress"> | boolean
+    scores?: JsonNullableWithAggregatesFilter<"FeatureProgress">
+    attempts?: JsonNullableWithAggregatesFilter<"FeatureProgress">
+    created_at?: DateTimeWithAggregatesFilter<"FeatureProgress"> | Date | string
+    updated_at?: DateTimeWithAggregatesFilter<"FeatureProgress"> | Date | string
   }
 
   export type UserCreateInput = {
@@ -11168,6 +12582,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryCreateNestedManyWithoutUserInput
     documents?: DocumentCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateInput = {
@@ -11182,6 +12597,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryUncheckedCreateNestedManyWithoutUserInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserUpdateInput = {
@@ -11196,6 +12612,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUpdateManyWithoutUserNestedInput
     documents?: DocumentUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateInput = {
@@ -11210,6 +12627,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUncheckedUpdateManyWithoutUserNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateManyInput = {
@@ -11675,43 +13093,52 @@ export namespace Prisma {
   export type GeneratedContentCreateInput = {
     id?: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     document: DocumentCreateNestedOneWithoutGenerated_contentInput
+    progress?: FeatureProgressCreateNestedManyWithoutGenerated_contentInput
   }
 
   export type GeneratedContentUncheckedCreateInput = {
     id?: string
     document_id: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    progress?: FeatureProgressUncheckedCreateNestedManyWithoutGenerated_contentInput
   }
 
   export type GeneratedContentUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     document?: DocumentUpdateOneRequiredWithoutGenerated_contentNestedInput
+    progress?: FeatureProgressUpdateManyWithoutGenerated_contentNestedInput
   }
 
   export type GeneratedContentUncheckedUpdateInput = {
     id?: StringFieldUpdateOperationsInput | string
     document_id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    progress?: FeatureProgressUncheckedUpdateManyWithoutGenerated_contentNestedInput
   }
 
   export type GeneratedContentCreateManyInput = {
     id?: string
     document_id: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -11720,6 +13147,7 @@ export namespace Prisma {
   export type GeneratedContentUpdateManyMutationInput = {
     id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -11729,7 +13157,83 @@ export namespace Prisma {
     id?: StringFieldUpdateOperationsInput | string
     document_id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressCreateInput = {
+    id?: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutFeature_progressInput
+    generated_content: GeneratedContentCreateNestedOneWithoutProgressInput
+  }
+
+  export type FeatureProgressUncheckedCreateInput = {
+    id?: string
+    user_id: string
+    generated_content_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFeature_progressNestedInput
+    generated_content?: GeneratedContentUpdateOneRequiredWithoutProgressNestedInput
+  }
+
+  export type FeatureProgressUncheckedUpdateInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    generated_content_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressCreateManyInput = {
+    id?: string
+    user_id: string
+    generated_content_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressUpdateManyMutationInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressUncheckedUpdateManyInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    generated_content_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -11810,6 +13314,12 @@ export namespace Prisma {
     none?: DocumentWhereInput
   }
 
+  export type FeatureProgressListRelationFilter = {
+    every?: FeatureProgressWhereInput
+    some?: FeatureProgressWhereInput
+    none?: FeatureProgressWhereInput
+  }
+
   export type SortOrderInput = {
     sort: SortOrder
     nulls?: NullsOrder
@@ -11828,6 +13338,10 @@ export namespace Prisma {
   }
 
   export type DocumentOrderByRelationAggregateInput = {
+    _count?: SortOrder
+  }
+
+  export type FeatureProgressOrderByRelationAggregateInput = {
     _count?: SortOrder
   }
 
@@ -12234,6 +13748,7 @@ export namespace Prisma {
     id?: SortOrder
     document_id?: SortOrder
     feature_type?: SortOrder
+    title?: SortOrder
     data?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
@@ -12243,6 +13758,7 @@ export namespace Prisma {
     id?: SortOrder
     document_id?: SortOrder
     feature_type?: SortOrder
+    title?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -12251,8 +13767,110 @@ export namespace Prisma {
     id?: SortOrder
     document_id?: SortOrder
     feature_type?: SortOrder
+    title?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+
+  export type BoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
+  export type GeneratedContentScalarRelationFilter = {
+    is?: GeneratedContentWhereInput
+    isNot?: GeneratedContentWhereInput
+  }
+
+  export type FeatureProgressUser_idGenerated_content_idCompoundUniqueInput = {
+    user_id: string
+    generated_content_id: string
+  }
+
+  export type FeatureProgressCountOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    generated_content_id?: SortOrder
+    is_completed?: SortOrder
+    scores?: SortOrder
+    attempts?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type FeatureProgressMaxOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    generated_content_id?: SortOrder
+    is_completed?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type FeatureProgressMinOrderByAggregateInput = {
+    id?: SortOrder
+    user_id?: SortOrder
+    generated_content_id?: SortOrder
+    is_completed?: SortOrder
+    created_at?: SortOrder
+    updated_at?: SortOrder
+  }
+
+  export type BoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -12283,6 +13901,13 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
   }
 
+  export type FeatureProgressCreateNestedManyWithoutUserInput = {
+    create?: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput> | FeatureProgressCreateWithoutUserInput[] | FeatureProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutUserInput | FeatureProgressCreateOrConnectWithoutUserInput[]
+    createMany?: FeatureProgressCreateManyUserInputEnvelope
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+  }
+
   export type AccountUncheckedCreateNestedManyWithoutUserInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12309,6 +13934,13 @@ export namespace Prisma {
     connectOrCreate?: DocumentCreateOrConnectWithoutUserInput | DocumentCreateOrConnectWithoutUserInput[]
     createMany?: DocumentCreateManyUserInputEnvelope
     connect?: DocumentWhereUniqueInput | DocumentWhereUniqueInput[]
+  }
+
+  export type FeatureProgressUncheckedCreateNestedManyWithoutUserInput = {
+    create?: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput> | FeatureProgressCreateWithoutUserInput[] | FeatureProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutUserInput | FeatureProgressCreateOrConnectWithoutUserInput[]
+    createMany?: FeatureProgressCreateManyUserInputEnvelope
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
   }
 
   export type StringFieldUpdateOperationsInput = {
@@ -12383,6 +14015,20 @@ export namespace Prisma {
     deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
   }
 
+  export type FeatureProgressUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput> | FeatureProgressCreateWithoutUserInput[] | FeatureProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutUserInput | FeatureProgressCreateOrConnectWithoutUserInput[]
+    upsert?: FeatureProgressUpsertWithWhereUniqueWithoutUserInput | FeatureProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FeatureProgressCreateManyUserInputEnvelope
+    set?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    disconnect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    delete?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    update?: FeatureProgressUpdateWithWhereUniqueWithoutUserInput | FeatureProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FeatureProgressUpdateManyWithWhereWithoutUserInput | FeatureProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
+  }
+
   export type AccountUncheckedUpdateManyWithoutUserNestedInput = {
     create?: XOR<AccountCreateWithoutUserInput, AccountUncheckedCreateWithoutUserInput> | AccountCreateWithoutUserInput[] | AccountUncheckedCreateWithoutUserInput[]
     connectOrCreate?: AccountCreateOrConnectWithoutUserInput | AccountCreateOrConnectWithoutUserInput[]
@@ -12437,6 +14083,20 @@ export namespace Prisma {
     update?: DocumentUpdateWithWhereUniqueWithoutUserInput | DocumentUpdateWithWhereUniqueWithoutUserInput[]
     updateMany?: DocumentUpdateManyWithWhereWithoutUserInput | DocumentUpdateManyWithWhereWithoutUserInput[]
     deleteMany?: DocumentScalarWhereInput | DocumentScalarWhereInput[]
+  }
+
+  export type FeatureProgressUncheckedUpdateManyWithoutUserNestedInput = {
+    create?: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput> | FeatureProgressCreateWithoutUserInput[] | FeatureProgressUncheckedCreateWithoutUserInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutUserInput | FeatureProgressCreateOrConnectWithoutUserInput[]
+    upsert?: FeatureProgressUpsertWithWhereUniqueWithoutUserInput | FeatureProgressUpsertWithWhereUniqueWithoutUserInput[]
+    createMany?: FeatureProgressCreateManyUserInputEnvelope
+    set?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    disconnect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    delete?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    update?: FeatureProgressUpdateWithWhereUniqueWithoutUserInput | FeatureProgressUpdateWithWhereUniqueWithoutUserInput[]
+    updateMany?: FeatureProgressUpdateManyWithWhereWithoutUserInput | FeatureProgressUpdateManyWithWhereWithoutUserInput[]
+    deleteMany?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
   }
 
   export type UserCreateNestedOneWithoutAccountsInput = {
@@ -12607,12 +14267,86 @@ export namespace Prisma {
     connect?: DocumentWhereUniqueInput
   }
 
+  export type FeatureProgressCreateNestedManyWithoutGenerated_contentInput = {
+    create?: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput> | FeatureProgressCreateWithoutGenerated_contentInput[] | FeatureProgressUncheckedCreateWithoutGenerated_contentInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutGenerated_contentInput | FeatureProgressCreateOrConnectWithoutGenerated_contentInput[]
+    createMany?: FeatureProgressCreateManyGenerated_contentInputEnvelope
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+  }
+
+  export type FeatureProgressUncheckedCreateNestedManyWithoutGenerated_contentInput = {
+    create?: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput> | FeatureProgressCreateWithoutGenerated_contentInput[] | FeatureProgressUncheckedCreateWithoutGenerated_contentInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutGenerated_contentInput | FeatureProgressCreateOrConnectWithoutGenerated_contentInput[]
+    createMany?: FeatureProgressCreateManyGenerated_contentInputEnvelope
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+  }
+
   export type DocumentUpdateOneRequiredWithoutGenerated_contentNestedInput = {
     create?: XOR<DocumentCreateWithoutGenerated_contentInput, DocumentUncheckedCreateWithoutGenerated_contentInput>
     connectOrCreate?: DocumentCreateOrConnectWithoutGenerated_contentInput
     upsert?: DocumentUpsertWithoutGenerated_contentInput
     connect?: DocumentWhereUniqueInput
     update?: XOR<XOR<DocumentUpdateToOneWithWhereWithoutGenerated_contentInput, DocumentUpdateWithoutGenerated_contentInput>, DocumentUncheckedUpdateWithoutGenerated_contentInput>
+  }
+
+  export type FeatureProgressUpdateManyWithoutGenerated_contentNestedInput = {
+    create?: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput> | FeatureProgressCreateWithoutGenerated_contentInput[] | FeatureProgressUncheckedCreateWithoutGenerated_contentInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutGenerated_contentInput | FeatureProgressCreateOrConnectWithoutGenerated_contentInput[]
+    upsert?: FeatureProgressUpsertWithWhereUniqueWithoutGenerated_contentInput | FeatureProgressUpsertWithWhereUniqueWithoutGenerated_contentInput[]
+    createMany?: FeatureProgressCreateManyGenerated_contentInputEnvelope
+    set?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    disconnect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    delete?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    update?: FeatureProgressUpdateWithWhereUniqueWithoutGenerated_contentInput | FeatureProgressUpdateWithWhereUniqueWithoutGenerated_contentInput[]
+    updateMany?: FeatureProgressUpdateManyWithWhereWithoutGenerated_contentInput | FeatureProgressUpdateManyWithWhereWithoutGenerated_contentInput[]
+    deleteMany?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
+  }
+
+  export type FeatureProgressUncheckedUpdateManyWithoutGenerated_contentNestedInput = {
+    create?: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput> | FeatureProgressCreateWithoutGenerated_contentInput[] | FeatureProgressUncheckedCreateWithoutGenerated_contentInput[]
+    connectOrCreate?: FeatureProgressCreateOrConnectWithoutGenerated_contentInput | FeatureProgressCreateOrConnectWithoutGenerated_contentInput[]
+    upsert?: FeatureProgressUpsertWithWhereUniqueWithoutGenerated_contentInput | FeatureProgressUpsertWithWhereUniqueWithoutGenerated_contentInput[]
+    createMany?: FeatureProgressCreateManyGenerated_contentInputEnvelope
+    set?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    disconnect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    delete?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    connect?: FeatureProgressWhereUniqueInput | FeatureProgressWhereUniqueInput[]
+    update?: FeatureProgressUpdateWithWhereUniqueWithoutGenerated_contentInput | FeatureProgressUpdateWithWhereUniqueWithoutGenerated_contentInput[]
+    updateMany?: FeatureProgressUpdateManyWithWhereWithoutGenerated_contentInput | FeatureProgressUpdateManyWithWhereWithoutGenerated_contentInput[]
+    deleteMany?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
+  }
+
+  export type UserCreateNestedOneWithoutFeature_progressInput = {
+    create?: XOR<UserCreateWithoutFeature_progressInput, UserUncheckedCreateWithoutFeature_progressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFeature_progressInput
+    connect?: UserWhereUniqueInput
+  }
+
+  export type GeneratedContentCreateNestedOneWithoutProgressInput = {
+    create?: XOR<GeneratedContentCreateWithoutProgressInput, GeneratedContentUncheckedCreateWithoutProgressInput>
+    connectOrCreate?: GeneratedContentCreateOrConnectWithoutProgressInput
+    connect?: GeneratedContentWhereUniqueInput
+  }
+
+  export type BoolFieldUpdateOperationsInput = {
+    set?: boolean
+  }
+
+  export type UserUpdateOneRequiredWithoutFeature_progressNestedInput = {
+    create?: XOR<UserCreateWithoutFeature_progressInput, UserUncheckedCreateWithoutFeature_progressInput>
+    connectOrCreate?: UserCreateOrConnectWithoutFeature_progressInput
+    upsert?: UserUpsertWithoutFeature_progressInput
+    connect?: UserWhereUniqueInput
+    update?: XOR<XOR<UserUpdateToOneWithWhereWithoutFeature_progressInput, UserUpdateWithoutFeature_progressInput>, UserUncheckedUpdateWithoutFeature_progressInput>
+  }
+
+  export type GeneratedContentUpdateOneRequiredWithoutProgressNestedInput = {
+    create?: XOR<GeneratedContentCreateWithoutProgressInput, GeneratedContentUncheckedCreateWithoutProgressInput>
+    connectOrCreate?: GeneratedContentCreateOrConnectWithoutProgressInput
+    upsert?: GeneratedContentUpsertWithoutProgressInput
+    connect?: GeneratedContentWhereUniqueInput
+    update?: XOR<XOR<GeneratedContentUpdateToOneWithWhereWithoutProgressInput, GeneratedContentUpdateWithoutProgressInput>, GeneratedContentUncheckedUpdateWithoutProgressInput>
   }
 
   export type NestedStringFilter<$PrismaModel = never> = {
@@ -12799,6 +14533,42 @@ export namespace Prisma {
     not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
+  export type NestedBoolFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolFilter<$PrismaModel> | boolean
+  }
+
+  export type NestedBoolWithAggregatesFilter<$PrismaModel = never> = {
+    equals?: boolean | BooleanFieldRefInput<$PrismaModel>
+    not?: NestedBoolWithAggregatesFilter<$PrismaModel> | boolean
+    _count?: NestedIntFilter<$PrismaModel>
+    _min?: NestedBoolFilter<$PrismaModel>
+    _max?: NestedBoolFilter<$PrismaModel>
+  }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
+
   export type AccountCreateWithoutUserInput = {
     type: string
     provider: string
@@ -12929,6 +14699,36 @@ export namespace Prisma {
     skipDuplicates?: boolean
   }
 
+  export type FeatureProgressCreateWithoutUserInput = {
+    id?: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    generated_content: GeneratedContentCreateNestedOneWithoutProgressInput
+  }
+
+  export type FeatureProgressUncheckedCreateWithoutUserInput = {
+    id?: string
+    generated_content_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressCreateOrConnectWithoutUserInput = {
+    where: FeatureProgressWhereUniqueInput
+    create: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type FeatureProgressCreateManyUserInputEnvelope = {
+    data: FeatureProgressCreateManyUserInput | FeatureProgressCreateManyUserInput[]
+    skipDuplicates?: boolean
+  }
+
   export type AccountUpsertWithWhereUniqueWithoutUserInput = {
     where: AccountWhereUniqueInput
     update: XOR<AccountUpdateWithoutUserInput, AccountUncheckedUpdateWithoutUserInput>
@@ -13052,6 +14852,36 @@ export namespace Prisma {
     updated_at?: DateTimeFilter<"Document"> | Date | string
   }
 
+  export type FeatureProgressUpsertWithWhereUniqueWithoutUserInput = {
+    where: FeatureProgressWhereUniqueInput
+    update: XOR<FeatureProgressUpdateWithoutUserInput, FeatureProgressUncheckedUpdateWithoutUserInput>
+    create: XOR<FeatureProgressCreateWithoutUserInput, FeatureProgressUncheckedCreateWithoutUserInput>
+  }
+
+  export type FeatureProgressUpdateWithWhereUniqueWithoutUserInput = {
+    where: FeatureProgressWhereUniqueInput
+    data: XOR<FeatureProgressUpdateWithoutUserInput, FeatureProgressUncheckedUpdateWithoutUserInput>
+  }
+
+  export type FeatureProgressUpdateManyWithWhereWithoutUserInput = {
+    where: FeatureProgressScalarWhereInput
+    data: XOR<FeatureProgressUpdateManyMutationInput, FeatureProgressUncheckedUpdateManyWithoutUserInput>
+  }
+
+  export type FeatureProgressScalarWhereInput = {
+    AND?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
+    OR?: FeatureProgressScalarWhereInput[]
+    NOT?: FeatureProgressScalarWhereInput | FeatureProgressScalarWhereInput[]
+    id?: StringFilter<"FeatureProgress"> | string
+    user_id?: StringFilter<"FeatureProgress"> | string
+    generated_content_id?: StringFilter<"FeatureProgress"> | string
+    is_completed?: BoolFilter<"FeatureProgress"> | boolean
+    scores?: JsonNullableFilter<"FeatureProgress">
+    attempts?: JsonNullableFilter<"FeatureProgress">
+    created_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+    updated_at?: DateTimeFilter<"FeatureProgress"> | Date | string
+  }
+
   export type UserCreateWithoutAccountsInput = {
     id?: string
     name?: string | null
@@ -13063,6 +14893,7 @@ export namespace Prisma {
     sessions?: SessionCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryCreateNestedManyWithoutUserInput
     documents?: DocumentCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutAccountsInput = {
@@ -13076,6 +14907,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryUncheckedCreateNestedManyWithoutUserInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutAccountsInput = {
@@ -13105,6 +14937,7 @@ export namespace Prisma {
     sessions?: SessionUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUpdateManyWithoutUserNestedInput
     documents?: DocumentUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -13118,6 +14951,7 @@ export namespace Prisma {
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUncheckedUpdateManyWithoutUserNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSessionsInput = {
@@ -13131,6 +14965,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryCreateNestedManyWithoutUserInput
     documents?: DocumentCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSessionsInput = {
@@ -13144,6 +14979,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryUncheckedCreateNestedManyWithoutUserInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSessionsInput = {
@@ -13173,6 +15009,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUpdateManyWithoutUserNestedInput
     documents?: DocumentUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -13186,6 +15023,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUncheckedUpdateManyWithoutUserNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutSummariesInput = {
@@ -13199,6 +15037,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     documents?: DocumentCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutSummariesInput = {
@@ -13212,6 +15051,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     documents?: DocumentUncheckedCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutSummariesInput = {
@@ -13241,6 +15081,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     documents?: DocumentUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutSummariesInput = {
@@ -13254,6 +15095,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     documents?: DocumentUncheckedUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type UserCreateWithoutDocumentsInput = {
@@ -13267,6 +15109,7 @@ export namespace Prisma {
     accounts?: AccountCreateNestedManyWithoutUserInput
     sessions?: SessionCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressCreateNestedManyWithoutUserInput
   }
 
   export type UserUncheckedCreateWithoutDocumentsInput = {
@@ -13280,6 +15123,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
     sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
     summaries?: PdfSummaryUncheckedCreateNestedManyWithoutUserInput
+    feature_progress?: FeatureProgressUncheckedCreateNestedManyWithoutUserInput
   }
 
   export type UserCreateOrConnectWithoutDocumentsInput = {
@@ -13314,17 +15158,21 @@ export namespace Prisma {
   export type GeneratedContentCreateWithoutDocumentInput = {
     id?: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    progress?: FeatureProgressCreateNestedManyWithoutGenerated_contentInput
   }
 
   export type GeneratedContentUncheckedCreateWithoutDocumentInput = {
     id?: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
+    progress?: FeatureProgressUncheckedCreateNestedManyWithoutGenerated_contentInput
   }
 
   export type GeneratedContentCreateOrConnectWithoutDocumentInput = {
@@ -13359,6 +15207,7 @@ export namespace Prisma {
     accounts?: AccountUpdateManyWithoutUserNestedInput
     sessions?: SessionUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUpdateManyWithoutUserNestedInput
   }
 
   export type UserUncheckedUpdateWithoutDocumentsInput = {
@@ -13372,6 +15221,7 @@ export namespace Prisma {
     accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
     sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
     summaries?: PdfSummaryUncheckedUpdateManyWithoutUserNestedInput
+    feature_progress?: FeatureProgressUncheckedUpdateManyWithoutUserNestedInput
   }
 
   export type DocumentChunkUpsertWithWhereUniqueWithoutDocumentInput = {
@@ -13424,6 +15274,7 @@ export namespace Prisma {
     id?: StringFilter<"GeneratedContent"> | string
     document_id?: StringFilter<"GeneratedContent"> | string
     feature_type?: StringFilter<"GeneratedContent"> | string
+    title?: StringNullableFilter<"GeneratedContent"> | string | null
     data?: JsonFilter<"GeneratedContent">
     created_at?: DateTimeFilter<"GeneratedContent"> | Date | string
     updated_at?: DateTimeFilter<"GeneratedContent"> | Date | string
@@ -13528,6 +15379,36 @@ export namespace Prisma {
     create: XOR<DocumentCreateWithoutGenerated_contentInput, DocumentUncheckedCreateWithoutGenerated_contentInput>
   }
 
+  export type FeatureProgressCreateWithoutGenerated_contentInput = {
+    id?: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    user: UserCreateNestedOneWithoutFeature_progressInput
+  }
+
+  export type FeatureProgressUncheckedCreateWithoutGenerated_contentInput = {
+    id?: string
+    user_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressCreateOrConnectWithoutGenerated_contentInput = {
+    where: FeatureProgressWhereUniqueInput
+    create: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput>
+  }
+
+  export type FeatureProgressCreateManyGenerated_contentInputEnvelope = {
+    data: FeatureProgressCreateManyGenerated_contentInput | FeatureProgressCreateManyGenerated_contentInput[]
+    skipDuplicates?: boolean
+  }
+
   export type DocumentUpsertWithoutGenerated_contentInput = {
     update: XOR<DocumentUpdateWithoutGenerated_contentInput, DocumentUncheckedUpdateWithoutGenerated_contentInput>
     create: XOR<DocumentCreateWithoutGenerated_contentInput, DocumentUncheckedCreateWithoutGenerated_contentInput>
@@ -13563,6 +15444,150 @@ export namespace Prisma {
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     chunks?: DocumentChunkUncheckedUpdateManyWithoutDocumentNestedInput
+  }
+
+  export type FeatureProgressUpsertWithWhereUniqueWithoutGenerated_contentInput = {
+    where: FeatureProgressWhereUniqueInput
+    update: XOR<FeatureProgressUpdateWithoutGenerated_contentInput, FeatureProgressUncheckedUpdateWithoutGenerated_contentInput>
+    create: XOR<FeatureProgressCreateWithoutGenerated_contentInput, FeatureProgressUncheckedCreateWithoutGenerated_contentInput>
+  }
+
+  export type FeatureProgressUpdateWithWhereUniqueWithoutGenerated_contentInput = {
+    where: FeatureProgressWhereUniqueInput
+    data: XOR<FeatureProgressUpdateWithoutGenerated_contentInput, FeatureProgressUncheckedUpdateWithoutGenerated_contentInput>
+  }
+
+  export type FeatureProgressUpdateManyWithWhereWithoutGenerated_contentInput = {
+    where: FeatureProgressScalarWhereInput
+    data: XOR<FeatureProgressUpdateManyMutationInput, FeatureProgressUncheckedUpdateManyWithoutGenerated_contentInput>
+  }
+
+  export type UserCreateWithoutFeature_progressInput = {
+    id?: string
+    name?: string | null
+    email: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    image?: string | null
+    emailVerified?: Date | string | null
+    accounts?: AccountCreateNestedManyWithoutUserInput
+    sessions?: SessionCreateNestedManyWithoutUserInput
+    summaries?: PdfSummaryCreateNestedManyWithoutUserInput
+    documents?: DocumentCreateNestedManyWithoutUserInput
+  }
+
+  export type UserUncheckedCreateWithoutFeature_progressInput = {
+    id?: string
+    name?: string | null
+    email: string
+    createdAt?: Date | string
+    updatedAt?: Date | string
+    image?: string | null
+    emailVerified?: Date | string | null
+    accounts?: AccountUncheckedCreateNestedManyWithoutUserInput
+    sessions?: SessionUncheckedCreateNestedManyWithoutUserInput
+    summaries?: PdfSummaryUncheckedCreateNestedManyWithoutUserInput
+    documents?: DocumentUncheckedCreateNestedManyWithoutUserInput
+  }
+
+  export type UserCreateOrConnectWithoutFeature_progressInput = {
+    where: UserWhereUniqueInput
+    create: XOR<UserCreateWithoutFeature_progressInput, UserUncheckedCreateWithoutFeature_progressInput>
+  }
+
+  export type GeneratedContentCreateWithoutProgressInput = {
+    id?: string
+    feature_type: string
+    title?: string | null
+    data: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+    document: DocumentCreateNestedOneWithoutGenerated_contentInput
+  }
+
+  export type GeneratedContentUncheckedCreateWithoutProgressInput = {
+    id?: string
+    document_id: string
+    feature_type: string
+    title?: string | null
+    data: JsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type GeneratedContentCreateOrConnectWithoutProgressInput = {
+    where: GeneratedContentWhereUniqueInput
+    create: XOR<GeneratedContentCreateWithoutProgressInput, GeneratedContentUncheckedCreateWithoutProgressInput>
+  }
+
+  export type UserUpsertWithoutFeature_progressInput = {
+    update: XOR<UserUpdateWithoutFeature_progressInput, UserUncheckedUpdateWithoutFeature_progressInput>
+    create: XOR<UserCreateWithoutFeature_progressInput, UserUncheckedCreateWithoutFeature_progressInput>
+    where?: UserWhereInput
+  }
+
+  export type UserUpdateToOneWithWhereWithoutFeature_progressInput = {
+    where?: UserWhereInput
+    data: XOR<UserUpdateWithoutFeature_progressInput, UserUncheckedUpdateWithoutFeature_progressInput>
+  }
+
+  export type UserUpdateWithoutFeature_progressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUpdateManyWithoutUserNestedInput
+    sessions?: SessionUpdateManyWithoutUserNestedInput
+    summaries?: PdfSummaryUpdateManyWithoutUserNestedInput
+    documents?: DocumentUpdateManyWithoutUserNestedInput
+  }
+
+  export type UserUncheckedUpdateWithoutFeature_progressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    name?: NullableStringFieldUpdateOperationsInput | string | null
+    email?: StringFieldUpdateOperationsInput | string
+    createdAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    updatedAt?: DateTimeFieldUpdateOperationsInput | Date | string
+    image?: NullableStringFieldUpdateOperationsInput | string | null
+    emailVerified?: NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+    accounts?: AccountUncheckedUpdateManyWithoutUserNestedInput
+    sessions?: SessionUncheckedUpdateManyWithoutUserNestedInput
+    summaries?: PdfSummaryUncheckedUpdateManyWithoutUserNestedInput
+    documents?: DocumentUncheckedUpdateManyWithoutUserNestedInput
+  }
+
+  export type GeneratedContentUpsertWithoutProgressInput = {
+    update: XOR<GeneratedContentUpdateWithoutProgressInput, GeneratedContentUncheckedUpdateWithoutProgressInput>
+    create: XOR<GeneratedContentCreateWithoutProgressInput, GeneratedContentUncheckedCreateWithoutProgressInput>
+    where?: GeneratedContentWhereInput
+  }
+
+  export type GeneratedContentUpdateToOneWithWhereWithoutProgressInput = {
+    where?: GeneratedContentWhereInput
+    data: XOR<GeneratedContentUpdateWithoutProgressInput, GeneratedContentUncheckedUpdateWithoutProgressInput>
+  }
+
+  export type GeneratedContentUpdateWithoutProgressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    document?: DocumentUpdateOneRequiredWithoutGenerated_contentNestedInput
+  }
+
+  export type GeneratedContentUncheckedUpdateWithoutProgressInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    document_id?: StringFieldUpdateOperationsInput | string
+    feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
+    data?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
   export type AccountCreateManyUserInput = {
@@ -13604,6 +15629,16 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressCreateManyUserInput = {
+    id?: string
+    generated_content_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13741,6 +15776,36 @@ export namespace Prisma {
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
 
+  export type FeatureProgressUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    generated_content?: GeneratedContentUpdateOneRequiredWithoutProgressNestedInput
+  }
+
+  export type FeatureProgressUncheckedUpdateWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    generated_content_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressUncheckedUpdateManyWithoutUserInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    generated_content_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
   export type DocumentChunkCreateManyDocumentInput = {
     id?: string
     text: string
@@ -13751,6 +15816,7 @@ export namespace Prisma {
   export type GeneratedContentCreateManyDocumentInput = {
     id?: string
     feature_type: string
+    title?: string | null
     data: JsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
@@ -13780,23 +15846,68 @@ export namespace Prisma {
   export type GeneratedContentUpdateWithoutDocumentInput = {
     id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    progress?: FeatureProgressUpdateManyWithoutGenerated_contentNestedInput
   }
 
   export type GeneratedContentUncheckedUpdateWithoutDocumentInput = {
     id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    progress?: FeatureProgressUncheckedUpdateManyWithoutGenerated_contentNestedInput
   }
 
   export type GeneratedContentUncheckedUpdateManyWithoutDocumentInput = {
     id?: StringFieldUpdateOperationsInput | string
     feature_type?: StringFieldUpdateOperationsInput | string
+    title?: NullableStringFieldUpdateOperationsInput | string | null
     data?: JsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressCreateManyGenerated_contentInput = {
+    id?: string
+    user_id: string
+    is_completed?: boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: Date | string
+    updated_at?: Date | string
+  }
+
+  export type FeatureProgressUpdateWithoutGenerated_contentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    user?: UserUpdateOneRequiredWithoutFeature_progressNestedInput
+  }
+
+  export type FeatureProgressUncheckedUpdateWithoutGenerated_contentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
+    created_at?: DateTimeFieldUpdateOperationsInput | Date | string
+    updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
+  }
+
+  export type FeatureProgressUncheckedUpdateManyWithoutGenerated_contentInput = {
+    id?: StringFieldUpdateOperationsInput | string
+    user_id?: StringFieldUpdateOperationsInput | string
+    is_completed?: BoolFieldUpdateOperationsInput | boolean
+    scores?: NullableJsonNullValueInput | InputJsonValue
+    attempts?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }

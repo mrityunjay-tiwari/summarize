@@ -1,6 +1,6 @@
 export default function BGGrid3() {
   return (
-    <div className="min-h-screen w-full bg-white fixed inset-0 z-[-1] pointer-events-none">
+    <div className="min-h-screen w-full bg-white dark:bg-inherit dark:opacity-20 fixed inset-0 z-[-1] pointer-events-none">
   {/* Dashed Top Left Fade Grid */}
   <div
     className="absolute inset-0 z-0"

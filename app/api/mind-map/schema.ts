@@ -17,3 +17,10 @@ export const mindMapSchema = z.object({
 })
 
 export type TMindMapSchema = z.infer<typeof mindMapNodeSchema>;
+
+export const mindMapSummarySchema = z.object({
+    summaryNodes: z.array(z.object({
+        concept: z.string(),
+        details: z.string(),
+    }))
+})
