@@ -212,7 +212,7 @@ const PromptInputBox = ({file_url}: {file_url: string}) => {
                             <SourcesTrigger
                               count={
                                 message.parts.filter(
-                                  (part) => part.type === "source-url",
+                                  (part) => part.type === "source-document",
                                 ).length
                               }
                             />
@@ -278,7 +278,7 @@ const PromptInputBox = ({file_url}: {file_url: string}) => {
                     <PromptInputActionAddScreenshot />
                   </PromptInputActionMenuContent>
                 </PromptInputActionMenu>
-                <PromptInputButton>
+                <PromptInputButton onClick={() => {console.log("Do web search baby !")}}>
                   <GlobeIcon size={16} />
                   <span>Search</span>
                 </PromptInputButton>
