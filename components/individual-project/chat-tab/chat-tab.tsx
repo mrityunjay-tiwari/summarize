@@ -127,7 +127,10 @@ export function ChatTab({ url, documentContextForChat }: TChatTabProps) {
           </div>
         ) : (
           <div className="">
-            <PromptInputBox file_url={url} />
+            <PromptInputBox 
+                file_url={url} 
+                initialMessages={documentContextForChat?.chatMessages}
+            />
           </div>
         )}
       </div>

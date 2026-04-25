@@ -65,6 +65,7 @@ export default async function Page({params}: {params: Promise<{id: string}>}) {
       size: documentData.file_size || "",
       totalChunks: embeddingsStatus?.total || 0,
       isReady: embeddingsStatus?.isReady || false,
+      chatMessages: documentData.chatMessages,
     };
     
   return (

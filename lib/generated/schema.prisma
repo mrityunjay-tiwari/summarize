@@ -86,9 +86,9 @@ model Document {
 
   chunks            DocumentChunk[]
   generated_content GeneratedContent[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+  chatMessages      Json?
+  created_at        DateTime           @default(now())
+  updated_at        DateTime           @updatedAt
 }
 
 model DocumentChunk {

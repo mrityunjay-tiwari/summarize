@@ -62,6 +62,17 @@ interface AttachmentItemProps {
   onRemove: (id: string) => void;
 }
 
+const WELCOME_MESSAGE = {
+  id: "welcome-message",
+  role: "assistant" as const,
+  parts: [
+    {
+      type: "text" as const,
+      text: "Hello and welcome! I'm Mrityunjay's AI.\nAsk me anything — projects, ideas, or just chat.",
+    },
+  ],
+};
+
 const AttachmentItem = memo(({attachment, onRemove}: AttachmentItemProps) => {
   const handleRemove = useCallback(
     () => onRemove(attachment.id),
@@ -102,16 +113,49 @@ const PromptInputAttachmentsDisplay = () => {
   );
 };
 
-const PromptInputBox = ({file_url}: {file_url: string}) => {
+import {saveChatHistory} from "@/actions/update-chat";
+
+type TPromptInputBoxProps = {
+  file_url: string;
+  initialMessages?: any;
+};
+const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   const [isFormattingInput, setIsFormattingInput] = useState(false);
   const params = useParams();
   const document_id = params?.id as string | undefined;
 
-  const {messages, sendMessage, status, regenerate} = useChat({
+  const {messages, sendMessage, status, regenerate, setMessages} = useChat({
     id: document_id,
   });
 
+  const [hasInitialized, setHasInitialized] = useState(false);
+
+  useEffect(() => {
+    if (!hasInitialized) {
+      const parsedMessages = initialMessages
+        ? typeof initialMessages === "string"
+          ? JSON.parse(initialMessages)
+          : initialMessages
+        : [];
+      if (parsedMessages.length > 0) {
+        setMessages(parsedMessages);
+      } else {
+        setMessages([WELCOME_MESSAGE]);
+      }
+      setHasInitialized(true);
+    }
+  }, [hasInitialized, initialMessages, setMessages]);
+
   const isStreaming = status === "streaming";
+
+  useEffect(() => {
+    if (hasInitialized && document_id && messages.length > 0 && !isStreaming) {
+      const timeout = setTimeout(() => {
+        saveChatHistory(document_id, messages);
+      }, 1000);
+      return () => clearTimeout(timeout);
+    }
+  }, [messages, document_id, isStreaming, hasInitialized]);
 
   const handleRefresh = useCallback(() => {
     const lastUserMessage = messages.filter((m) => m.role === "user").pop();
@@ -208,7 +252,7 @@ const PromptInputBox = ({file_url}: {file_url: string}) => {
                               .map((part: any) => part.text)
                               .join("")}
                           </MessageResponse>
-                          <Sources className="mt-5">
+                          {/* <Sources className="mt-5">
                             <SourcesTrigger
                               count={
                                 message.parts.filter(
@@ -230,7 +274,7 @@ const PromptInputBox = ({file_url}: {file_url: string}) => {
                                   );
                               }
                             })}
-                          </Sources>
+                          </Sources> */}
                         </AIResponseWrapper>
                       ) : (
                         <MessageResponse key={message.id}>
@@ -278,7 +322,11 @@ const PromptInputBox = ({file_url}: {file_url: string}) => {
                     <PromptInputActionAddScreenshot />
                   </PromptInputActionMenuContent>
                 </PromptInputActionMenu>
-                <PromptInputButton onClick={() => {console.log("Do web search baby !")}}>
+                <PromptInputButton
+                  onClick={() => {
+                    console.log("Do web search baby !");
+                  }}
+                >
                   <GlobeIcon size={16} />
                   <span>Search</span>
                 </PromptInputButton>

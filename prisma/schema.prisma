@@ -12,17 +12,17 @@ datasource db {
 }
 
 model User {
-  id            String       @id @default(cuid())
-  name          String?
-  email         String       @unique
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
-  image         String?
-  emailVerified DateTime?
-  accounts      Account[]
-  sessions      Session[]
-  summaries     PdfSummary[]
-  documents     Document[]
+  id               String            @id @default(cuid())
+  name             String?
+  email            String            @unique
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  image            String?
+  emailVerified    DateTime?
+  accounts         Account[]
+  sessions         Session[]
+  summaries        PdfSummary[]
+  documents        Document[]
   feature_progress FeatureProgress[]
 }
 
@@ -75,64 +75,64 @@ model PdfSummary {
 }
 
 model Document {
-  id                String   @id @default(uuid())
+  id                String  @id @default(uuid())
   user_id           String
-  user              User     @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  original_file_url String   @db.Text
-  file_name         String?  @db.Text
-  file_key          String   @db.Text
-  file_size         String?  @db.Text
-  markdown_text     String?  @db.Text 
-  
+  user              User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  original_file_url String  @db.Text
+  file_name         String? @db.Text
+  file_key          String  @db.Text
+  file_size         String? @db.Text
+  markdown_text     String? @db.Text
+
   chunks            DocumentChunk[]
   generated_content GeneratedContent[]
-
-  created_at        DateTime @default(now())
-  updated_at        DateTime @updatedAt
+  chatMessages      Json?
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model DocumentChunk {
-  id          String   @id @default(uuid()) 
+  id          String   @id @default(uuid())
   document_id String
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
-  
-  text        String   @db.Text
-  metadata    Json     
- 
-  embedding   Unsupported("vector(2048)")? 
-  
-  created_at  DateTime @default(now())
+
+  text     String @db.Text
+  metadata Json
+
+  embedding Unsupported("vector(2048)")?
+
+  created_at DateTime @default(now())
 }
 
 model GeneratedContent {
   id          String   @id @default(uuid())
   document_id String
   document    Document @relation(fields: [document_id], references: [id], onDelete: Cascade)
-  
-  feature_type String   
-  title        String?
-  data         Json     
-  
-  progress    FeatureProgress[]
 
-  created_at  DateTime @default(now())
-  updated_at  DateTime @updatedAt
+  feature_type String
+  title        String?
+  data         Json
+
+  progress FeatureProgress[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 }
 
 model FeatureProgress {
-  id                    String           @id @default(uuid())
-  user_id               String
-  user                  User             @relation(fields: [user_id], references: [id], onDelete: Cascade)
-  
-  generated_content_id  String
-  generated_content     GeneratedContent @relation(fields: [generated_content_id], references: [id], onDelete: Cascade)
-  
-  is_completed          Boolean          @default(false)
-  scores                Json?            
-  attempts              Json?            
-  
-  created_at            DateTime         @default(now())
-  updated_at            DateTime         @updatedAt
+  id      String @id @default(uuid())
+  user_id String
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
+
+  generated_content_id String
+  generated_content    GeneratedContent @relation(fields: [generated_content_id], references: [id], onDelete: Cascade)
+
+  is_completed Boolean @default(false)
+  scores       Json?
+  attempts     Json?
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
 
   @@unique([user_id, generated_content_id])
 }

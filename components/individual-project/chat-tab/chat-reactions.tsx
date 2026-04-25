@@ -49,7 +49,7 @@ export const AIResponseWrapper = ({
     <div className="w-full flex flex-col gap-2">
       <div className="bg-gray-200/30 rounded-tl-none border-t-2 dark:bg-zinc-800/50 rounded-lg p-4 flex flex-col gap-3 max-w-[85%]">
         <div className="flex justify-between items-start gap-4">
-          <div className="flex-1 min-w-lg text-sm text-slate-900 dark:text-slate-100 overflow-x-auto hide-scrollbar">
+          <div className="flex-1 text-sm text-slate-900 dark:text-slate-100 wrap-break-word leading-relaxed pl-2">
             {children}
           </div>
         </div>

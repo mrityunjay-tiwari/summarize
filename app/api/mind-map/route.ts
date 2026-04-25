@@ -68,10 +68,32 @@ export const POST= async(req: Request) => {
         
         const parsedData = JSON.parse(jsonStr);
 
+        let finalMindMap = parsedData.mindMap;
+
+        if (Array.isArray(finalMindMap) && finalMindMap.length > 1) {
+            finalMindMap = [
+                {
+                    index: 0,
+                    point: parsedData.topic || "Main Topic",
+                    subPoints: finalMindMap
+                }
+            ];
+        } else if (!Array.isArray(finalMindMap) && finalMindMap !== null && typeof finalMindMap === 'object') {
+            finalMindMap = [finalMindMap];
+        } else if (!Array.isArray(finalMindMap)) {
+            finalMindMap = [
+                 {
+                    index: 0,
+                    point: parsedData.topic || "Main Topic",
+                    subPoints: []
+                 }
+            ]
+        }
+
         return Response.json({
             success: true,
             message: "mind map generated",
-            result: parsedData.mindMap,
+            result: finalMindMap,
             topic: parsedData.topic
         });
     } catch (error) {

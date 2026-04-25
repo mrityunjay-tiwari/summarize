@@ -106,7 +106,6 @@ export function MindMapCanvas({ data }: MindMapCanvasProps) {
   }, [data, toggleCollapse]);
 
   useEffect(() => {
-    // Find all descendants of collapsed nodes
     const hiddenSet = new Set<string>();
     const stack = Array.from(collapsedNodes);
     while (stack.length > 0) {
@@ -152,7 +151,7 @@ export function MindMapCanvas({ data }: MindMapCanvasProps) {
   const flowRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={flowRef} className={isFullscreen ? "fixed inset-0 z-50 bg-background" : "h-[600px] w-full border rounded-xl overflow-hidden shadow-sm relative"}>
+    <div ref={flowRef} className={isFullscreen ? "fixed inset-0 z-50 bg-background" : "h-[700px] w-full border rounded-xl overflow-hidden shadow-sm relative"}>
       <ReactFlowProvider>
         <FlowContent
           nodes={nodes}

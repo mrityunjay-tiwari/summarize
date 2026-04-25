@@ -7296,6 +7296,7 @@ export namespace Prisma {
     file_key: number
     file_size: number
     markdown_text: number
+    chatMessages: number
     created_at: number
     updated_at: number
     _all: number
@@ -7334,6 +7335,7 @@ export namespace Prisma {
     file_key?: true
     file_size?: true
     markdown_text?: true
+    chatMessages?: true
     created_at?: true
     updated_at?: true
     _all?: true
@@ -7419,6 +7421,7 @@ export namespace Prisma {
     file_key: string
     file_size: string | null
     markdown_text: string | null
+    chatMessages: JsonValue | null
     created_at: Date
     updated_at: Date
     _count: DocumentCountAggregateOutputType | null
@@ -7448,6 +7451,7 @@ export namespace Prisma {
     file_key?: boolean
     file_size?: boolean
     markdown_text?: boolean
+    chatMessages?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7464,6 +7468,7 @@ export namespace Prisma {
     file_key?: boolean
     file_size?: boolean
     markdown_text?: boolean
+    chatMessages?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7477,6 +7482,7 @@ export namespace Prisma {
     file_key?: boolean
     file_size?: boolean
     markdown_text?: boolean
+    chatMessages?: boolean
     created_at?: boolean
     updated_at?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
@@ -7490,11 +7496,12 @@ export namespace Prisma {
     file_key?: boolean
     file_size?: boolean
     markdown_text?: boolean
+    chatMessages?: boolean
     created_at?: boolean
     updated_at?: boolean
   }
 
-  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "original_file_url" | "file_name" | "file_key" | "file_size" | "markdown_text" | "created_at" | "updated_at", ExtArgs["result"]["document"]>
+  export type DocumentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "user_id" | "original_file_url" | "file_name" | "file_key" | "file_size" | "markdown_text" | "chatMessages" | "created_at" | "updated_at", ExtArgs["result"]["document"]>
   export type DocumentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
     chunks?: boolean | Document$chunksArgs<ExtArgs>
@@ -7523,6 +7530,7 @@ export namespace Prisma {
       file_key: string
       file_size: string | null
       markdown_text: string | null
+      chatMessages: Prisma.JsonValue | null
       created_at: Date
       updated_at: Date
     }, ExtArgs["result"]["document"]>
@@ -7958,6 +7966,7 @@ export namespace Prisma {
     readonly file_key: FieldRef<"Document", 'String'>
     readonly file_size: FieldRef<"Document", 'String'>
     readonly markdown_text: FieldRef<"Document", 'String'>
+    readonly chatMessages: FieldRef<"Document", 'Json'>
     readonly created_at: FieldRef<"Document", 'DateTime'>
     readonly updated_at: FieldRef<"Document", 'DateTime'>
   }
@@ -11771,6 +11780,7 @@ export namespace Prisma {
     file_key: 'file_key',
     file_size: 'file_size',
     markdown_text: 'markdown_text',
+    chatMessages: 'chatMessages',
     created_at: 'created_at',
     updated_at: 'updated_at'
   };
@@ -11824,19 +11834,19 @@ export namespace Prisma {
   export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
-  export const JsonNullValueInput: {
-    JsonNull: typeof JsonNull
-  };
-
-  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
-
-
   export const NullableJsonNullValueInput: {
     DbNull: typeof DbNull,
     JsonNull: typeof JsonNull
   };
 
   export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
+
+
+  export const JsonNullValueInput: {
+    JsonNull: typeof JsonNull
+  };
+
+  export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
   export const QueryMode: {
@@ -12303,6 +12313,7 @@ export namespace Prisma {
     file_key?: StringFilter<"Document"> | string
     file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
+    chatMessages?: JsonNullableFilter<"Document">
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12318,6 +12329,7 @@ export namespace Prisma {
     file_key?: SortOrder
     file_size?: SortOrderInput | SortOrder
     markdown_text?: SortOrderInput | SortOrder
+    chatMessages?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     user?: UserOrderByWithRelationInput
@@ -12336,6 +12348,7 @@ export namespace Prisma {
     file_key?: StringFilter<"Document"> | string
     file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
+    chatMessages?: JsonNullableFilter<"Document">
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
@@ -12351,6 +12364,7 @@ export namespace Prisma {
     file_key?: SortOrder
     file_size?: SortOrderInput | SortOrder
     markdown_text?: SortOrderInput | SortOrder
+    chatMessages?: SortOrderInput | SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
     _count?: DocumentCountOrderByAggregateInput
@@ -12369,6 +12383,7 @@ export namespace Prisma {
     file_key?: StringWithAggregatesFilter<"Document"> | string
     file_size?: StringNullableWithAggregatesFilter<"Document"> | string | null
     markdown_text?: StringNullableWithAggregatesFilter<"Document"> | string | null
+    chatMessages?: JsonNullableWithAggregatesFilter<"Document">
     created_at?: DateTimeWithAggregatesFilter<"Document"> | Date | string
     updated_at?: DateTimeWithAggregatesFilter<"Document"> | Date | string
   }
@@ -12951,6 +12966,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutDocumentsInput
@@ -12966,6 +12982,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     chunks?: DocumentChunkUncheckedCreateNestedManyWithoutDocumentInput
@@ -12979,6 +12996,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
@@ -12994,6 +13012,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     chunks?: DocumentChunkUncheckedUpdateManyWithoutDocumentNestedInput
@@ -13008,6 +13027,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -13019,6 +13039,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13031,6 +13052,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -13611,6 +13633,29 @@ export namespace Prisma {
     created_at?: SortOrder
     updated_at?: SortOrder
   }
+  export type JsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
 
   export type DocumentChunkListRelationFilter = {
     every?: DocumentChunkWhereInput
@@ -13640,6 +13685,7 @@ export namespace Prisma {
     file_key?: SortOrder
     file_size?: SortOrder
     markdown_text?: SortOrder
+    chatMessages?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
   }
@@ -13666,6 +13712,32 @@ export namespace Prisma {
     markdown_text?: SortOrder
     created_at?: SortOrder
     updated_at?: SortOrder
+  }
+  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
+        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
+
+  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    _count?: NestedIntNullableFilter<$PrismaModel>
+    _min?: NestedJsonNullableFilter<$PrismaModel>
+    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
   export type JsonFilter<$PrismaModel = never> =
     | PatchUndefined<
@@ -13776,29 +13848,6 @@ export namespace Prisma {
     equals?: boolean | BooleanFieldRefInput<$PrismaModel>
     not?: NestedBoolFilter<$PrismaModel> | boolean
   }
-  export type JsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-  }
 
   export type GeneratedContentScalarRelationFilter = {
     is?: GeneratedContentWhereInput
@@ -13845,32 +13894,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-  export type JsonNullableWithAggregatesFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, Exclude<keyof Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>,
-        Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<JsonNullableWithAggregatesFilterBase<$PrismaModel>>, 'path'>>
-
-  export type JsonNullableWithAggregatesFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    _count?: NestedIntNullableFilter<$PrismaModel>
-    _min?: NestedJsonNullableFilter<$PrismaModel>
-    _max?: NestedJsonNullableFilter<$PrismaModel>
   }
 
   export type AccountCreateNestedManyWithoutUserInput = {
@@ -14509,6 +14532,29 @@ export namespace Prisma {
     gte?: number | FloatFieldRefInput<$PrismaModel>
     not?: NestedFloatNullableFilter<$PrismaModel> | number | null
   }
+  export type NestedJsonNullableFilter<$PrismaModel = never> =
+    | PatchUndefined<
+        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
+        Required<NestedJsonNullableFilterBase<$PrismaModel>>
+      >
+    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
+
+  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
+    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+    path?: string[]
+    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
+    string_contains?: string | StringFieldRefInput<$PrismaModel>
+    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
+    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
+    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
+    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
+    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
+  }
   export type NestedJsonFilter<$PrismaModel = never> =
     | PatchUndefined<
         Either<Required<NestedJsonFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonFilterBase<$PrismaModel>>, 'path'>>,
@@ -14544,29 +14590,6 @@ export namespace Prisma {
     _count?: NestedIntFilter<$PrismaModel>
     _min?: NestedBoolFilter<$PrismaModel>
     _max?: NestedBoolFilter<$PrismaModel>
-  }
-  export type NestedJsonNullableFilter<$PrismaModel = never> =
-    | PatchUndefined<
-        Either<Required<NestedJsonNullableFilterBase<$PrismaModel>>, Exclude<keyof Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>,
-        Required<NestedJsonNullableFilterBase<$PrismaModel>>
-      >
-    | OptionalFlat<Omit<Required<NestedJsonNullableFilterBase<$PrismaModel>>, 'path'>>
-
-  export type NestedJsonNullableFilterBase<$PrismaModel = never> = {
-    equals?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
-    path?: string[]
-    mode?: QueryMode | EnumQueryModeFieldRefInput<$PrismaModel>
-    string_contains?: string | StringFieldRefInput<$PrismaModel>
-    string_starts_with?: string | StringFieldRefInput<$PrismaModel>
-    string_ends_with?: string | StringFieldRefInput<$PrismaModel>
-    array_starts_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_ends_with?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    array_contains?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | null
-    lt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    lte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gt?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    gte?: InputJsonValue | JsonFieldRefInput<$PrismaModel>
-    not?: InputJsonValue | JsonFieldRefInput<$PrismaModel> | JsonNullValueFilter
   }
 
   export type AccountCreateWithoutUserInput = {
@@ -14670,6 +14693,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     chunks?: DocumentChunkCreateNestedManyWithoutDocumentInput
@@ -14683,6 +14707,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     chunks?: DocumentChunkUncheckedCreateNestedManyWithoutDocumentInput
@@ -14848,6 +14873,7 @@ export namespace Prisma {
     file_key?: StringFilter<"Document"> | string
     file_size?: StringNullableFilter<"Document"> | string | null
     markdown_text?: StringNullableFilter<"Document"> | string | null
+    chatMessages?: JsonNullableFilter<"Document">
     created_at?: DateTimeFilter<"Document"> | Date | string
     updated_at?: DateTimeFilter<"Document"> | Date | string
   }
@@ -15287,6 +15313,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutDocumentsInput
@@ -15301,6 +15328,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     generated_content?: GeneratedContentUncheckedCreateNestedManyWithoutDocumentInput
@@ -15329,6 +15357,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
@@ -15343,6 +15372,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     generated_content?: GeneratedContentUncheckedUpdateManyWithoutDocumentNestedInput
@@ -15355,6 +15385,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     user: UserCreateNestedOneWithoutDocumentsInput
@@ -15369,6 +15400,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
     chunks?: DocumentChunkUncheckedCreateNestedManyWithoutDocumentInput
@@ -15427,6 +15459,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     user?: UserUpdateOneRequiredWithoutDocumentsNestedInput
@@ -15441,6 +15474,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     chunks?: DocumentChunkUncheckedUpdateManyWithoutDocumentNestedInput
@@ -15629,6 +15663,7 @@ export namespace Prisma {
     file_key: string
     file_size?: string | null
     markdown_text?: string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: Date | string
     updated_at?: Date | string
   }
@@ -15746,6 +15781,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     chunks?: DocumentChunkUpdateManyWithoutDocumentNestedInput
@@ -15759,6 +15795,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
     chunks?: DocumentChunkUncheckedUpdateManyWithoutDocumentNestedInput
@@ -15772,6 +15809,7 @@ export namespace Prisma {
     file_key?: StringFieldUpdateOperationsInput | string
     file_size?: NullableStringFieldUpdateOperationsInput | string | null
     markdown_text?: NullableStringFieldUpdateOperationsInput | string | null
+    chatMessages?: NullableJsonNullValueInput | InputJsonValue
     created_at?: DateTimeFieldUpdateOperationsInput | Date | string
     updated_at?: DateTimeFieldUpdateOperationsInput | Date | string
   }
