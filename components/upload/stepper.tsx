@@ -39,6 +39,8 @@ const steps = [
   },
 ];
 
+import { useIsMobile } from "@/hooks/use-mobile";
+
 export type StepperStep = {
   title: string;
   icon: React.ReactNode;
@@ -54,29 +56,32 @@ export function UploadStepper({
   currentStep: number;
   onCancel?: () => void;
 }) {
+  const isMobile = useIsMobile();
+
   return (
     <div className="flex flex-col h-full w-full justify-center items-center">
       <Stepper
         value={currentStep}
         onValueChange={() => {}} // Disabled manual changing
+        orientation={isMobile ? "vertical" : "horizontal"}
         indicators={{
           completed: <IconCheck className="size-3.5" />,
           loading: <IconLoader2 className="size-3.5 animate-spin" />,
         }}
         className="w-full max-w-4xl space-y-8"
       >
-        <StepperNav className="gap-3 flex-row overflow-x-auto thin-scrollbar pb-2">
+        <StepperNav className="gap-6 md:gap-3 overflow-x-auto thin-scrollbar pb-2">
           {steps.map((step, index) => (
             <StepperItem
               key={index}
               step={index + 1}
-              className="relative flex-1 items-start shrink-0 min-w-[120px]"
+              className="relative flex-1 items-start shrink-0 md:min-w-[120px]"
             >
               <StepperTrigger
-                className="flex grow flex-col items-start justify-center gap-2.5 pointer-events-none"
+                className="flex grow flex-row md:flex-col items-center md:items-start justify-start md:justify-center gap-4 md:gap-2.5 pointer-events-none"
                 asChild
               >
-                <StepperIndicator className="data-[state=inactive]:border-border data-[state=inactive]:text-muted-foreground data-[state=completed]:bg-success size-8 border-2 data-[state=completed]:text-white data-[state=inactive]:bg-transparent">
+                <StepperIndicator className="data-[state=inactive]:border-border data-[state=inactive]:text-muted-foreground data-[state=completed]:bg-success size-8 border-2 data-[state=completed]:text-white data-[state=inactive]:bg-transparent shrink-0">
                   {step.icon}
                 </StepperIndicator>
                 <div className="flex flex-col items-start gap-1">
@@ -113,7 +118,7 @@ export function UploadStepper({
               </StepperTrigger>
 
               {steps.length > index + 1 && (
-                <StepperSeparator className="group-data-[state=completed]/step:bg-success absolute inset-x-0 start-9 top-4 m-0 w-[calc(100%-2rem)] flex-none" />
+                <StepperSeparator className="group-data-[state=completed]/step:bg-success absolute md:inset-x-0 md:start-9 md:top-4 md:m-0 md:w-[calc(100%-2rem)] md:h-0.5 inset-y-0 start-[15px] top-9 h-[calc(100%+1.5rem)] w-0.5 m-0 flex-none" />
               )}
             </StepperItem>
           ))}

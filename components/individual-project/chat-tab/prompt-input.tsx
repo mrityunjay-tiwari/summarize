@@ -200,7 +200,7 @@ const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   );
   console.log("MESSAGES:", messages);
   return (
-    <div className="max-w-full mx-auto relative size-full h-[calc(100vh-4rem)] pt-12">
+    <div className="max-w-full mx-auto relative size-full h-[calc(100vh-4rem)] pt-2.5 md:pt-12">
       <div className="flex flex-col h-full">
         <Conversation className="h-full thin-scrollbar">
           <ConversationContent>

@@ -100,7 +100,6 @@
   --warning-foreground: var(--color-yellow-900);
   --invert: var(--color-zinc-900);
   --invert-foreground: var(--color-zinc-50);
-
 }
 
 .dark {
@@ -161,7 +160,7 @@
   }
 }
 
-@keyframes gradient-x{
+@keyframes gradient-x {
   0%,
   100% {
     background-size: 200% 100%;
@@ -197,12 +196,12 @@
 }
 
 .thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(100,100,100,0.5);
+  background-color: rgba(100, 100, 100, 0.5);
   border-radius: 9999px;
 }
 
 .dark .thin-scrollbar::-webkit-scrollbar-thumb {
-  background-color: rgba(180,180,180,0.4) ;
+  background-color: rgba(180, 180, 180, 0.4);
 }
 
 .thin-scrollbar::-webkit-scrollbar-button {
@@ -216,8 +215,8 @@
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE & Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none; /* IE & Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .hide-scrollbar:hover {

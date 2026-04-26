@@ -8,12 +8,12 @@ import {Separator} from "../ui/separator";
 import {Button} from "../ui/button";
 import Headings from "./headings";
 
-export function AccordionDemo() {
+export function FaqsSection() {
   return (
     <>
-      <div className="max-w-5xl">
+      <div className="w-full md:max-w-5xl">
         <Headings title="Frequently Asked Questions" subtitle="FAQs" />
-        <div className="p-10 rounded-xl bg-white dark:bg-zinc-900 min-w-5xl">
+        <div className="p-4 sm:p-10 rounded-xl bg-white dark:bg-zinc-900 w-full max-w-full">
           <Accordion type="single" collapsible defaultValue="shipping">
             <AccordionItem value="shipping">
               <AccordionTrigger>

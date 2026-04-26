@@ -22,31 +22,55 @@ export function ResizablePanelExample({
   const [page, setPage] = useState(1);
 
   return (
-    <ResizablePanelGroup
-      orientation="horizontal"
-      className="h-screen max-h-screen w-full"
-    >
-      <ResizablePanel minSize={10} defaultSize={40}>
-        <div className="flex h-full items-center justify-center p-6 pb-1">
-          <iframe
-            key={page}
-            src={`${url}#page=${page}`}
-            className="w-full h-full rounded-md rounded-b-none"
-          />
-        </div>
-      </ResizablePanel>
+    <>
+      <div className="flex w-full min-h-[calc(200vh-4rem)] md:hidden">
+        <ResizablePanelGroup orientation="vertical" className="h-full w-full">
+          <ResizablePanel minSize={10} defaultSize={100}>
+            <div className="h-full w-full p-1 md:p-2 md:pt-1">
+              <SelectTheTab
+                url={url}
+                generatedContent={generatedContent}
+                documentContextForChat={documentContextForChat}
+              />
+            </div>
+          </ResizablePanel>
+          <ResizableHandle className="before:bg-muted-foreground/25 hover:before:bg-muted-foreground/50 active:before:bg-primary before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-1 before:w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:w-8 active:before:w-12 active:before:h-1.5" />
+          <ResizablePanel minSize={10} defaultSize={100}>
+            <div className="flex h-full w-full items-center justify-center p-2 pb-1">
+              <iframe
+                key={page}
+                src={`${url}#page=${page}`}
+                className="w-full h-full rounded-md rounded-b-none"
+              />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+      <div className="hidden w-full h-[calc(100vh-50px)] md:flex">
+        <ResizablePanelGroup orientation="horizontal" className="h-full w-full">
+          <ResizablePanel minSize={10} defaultSize={40}>
+            <div className="flex h-full items-center justify-center p-6 pb-1">
+              <iframe
+                key={page}
+                src={`${url}#page=${page}`}
+                className="w-full h-full rounded-md rounded-b-none"
+              />
+            </div>
+          </ResizablePanel>
 
-      <ResizableHandle className="before:bg-muted-foreground/25 hover:before:bg-muted-foreground/50 active:before:bg-primary before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-6 before:w-1 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:h-8 active:before:h-12 active:before:w-1.5" />
+          <ResizableHandle className="before:bg-muted-foreground/25 hover:before:bg-muted-foreground/50 active:before:bg-primary before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-6 before:w-1 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:h-8 active:before:h-12 active:before:w-1.5" />
 
-      <ResizablePanel minSize={10} defaultSize={60}>
-        <div className="h-full p-5 pt-1">
-          <SelectTheTab
-            url={url}
-            generatedContent={generatedContent}
-            documentContextForChat={documentContextForChat}
-          />
-        </div>
-      </ResizablePanel>
-    </ResizablePanelGroup>
+          <ResizablePanel minSize={10} defaultSize={60}>
+            <div className="h-full p-5 pt-1">
+              <SelectTheTab
+                url={url}
+                generatedContent={generatedContent}
+                documentContextForChat={documentContextForChat}
+              />
+            </div>
+          </ResizablePanel>
+        </ResizablePanelGroup>
+      </div>
+    </>
   );
 }

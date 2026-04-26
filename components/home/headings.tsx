@@ -14,7 +14,14 @@ export default function Headings({title, subtitle, subheading}: THeadingProps) {
           <Button
             variant={"outline"}
             size={"lg"}
-            className="rounded-full shadow-lg"
+            className="hidden md:block rounded-full shadow-lg"
+          >
+            <span className="font-semibold">{subtitle}</span>
+          </Button>
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            className="md:hidden rounded-full shadow-lg"
           >
             <span className="font-semibold">{subtitle}</span>
           </Button>

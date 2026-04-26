@@ -50,19 +50,35 @@ export default function Hero() {
         </div>
 
         {/* MAIN HEADING */}
-        <span className={`mt-8 ml-52 font-light text-lg italic ${instrumentSerif.className}`}><Highlighter action="circle" color="#FF9800">
-            Structured, Unstructured or Scanned
-          </Highlighter></span><br className=" sm:block" />
+        {/* MOBILE ONLY HEADING DECORATION */}
+        <div className="flex md:hidden flex-col items-center mt-6 mb-3">
+          <span className={`font-light text-base italic ${instrumentSerif.className}`}>
+            <Highlighter action="circle" color="#FF9800">
+              Structured, Unstructured or Scanned
+            </Highlighter>
+          </span>
+          <CurlyArrow className="w-6 h-6 mt-2 text-gray-400" />
+        </div>
+
+        {/* DESKTOP ONLY HEADING DECORATION */}
+        <div className="hidden md:flex flex-col items-center w-full">
+          <span className={`mt-8 ml-52 font-light text-lg italic ${instrumentSerif.className}`}>
+            <Highlighter action="circle" color="#FF9800">
+              Structured, Unstructured or Scanned
+            </Highlighter>
+          </span>
+          <br className="sm:block" />
           <CurlyArrow className="w-7 h-7 ml-32 -mt-5" />
-        <h1 className="font-medium text-5xl tracking-tight text-slate-900 dark:text-white leading-[1.1]">
-          Turn any <Highlighter action="highlight" color="#FF9800">PDF</Highlighter> into <br className=" sm:block" />
-          <span className="font-normal text-5xl bg-linear-to-r from-gray-800 via-gray-600 to-gray-400 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600 bg-clip-text text-transparent inline-block">
+        </div>
+        <h1 className="font-medium text-[2.5rem] leading-tight sm:text-4xl md:text-5xl tracking-tight text-slate-900 dark:text-white">
+          Turn any <Highlighter action="highlight" color="#FF9800">PDF</Highlighter> into <br className="hidden sm:block" />
+          <span className="font-normal text-[2rem] leading-tight sm:text-4xl md:text-5xl bg-linear-to-r from-gray-800 via-gray-600 to-gray-400 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600 bg-clip-text text-transparent inline-block mt-2 md:mt-0">
             Your Ultimate Study Guide
           </span>
         </h1>
 
         {/* SUBHEADING */}
-        <h2 className="mt-6 lg:text-lg text-muted-foreground max-w-2xl">
+        <h2 className="mt-6 text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl px-2 md:px-0">
           Upload your documents, textbooks, lecture slides, or research paper PDFs. DocuMind's
           AI instantly generates <span className="font-medium">flashcards</span>, <span className="font-medium">quizzes</span>, <span className="font-medium">mind maps</span>, and <span className="font-medium">lets you chat</span> with your documents in seconds.
         </h2>
@@ -70,9 +86,9 @@ export default function Hero() {
         {/* FEATURE CARDS */}
         <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5 w-full max-w-3xl">
           {/* Card 1: Powered by Docling */}
-          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
-            <div className="rounded-lg bg-orange-100 dark:bg-orange-500/20 p-2 text-orange-500 dark:text-orange-400">
-              <FileText className="h-5 w-5" />
+          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
+            <div className="rounded-lg bg-orange-100 dark:bg-orange-500/20 p-1.5 md:p-2 text-orange-500 dark:text-orange-400">
+              <FileText className="md:h-5 md:w-5 h-3 w-3" />
             </div>
             <div>
               <h3 className="font-medium text-slate-900 dark:text-white">
@@ -85,9 +101,9 @@ export default function Hero() {
           </div>
 
           {/* Card 2: Instant Results */}
-          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
-            <div className="rounded-lg bg-blue-100 dark:bg-blue-500/20 p-2 text-blue-500 dark:text-blue-400">
-              <Zap className="h-5 w-5" />
+          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
+            <div className="rounded-lg bg-blue-100 dark:bg-blue-500/20 p-1.5 md:p-2 text-blue-500 dark:text-blue-400">
+              <Zap className="h-3 w-3 md:h-5 md:w-5" />
             </div>
             <div>
               <h3 className="font-medium text-slate-900 dark:text-white">
@@ -101,7 +117,7 @@ export default function Hero() {
         </div>
 
         {/* CTA BUTTONS */}
-        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-2 md:px-0">
           <Link href="/upload" className="w-full sm:w-auto">
             <Button className="w-full shadow-md bg-linear-to-t from-blue-700 via-blue-600 to-blue-400 hover:from-blue-600 hover:via-blue-500 hover:to-blue-300 rounded-xl hover:cursor-pointer">
               <Upload className="mr-2 h-4 w-4" /> Upload PDF

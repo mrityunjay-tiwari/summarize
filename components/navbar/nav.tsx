@@ -32,7 +32,7 @@ export const Navbar = ({user}: {user?: any}) => {
         )}
       >
         <div className="w-full px-3.5 md:px-0 pt-5">
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-full md:max-w-3xl">
             <div className="flex items-center justify-between gap-3 py-3 lg:py-4">
               <div className="flex items-center gap-10 md:gap-16">
                 <Link
@@ -41,7 +41,7 @@ export const Navbar = ({user}: {user?: any}) => {
                   className="flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
                 >
                   <Image
-                    className="flex dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                    className="hidden md:block dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
                     src={
                       "https://ik.imagekit.io/mrityunjay/DocuMind/teach__4_-removebg-preview.png"
                     }
@@ -50,7 +50,7 @@ export const Navbar = ({user}: {user?: any}) => {
                     height={100}
                   />
                   <Image
-                    className="hidden dark:flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                    className="hidden md:dark:block items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
                     src={
                       "https://ik.imagekit.io/mrityunjay/DocuMind/darklogo-removebg-preview.png"
                     }
@@ -58,6 +58,33 @@ export const Navbar = ({user}: {user?: any}) => {
                     width={95}
                     height={95}
                   />
+                  
+                  {/* <Image
+                    className=""
+                    src={
+                      "https://ik.imagekit.io/mrityunjay/DocuMind/mobile-logo-light.png"
+                    }
+                    alt="logo"
+                    width={50}
+                    height={40}
+                  /> */}
+                  <div className="flex md:hidden dark:hidden items-center font-bold tracking-tight">
+                    <span className="text-neutral-950 text-2xl">d</span>
+                    <span className="text-blue-500 text-2xl">m</span>
+                  </div>
+                  <div className="hidden dark:flex md:dark:hidden items-center font-bold tracking-tight">
+                    <span className="text-white text-2xl">d</span>
+                    <span className="text-blue-500 text-2xl">m</span>
+                  </div>
+                  {/* <Image
+                    className="hidden dark:block md:dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                    src={
+                      "https://ik.imagekit.io/mrityunjay/DocuMind/mobile-logo-dark.png"
+                    }
+                    alt="logo"
+                    width={50}
+                    height={40}
+                  /> */}
                 </Link>
 
                 <ul className="flex gap-3 sm:gap-4 md:gap-8 text-[12.5px] md:text-sm">

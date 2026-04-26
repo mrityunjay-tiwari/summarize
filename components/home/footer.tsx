@@ -7,7 +7,7 @@ import {MdEmail} from "react-icons/md";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full bg-gradient-to-b from-blue-600 to-blue-700 overflow-hidden pt-32 pb-10 mt-24">
+    <footer className="relative w-full bg-linear-to-b from-blue-600 to-blue-700 overflow-hidden pt-24 md:pt-32 pb-5 md:pb-10 mt-24">
       <div
         className="absolute inset-0 z-0"
         style={{
@@ -20,20 +20,20 @@ export default function Footer() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 flex flex-col items-center">
-        <h1 className="text-[90px] sm:text-[130px] md:text-[180px] lg:text-[230px] font-bold bg-gradient-to-b from-white/50 to-white/0 bg-clip-text text-transparent leading-[0.8] tracking-tighter select-none pb-12">
+        <h1 className="text-[75px] sm:text-[90px] md:text-[150px] lg:text-[230px] font-bold bg-linear-to-b from-white/50 to-white/0 bg-clip-text text-transparent leading-[0.8] tracking-tighter select-none pb-6 md:pb-12 w-full text-center">
           documind
         </h1>
 
         <div className="w-full flex flex-col md:flex-row items-center justify-between mt-12 pt-8 border-t border-blue-500/50">
           <div className="flex items-center gap-4 text-blue-200 mb-6 md:mb-0">
             <Link
-              href="#"
+              href="/upload"
               className="hover:text-white bg-blue-500/50 hover:bg-blue-400/30 transition-colors p-2 rounded-full border border-blue-400/20"
             >
               <FaXTwitter className="w-4 h-4" />
             </Link>
             <Link
-              href="#"
+              href="/upload"
               className="hover:text-white bg-blue-500/50 hover:bg-blue-400/30 transition-colors p-2 rounded-full border border-blue-400/20"
             >
               <FaLinkedinIn className="w-4 h-4" />
