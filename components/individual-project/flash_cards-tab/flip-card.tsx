@@ -74,7 +74,7 @@ export default function CardFlip({
           className={cn(
             "absolute inset-0 h-full w-full",
             "[backface-visibility:hidden] [transform:rotateY(0deg)]",
-            "overflow-hidden rounded-2xl",
+            "overflow-hidden rounded-sm md:rounded-2xl",
             "bg-zinc-50 dark:bg-zinc-900",
             "border border-zinc-200 dark:border-zinc-800/50",
             "shadow-xs dark:shadow-lg",
@@ -89,7 +89,7 @@ export default function CardFlip({
             className="relative h-full overflow-hidden bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black"
           >
             <div className="absolute top-6 left-6">
-              <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-indigo-700/60 tracking-tight">
+              <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-zinc-700/60 tracking-tight">
                 Q.
               </span>
             </div>
@@ -122,8 +122,8 @@ export default function CardFlip({
               <div className="group/icon relative">
                 <div
                   className={cn(
-                    "absolute inset-[-8px] rounded-lg transition-opacity duration-300",
-                    "bg-gradient-to-br from-orange-500/20 via-orange-500/10 to-transparent",
+                    "absolute inset-[-8px] rounded-xs md:rounded-lg transition-opacity duration-300",
+                    "bg-linear-to-br from-orange-500/20 via-orange-500/10 to-transparent",
                   )}
                 />
                 {/* <Repeat2 className={`relative z-10 h-4 w-4 text-orange-500 transition-transform duration-300 ${isHoverable ? "group-hover/icon:-rotate-12 group-hover/icon:scale-110" : ""}`} /> */}
@@ -143,8 +143,8 @@ export default function CardFlip({
           className={cn(
             "absolute inset-0 h-full w-full",
             "[backface-visibility:hidden] [transform:rotateY(180deg)]",
-            "rounded-2xl p-6",
-            "bg-gradient-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black",
+            "rounded-sm md:rounded-2xl p-6",
+            "bg-linear-to-b from-zinc-100 to-white dark:from-zinc-900 dark:to-black",
             "border border-zinc-200 dark:border-zinc-800",
             "shadow-xs dark:shadow-lg",
             "flex flex-col",
@@ -154,7 +154,7 @@ export default function CardFlip({
           )}
         >
           <div className="w-full flex justify-start">
-            <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-indigo-700/60 tracking-tight">
+            <span className="font-sans text-[42px] font-light leading-none text-indigo-300/80 dark:text-zinc-700/60 tracking-tight">
               A.
             </span>
           </div>

@@ -351,7 +351,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                     }
               }
               aria-hidden={!isActive}
-              className="absolute top-1/2 left-1/2 w-full max-w-5xl min-w-[300px] rounded-2xl border bg-background shadow-lg"
+              className="absolute top-1/2 left-1/2 w-full max-w-5xl min-w-[300px] rounded-none md:rounded-2xl border-0 md:border bg-background shadow-lg"
               data-active={isActive}
               initial={false}
               key={`scrollable-card-${item.id}`}
@@ -376,7 +376,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
                 transitionTimingFunction:
                   "cubic-bezier(0.645, 0.045, 0.355, 1)",
                 // Dynamic border width based on scale - from reference code
-                borderWidth: `${2 / transform.scale}px`,
+                borderWidth: `${1 / transform.scale}px`,
               }}
               tabIndex={isActive ? 0 : -1}
               transition={
@@ -399,7 +399,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
               {item.caption && (
                 <div
                   className={cn(
-                    "absolute -top-16 right-0 md:-top-24 md:right-4 lg:-top-28 lg:-right-10 flex items-end gap-1 md:gap-2 text-gray-800 z-50 pointer-events-none transition-opacity duration-300",
+                    "absolute -top-28 right-0 md:-top-24 md:right-4 lg:-top-28 lg:-right-10 flex items-end gap-1 md:gap-2 text-gray-800 z-50 pointer-events-none transition-opacity duration-300",
                     caveat.className,
                     isActive ? "opacity-100" : "opacity-0"
                   )}

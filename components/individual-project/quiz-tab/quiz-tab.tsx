@@ -16,6 +16,7 @@ import FeatureCounter from "../counter";
 import { getDocumentChunksRaw, addGeneratedContentToExistingDocument } from "@/actions/upload-actions";
 import { toast } from "sonner";
 import LimitReachBanner from "../limit-reach-banner";
+import TabsHeader from "../tabs-header";
 
 type TQuizTabProps = {
   quizzes: any[];
@@ -236,12 +237,12 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
   if (view === 'detail') {
     return (
       <div className="min-w-full">
-         <div className="max-w-full flex justify-start items-center px-6 mt-1 bg-blue-300/10 rounded-lg p-4 mx-5 shadow-xs">
-           <Button variant="outline" size="sm" className="rounded-2xl shadow-md" onClick={handleBackToList}>
+         <div className="max-w-full flex justify-start items-center px-2.5 md:px-6 mt-1 bg-blue-300/10 rounded-none md:rounded-lg p-2.5 md:p-4 mx-1.5 md:mx-5 shadow-xs">
+           <Button variant="outline" size="xs" className="rounded-xs md:rounded-2xl shadow-md" onClick={handleBackToList}>
              <ArrowLeftIcon className="size-4"/> Back 
            </Button>
          </div>
-         <Separator className="mt-4 mx-6 opacity-40" />
+         <Separator className="mt-2.5 md:mt-4 mx-1.5 md:mx-6 opacity-40 dark:opacity-70" />
          <QuizCarousel quizzes={selectedData} quizId={selectedQuizId} initialProgress={initialProgress} />
       </div>
     );
@@ -259,7 +260,7 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
         />
       ) : (
         <div className="min-w-full">
-          <div className="max-w-full flex justify-between items-center px-6 mt-1 bg-blue-300/10 rounded-lg p-4 mx-5">
+          {/* <div className="max-w-full flex justify-between items-center px-6 mt-1 bg-blue-300/10 rounded-lg p-4 mx-5">
             <div className="flex items-center gap-2">
               <div className="bg-blue-500/10 p-2 rounded-lg shadow-md">
                 <SiQuizlet className="size-4 text-blue-500" />
@@ -276,9 +277,15 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
                 <PlusIcon /> Generate More
               </Button>
             </div>
-          </div>
-          {localQuizzes.length >= 5 && showLimitBanner && <div className="max-w-full flex justify-between items-center px-6 rounded-lg pt-2"><LimitReachBanner limitMessage="At once you can create max. 5 quiz for each project." /></div>}
-          <Separator className="mt-4 mx-6 opacity-40" />
+          </div> */}
+          <TabsHeader
+            Icon={SiQuizlet}
+            title="Quizzes are fun!!"
+            command="Generate More"
+            onClick={handleStartGeneration}
+          />
+          {localQuizzes.length >= 5 && showLimitBanner && <div className="max-w-full flex justify-between items-center px-2.5 md:px-6 rounded-xs md:rounded-lg pt-2"><LimitReachBanner limitMessage="At once you can create max. 5 quiz for each project." /></div>}
+          <Separator className="mt-2.5 md:mt-4 mx-1.5 md:mx-6 opacity-40 dark:opacity-70" />
           <QuizList 
             initialItems={listItems} 
             onQuizSelect={handleQuizSelect} 

@@ -137,7 +137,7 @@ export function QuizCarousel({ quizzes = [], quizId, initialProgress }: QuizCaro
   }
 
   return (
-    <div className="w-full max-w-4xl border rounded-xl bg-background shadow-xs overflow-auto">
+    <div className="w-full max-w-4xl border rounded-sm md:rounded-xl bg-background shadow-xs overflow-auto">
       <Carousel setApi={setApi} className="w-full">
         <CarouselContent>
           {parsedQuestions.map((q) => (
@@ -157,7 +157,7 @@ export function QuizCarousel({ quizzes = [], quizId, initialProgress }: QuizCaro
       
       {/* Footer Navigation */}
       <Separator />
-      <div className="flex items-center justify-between px-6 py-4 bg-background">
+      <div className="flex items-center justify-between px-3 md:px-6 py-2.5 md:py-4 bg-background">
         <div className="text-sm font-medium text-foreground">
           {current}/{count}
         </div>
@@ -165,7 +165,7 @@ export function QuizCarousel({ quizzes = [], quizId, initialProgress }: QuizCaro
           <button
             onClick={() => api?.scrollPrev()}
             disabled={!api?.canScrollPrev()}
-            className="text-sm font-semibold text-foreground hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-xs md:text-sm font-semibold text-foreground hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
              &lt; Previous
           </button>
@@ -182,7 +182,7 @@ export function QuizCarousel({ quizzes = [], quizId, initialProgress }: QuizCaro
                 api?.scrollNext();
               }
             }}
-            className="text-sm font-semibold text-foreground hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
+            className="text-xs md:text-sm font-semibold text-foreground hover:opacity-80 transition-opacity disabled:opacity-50 disabled:cursor-not-allowed"
           >
             {current === count ? "Submit >" : "Next >"}
           </button>

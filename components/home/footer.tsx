@@ -20,7 +20,7 @@ export default function Footer() {
       />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 flex flex-col items-center">
-        <h1 className="text-[75px] sm:text-[90px] md:text-[150px] lg:text-[230px] font-bold bg-linear-to-b from-white/50 to-white/0 bg-clip-text text-transparent leading-[0.8] tracking-tighter select-none pb-6 md:pb-12 w-full text-center">
+        <h1 className="text-[75px] sm:text-[90px] md:text-[150px] lg:text-[230px] font-bold bg-linear-to-b from-white/50 to-white/0 bg-clip-text text-transparent leading-[0.8] tracking-tighter select-none pb-2 md:pb-12 w-full text-center">
           documind
         </h1>
 

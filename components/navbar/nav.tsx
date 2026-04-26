@@ -38,7 +38,7 @@ export const Navbar = ({user}: {user?: any}) => {
                 <Link
                   href="/"
                   aria-label="home"
-                  className="flex items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
+                  className="flex items-center grayscale-0 md:grayscale-50"
                 >
                   <Image
                     className="hidden md:block dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"
@@ -68,13 +68,27 @@ export const Navbar = ({user}: {user?: any}) => {
                     width={50}
                     height={40}
                   /> */}
-                  <div className="flex md:hidden dark:hidden items-center font-bold tracking-tight">
-                    <span className="text-neutral-950 text-2xl">d</span>
-                    <span className="text-blue-500 text-2xl">m</span>
+                  <div className="flex md:hidden dark:hidden items-center">
+                    <Image
+                    className="aspect-square"
+                    src={
+                      "https://ik.imagekit.io/mrityunjay/DocuMind/teach%20(8).png"
+                    }
+                    alt="logo"
+                    width={40}
+                    height={40}
+                  />
                   </div>
-                  <div className="hidden dark:flex md:dark:hidden items-center font-bold tracking-tight">
-                    <span className="text-white text-2xl">d</span>
-                    <span className="text-blue-500 text-2xl">m</span>
+                  <div className="hidden dark:flex md:dark:hidden items-center">
+                    <Image
+                    className="aspect-square"
+                    src={
+                      "https://ik.imagekit.io/mrityunjay/DocuMind/teach__5_-removebg-preview.png?updatedAt=1777106433440"
+                    }
+                    alt="logo"
+                    width={40}
+                    height={40}
+                  />
                   </div>
                   {/* <Image
                     className="hidden dark:block md:dark:hidden items-center grayscale-0 md:grayscale-50 scale-x-70 md:scale-x-100"

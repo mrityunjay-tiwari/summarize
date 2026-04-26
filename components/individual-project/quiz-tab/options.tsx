@@ -46,7 +46,7 @@ const QuizOptionsItIs = ({ options, correctOptionId, selectedOptionId, onSelect 
           return (
             <ChoiceboxItem
               className={cn(
-                "rounded-lg! border-dashed! flex justify-start items-start text-left transition-colors duration-200",
+                "rounded-sm! md:rounded-lg! border-dashed! flex justify-start items-start text-left transition-colors duration-200",
                 stateClass,
                 selectedOptionId && "cursor-default"
               )}

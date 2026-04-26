@@ -5,8 +5,8 @@ import { Upload } from "lucide-react";
 
 export default function CTA() {
   return (
-    <section className="relative w-full max-w-7xl mx-auto mt-24 md:mt-32 -mb-24 md:-mb-36 z-20 px-4 md:px-8">
-      <div className="relative w-full bg-linear-to-t from-blue-100 to-transparent dark:from-blue-800 dark:to-transparent rounded-xl md:rounded-3xl overflow-hidden flex flex-row items-center justify-between px-4 py-6 md:px-24 md:py-0 min-h-[220px] md:min-h-[480px] shadow-sm">
+    <section className="relative w-full max-w-7xl mx-auto mt-24 md:mt-32 -mb-32 md:-mb-36 z-20 md:px-8">
+      <div className="relative w-full bg-linear-to-t from-blue-100 to-transparent dark:from-blue-900 dark:to-transparent rounded-xl md:rounded-3xl overflow-hidden flex flex-row items-center justify-between px-4 py-6 md:px-24 md:py-0 min-h-[220px] md:min-h-[480px] shadow-sm">
         
         {/* Left Content */}
         <div className="flex flex-col gap-3 md:gap-6 text-left items-start z-10 w-[55%] shrink-0 py-0">

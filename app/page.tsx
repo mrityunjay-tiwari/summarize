@@ -16,7 +16,7 @@ export default async function Home() {
       <Navbar user={user} />
       <BGGrid />
       <div className="w-[94%] sm:w-[96%] md:w-full max-w-7xl mx-auto flex flex-col items-center">
-        <div className="mt-16 w-full">
+        <div className="mt-8 md:mt-16 w-full">
           <Hero />
         </div>
         <div className="w-full mt-10 md:mt-0">

@@ -39,20 +39,20 @@ function TabSelectionContent({ url, generatedContent = [], documentContextForCha
   return (
     <div className="flex w-full h-full flex-col gap-4">
       <Tabs defaultValue={defaultTab} className="flex flex-col h-full">
-        <TabsList className="w-full shrink-0 rounded-sm overflow-x-auto md:overflow-hidden md:hide-scrollbar thin-scrollbar">
-          <TabsTrigger value="chat" className="rounded">
+        <TabsList className="w-full shrink-0 rounded-none md:rounded-sm overflow-x-auto md:overflow-hidden md:hide-scrollbar thin-scrollbar">
+          <TabsTrigger value="chat" className="rounded-xs md:rounded-sm">
             <SiLivechat className="size-2.5 md:size-4" />
             Chat
           </TabsTrigger>
-          <TabsTrigger value="flash-cards" className="rounded">
+          <TabsTrigger value="flash-cards" className="rounded-xs md:rounded-sm">
             <PiCardsThreeBold className="size-3 md:size-4" />
             Flash Cards
           </TabsTrigger>
-          <TabsTrigger value="quiz" className="rounded">
+          <TabsTrigger value="quiz" className="rounded-xs md:rounded-sm">
             <SiQuizlet className="size-3 md:size-4" />
             Quiz
           </TabsTrigger>
-          <TabsTrigger value="mind-map" className="rounded">
+          <TabsTrigger value="mind-map" className="rounded-xs md:rounded-sm">
             <FcMindMap className="size-2.5 md:size-4 grayscale" />
             Mind Map
           </TabsTrigger>

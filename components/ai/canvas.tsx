@@ -36,32 +36,52 @@ type CanvasProps = ReactFlowProps & {
 
 export const Canvas = ({children, ...props}: CanvasProps) => (
   <ReactFlow
+    className="rounded-none"
     deleteKeyCode={["Backspace", "Delete"]}
     fitView
-    panOnDrag={false}
-    panOnScroll
+    panOnDrag={true}
+    panOnScroll={false}
+    zoomOnScroll={false}
+    zoomOnPinch={true}
     selectionOnDrag={true}
-    zoomOnDoubleClick={false}
+    zoomOnDoubleClick={true}
     nodeTypes={nodeTypes}
     {...props}
   >
-    <Background bgColor="var(--sidebar)" />
+    <Background bgColor="var(--sidebar)" className="rounded-none" />
     {children}
   </ReactFlow>
 );
 
-export const AgentNode = ({data, id}: {data: {label: string, isCollapsed?: boolean, hasChildren?: boolean, onToggleCollapse?: (id: string) => void}, id: string}) => (
-  <Node handles={{target: true, source: true}} className="w-[200px] h-auto min-h-[50px] shadow-sm rounded-xl overflow-hidden border-border/60">
-    <NodeHeader className="p-3 cursor-pointer bg-transparent border-b-0" onClick={() => data.onToggleCollapse && data.onToggleCollapse(id)}>
+export const AgentNode = ({
+  data,
+  id,
+}: {
+  data: {
+    label: string;
+    isCollapsed?: boolean;
+    hasChildren?: boolean;
+    onToggleCollapse?: (id: string) => void;
+  };
+  id: string;
+}) => (
+  <Node
+    handles={{target: true, source: true}}
+    className="w-[200px] h-auto min-h-[50px] shadow-sm rounded-none md:rounded-xl overflow-hidden border-border/60"
+  >
+    <NodeHeader
+      className="p-3 cursor-pointer bg-transparent border-b-0"
+      onClick={() => data.onToggleCollapse && data.onToggleCollapse(id)}
+    >
       <NodeTitle className="flex items-center justify-between gap-2 text-sm font-medium leading-snug whitespace-pre-wrap">
         <div className="flex items-start gap-1.5">
           <VscActivateBreakpoints className="size-3.5 shrink-0 mt-0.5 text-muted-foreground" />
           <span className="text-foreground/90">{data.label}</span>
         </div>
         {data.hasChildren && (
-            <span className="text-muted-foreground/60 text-xs shrink-0 font-bold ml-1 bg-muted rounded-sm px-1.5 py-0.5">
-                {data.isCollapsed ? ">" : "<"}
-            </span>
+          <span className="text-muted-foreground/60 text-xs shrink-0 font-bold ml-1 bg-muted rounded-sm px-1.5 py-0.5">
+            {data.isCollapsed ? ">" : "<"}
+          </span>
         )}
       </NodeTitle>
     </NodeHeader>
@@ -70,7 +90,12 @@ export const AgentNode = ({data, id}: {data: {label: string, isCollapsed?: boole
 
 const initialNodes: ReactFlowNode[] = [
   {id: "1", type: "agent", position: {x: 50, y: 100}, data: {label: "Input"}},
-  {id: "2", type: "agent", position: {x: 300, y: 100}, data: {label: "Process"}},
+  {
+    id: "2",
+    type: "agent",
+    position: {x: 300, y: 100},
+    data: {label: "Process"},
+  },
   {id: "3", type: "agent", position: {x: 550, y: 100}, data: {label: "Output"}},
   {id: "4", type: "agent", position: {x: 550, y: 200}, data: {label: "Node 4"}},
 ];
@@ -104,7 +129,7 @@ export function FlowContent({
   flowRef,
   addNode,
   isFullscreen,
-  toggleFullscreen
+  toggleFullscreen,
 }: FlowContentProps) {
   const {fitView} = useReactFlow();
 
@@ -162,23 +187,50 @@ export function FlowContent({
       onEdgesChange={onEdgesChange}
       onConnect={onConnect}
       nodeTypes={nodeTypes}
+      className="rounded-none md:rounded-md"
     >
-      <Controls />
-      <Panel position="top-right" className="flex gap-2">
-        <Button variant={"outline"} size={"sm"} onClick={downloadImage}>
+      <Controls className="rounded-xs md:rounded-md" />
+      
+      <Panel
+        position="top-right"
+        className="flex gap-2 rounded-none md:rounded-sm"
+      >
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          onClick={downloadImage}
+          className="rounded-none md:rounded-sm"
+        >
           {" "}
           <MdOutlineFileDownload className="size-4" />
         </Button>
-        <Button variant={"outline"} size={"sm"} onClick={addNode}>
+        <Button
+          variant={"outline"}
+          size={"sm"}
+          onClick={addNode}
+          className="rounded-none md:rounded-sm hidden"
+        >
           {" "}
           <PlusIcon className="size-4" />
         </Button>
         {toggleFullscreen && (
-          <Button variant={"outline"} size={"sm"} onClick={toggleFullscreen}>
-            {isFullscreen ? <MinimizeIcon className="size-4" /> : <MaximizeIcon className="size-4" />}
+          <Button
+            variant={"outline"}
+            size={"sm"}
+            onClick={toggleFullscreen}
+            className="rounded-none md:rounded-sm"
+          >
+            {isFullscreen ? (
+              <MinimizeIcon className="size-4" />
+            ) : (
+              <MaximizeIcon className="size-4" />
+            )}
           </Button>
         )}
+        
       </Panel>
+      <div className="text-xs text-muted-foreground md:hidden">Double Click to Zoom In</div>
+      <div className="text-xs text-muted-foreground md:hidden">Double Click to Drag Node</div>
     </Canvas>
   );
 }
@@ -207,7 +259,7 @@ export default function CanvasDemo() {
   const flowRef = useRef<HTMLDivElement>(null);
 
   return (
-    <div ref={flowRef} className="h-full w-full">
+    <div ref={flowRef} className="h-full w-full rounded-none">
       <ReactFlowProvider>
         {/* <Canvas
           nodes={nodes}
@@ -242,5 +294,3 @@ export default function CanvasDemo() {
     </div>
   );
 }
-
-

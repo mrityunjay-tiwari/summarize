@@ -38,8 +38,8 @@ export default function Quiz({
           <VscDebugRestart />Restart Quiz
         </button>
       </div>
-      <div className="p-5">
-        <h1 className="pb-5 font-medium">{question.question}</h1>
+      <div className="p-3 md:p-5">
+        <h1 className="pb-3 md:pb-5 font-medium">{question.question}</h1>
         <QuizOptionsItIs 
           options={question.options} 
           correctOptionId={question.correctOptionId}

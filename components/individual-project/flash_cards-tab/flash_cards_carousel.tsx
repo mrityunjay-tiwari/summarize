@@ -56,7 +56,7 @@ export function FlashCardsCarousel({ flashCards = [] }: FlashCardsCarouselProps)
         <CarouselContent>
           {flashCards.map((card, index) => (
             <CarouselItem key={index}>
-              <div className="flex h-[400px] items-center justify-center rounded-md p-6">
+              <div className="flex h-[400px] items-center justify-center rounded-xs md:rounded-md p-6">
                 <CardFlip question={card.question} answer={card.answer} index={index} />
               </div>
             </CarouselItem>
@@ -81,7 +81,7 @@ export function FlashCardsCarousel({ flashCards = [] }: FlashCardsCarouselProps)
             >
               <div
                 className={cn(
-                  "rounded-lg relative flex aspect-video flex-col items-center justify-center overflow-hidden border p-2 text-center transition-all",
+                  "rounded-sm md:rounded-lg relative flex aspect-video flex-col items-center justify-center overflow-hidden border p-2 text-center transition-all",
                   index === selectedIndex
                     ? "border-primary bg-primary/5 opacity-100 shadow-sm"
                     : "border-transparent bg-muted/50 opacity-50 hover:bg-muted hover:opacity-100",

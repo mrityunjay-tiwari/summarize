@@ -128,7 +128,7 @@ export function FlashCardsList({ initialItems, onFlashCardSelect, onDeleteFlashC
   }
 
   return (
-    <div className="mx-auto w-full max-w-7xl space-y-8 p-6">
+    <div className="mx-auto w-full max-w-7xl space-y-8 p-1.5 md:p-6">
       <Sortable
         value={items}
         onValueChange={handleValueChange}
@@ -139,7 +139,7 @@ export function FlashCardsList({ initialItems, onFlashCardSelect, onDeleteFlashC
         {items.map((item) => (
           <SortableItem key={item.id} value={item.id}>
             <div
-              className="bg-background border-border hover:bg-accent/50 rounded-md flex cursor-pointer items-center gap-3 border p-3 transition-colors"
+              className="bg-background border-border hover:bg-accent/50 rounded-xs md:rounded-md flex cursor-pointer items-center gap-3 border p-3 transition-colors"
               onClick={() => onFlashCardSelect(item.id)}
             >
               <SortableItemHandle className="text-muted-foreground hover:text-foreground">

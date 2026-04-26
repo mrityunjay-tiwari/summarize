@@ -25,7 +25,7 @@ export function ResizablePanelExample({
     <>
       <div className="flex w-full min-h-[calc(200vh-4rem)] md:hidden">
         <ResizablePanelGroup orientation="vertical" className="h-full w-full">
-          <ResizablePanel minSize={10} defaultSize={100}>
+          <ResizablePanel minSize={10} defaultSize={90}>
             <div className="h-full w-full p-1 md:p-2 md:pt-1">
               <SelectTheTab
                 url={url}
@@ -35,12 +35,16 @@ export function ResizablePanelExample({
             </div>
           </ResizablePanel>
           <ResizableHandle className="before:bg-muted-foreground/25 hover:before:bg-muted-foreground/50 active:before:bg-primary before:pointer-events-none before:absolute before:top-1/2 before:left-1/2 before:z-10 before:h-1 before:w-6 before:-translate-x-1/2 before:-translate-y-1/2 before:rounded-full before:transition-all before:duration-300 before:ease-[cubic-bezier(0.32,0.72,0,1)] hover:before:w-8 active:before:w-12 active:before:h-1.5" />
-          <ResizablePanel minSize={10} defaultSize={100}>
+          <ResizablePanel minSize={10} defaultSize={90}>
             <div className="flex h-full w-full items-center justify-center p-2 pb-1">
               <iframe
                 key={page}
                 src={`${url}#page=${page}`}
-                className="w-full h-full rounded-md rounded-b-none"
+                className="w-full h-full rounded-md rounded-b-none hidden md:block"
+              />
+              <iframe
+                src={`https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`}
+                className="w-full h-full rounded-md rounded-b-none md:hidden"
               />
             </div>
           </ResizablePanel>

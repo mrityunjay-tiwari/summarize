@@ -21,6 +21,8 @@ import {IoIosArrowRoundForward} from "react-icons/io";
 import {Separator} from "../ui/separator";
 import {AiOutlineDelete} from "react-icons/ai";
 import { DeleteProjectDialog } from "./delete-project";
+import { EmptyState } from "../individual-project/empty-state";
+import { TbCardsFilled } from "react-icons/tb";
 
 export type TDocumentDashboardItem = {
   id: string;
@@ -66,8 +68,8 @@ export function DocumentGrid({
         {hasChat && (
           <Badge
             variant="primary-light"
-            size="sm"
-            className="bg-green-100/60 font-normal text-green-700/70 dark:bg-green-900/50 dark:text-green-500/90"
+            size="xs"
+            className="rounded-none md:rounded-sm bg-green-100/60 font-normal text-green-700/70 dark:bg-green-900/50 dark:text-green-500/90"
           >
             Chat
           </Badge>
@@ -75,8 +77,8 @@ export function DocumentGrid({
         {hasFlashcards && (
           <Badge
             variant="success-light"
-            size="sm"
-            className="bg-green-100/60 font-normal text-green-700/70"
+            size="xs"
+            className="rounded-none md:rounded-sm bg-green-100/60 font-normal text-green-700/70 dark:bg-green-900/50 dark:text-green-500/90"
           >
             Flashcards
           </Badge>
@@ -84,8 +86,8 @@ export function DocumentGrid({
         {hasQuiz && (
           <Badge
             variant="warning-light"
-            size="sm"
-            className="bg-yellow-100/60 font-normal text-yellow-700/70"
+            size="xs"
+            className="rounded-none md:rounded-sm bg-yellow-100/60 font-normal text-yellow-700/70 dark:bg-yellow-900/50 dark:text-yellow-500/90"
           >
             Quiz
           </Badge>
@@ -93,8 +95,8 @@ export function DocumentGrid({
         {hasMindMap && (
           <Badge
             variant="info-light"
-            size="sm"
-            className="bg-blue-100/60 font-normal text-blue-700/70"
+            size="xs"
+            className="rounded-none md:rounded-sm bg-blue-100/60 font-normal text-blue-700/70 dark:bg-blue-900/50 dark:text-blue-500/90"
           >
             Mind Map
           </Badge>
@@ -120,9 +122,15 @@ export function DocumentGrid({
 
   if (items.length === 0) {
     return (
-      <div className="w-fulltext-center py-12 text-muted-foreground">
-        No documents uploaded yet. Upload a PDF to get started!
-      </div>
+      <EmptyState
+        icon={<BsFiletypePdf className="text-blue-500" />}
+        title="No Documents"
+        description="You have no documents yet. Upload a PDF to get started!"
+        buttonText="Upload PDF"
+        executeOnClick={() => {
+          router.push("/upload");
+        }}
+      />
     );
   }
 
@@ -139,7 +147,7 @@ export function DocumentGrid({
           <SortableItem key={item.id} value={item.id}>
             <div
               className={cn(
-                "group shadow-sm hover:shadow-md relative bg-slate-50 dark:bg-zinc-950 border-border hover:bg-accent/50 dark:hover:bg-accent/95 rounded-md cursor-pointer border p-4 transition-all duration-200 ease-in-out flex flex-col justify-between min-h-[150px]",
+                "rounded-xs md:rounded-md group dark:shadow-zinc-950 shadow-sm hover:shadow-md relative bg-slate-50 dark:bg-zinc-950 border-border hover:bg-accent/50 dark:hover:bg-accent/95 cursor-pointer border p-4 transition-all duration-200 ease-in-out flex flex-col justify-between min-h-[150px]",
               )}
               onClick={() => {
                 router.push(`/dashboard/${item.id}`);
@@ -157,7 +165,7 @@ export function DocumentGrid({
                     type="button"
                     className="hover:cursor-pointer p-1.5 pr-0 text-muted-foreground hover:text-destructive transition-colors rounded-md hover:bg-muted"
                     onClick={(e) => {
-                      e.stopPropagation(); // Stops clicking the card from triggering when you hit delete
+                      e.stopPropagation();
                     }}
                   >
                     <AiOutlineDelete className="h-[15px] w-[15px]" />

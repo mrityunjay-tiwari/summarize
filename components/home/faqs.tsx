@@ -13,7 +13,7 @@ export function FaqsSection() {
     <>
       <div className="w-full md:max-w-5xl">
         <Headings title="Frequently Asked Questions" subtitle="FAQs" />
-        <div className="p-4 sm:p-10 rounded-xl bg-white dark:bg-zinc-900 w-full max-w-full">
+        <div className="p-4 sm:p-10 rounded-none md:rounded-xl bg-white dark:bg-zinc-900 w-full max-w-full">
           <Accordion type="single" collapsible defaultValue="shipping">
             <AccordionItem value="shipping">
               <AccordionTrigger>

@@ -37,7 +37,7 @@ export default function Hero() {
           <div className="shadow-lg relative overflow-hidden rounded-full bg-linear-to-r from-gray-200 via-gray-300 to-gray-200 dark:from-white/10 dark:via-white/20 dark:to-white/10 group">
             <Badge
               variant="secondary"
-              className="border border-b-0 border-gray-50 dark:border-white/10 relative px-4 py-2 text-sm bg-white/80 dark:bg-black/50 backdrop-blur-md rounded-full group-hover:bg-gray-50 dark:group-hover:bg-black/70 transition-colors duration-200 flex items-center gap-2 text-gray-700 dark:text-gray-300 cursor-pointer shadow-sm"
+              className="border border-b-0 border-gray-50 dark:border-white/10 relative px-2 py-1 md:px-4 md:py-2 text-xs md:text-sm bg-white/80 dark:bg-black/50 backdrop-blur-md rounded-full group-hover:bg-gray-50 dark:group-hover:bg-black/70 transition-colors duration-200 flex items-center gap-2 text-gray-700 dark:text-gray-300 cursor-pointer shadow-sm"
             >
               <span
                 className="shrink-0 block rounded-full animate-pulse"
@@ -52,12 +52,12 @@ export default function Hero() {
         {/* MAIN HEADING */}
         {/* MOBILE ONLY HEADING DECORATION */}
         <div className="flex md:hidden flex-col items-center mt-6 mb-3">
-          <span className={`font-light text-base italic ${instrumentSerif.className}`}>
+          <span className={`font-light text-sm md:text-base italic ${instrumentSerif.className}`}>
             <Highlighter action="circle" color="#FF9800">
               Structured, Unstructured or Scanned
             </Highlighter>
           </span>
-          <CurlyArrow className="w-6 h-6 mt-2 text-gray-400" />
+          <CurlyArrow className="w-5 h-5 md:w-6 md:h-6 mt-2 text-gray-400 scale-x-[-1] md:scale-x-100" />
         </div>
 
         {/* DESKTOP ONLY HEADING DECORATION */}
@@ -70,46 +70,46 @@ export default function Hero() {
           <br className="sm:block" />
           <CurlyArrow className="w-7 h-7 ml-32 -mt-5" />
         </div>
-        <h1 className="font-medium text-[2.5rem] leading-tight sm:text-4xl md:text-5xl tracking-tight text-slate-900 dark:text-white">
+        <h1 className="font-medium text-[2rem] leading-tight sm:text-4xl md:text-5xl tracking-tight text-slate-900 dark:text-white">
           Turn any <Highlighter action="highlight" color="#FF9800">PDF</Highlighter> into <br className="hidden sm:block" />
-          <span className="font-normal text-[2rem] leading-tight sm:text-4xl md:text-5xl bg-linear-to-r from-gray-800 via-gray-600 to-gray-400 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600 bg-clip-text text-transparent inline-block mt-2 md:mt-0">
+          <span className="font-normal text-[1.5rem] leading-tight sm:text-4xl md:text-5xl bg-linear-to-r from-gray-800 via-gray-600 to-gray-400 dark:from-gray-200 dark:via-gray-400 dark:to-gray-600 bg-clip-text text-transparent inline-block mt-2 md:mt-0">
             Your Ultimate Study Guide
           </span>
         </h1>
 
         {/* SUBHEADING */}
-        <h2 className="mt-6 text-sm sm:text-base md:text-lg text-muted-foreground max-w-2xl px-2 md:px-0">
+        <h2 className="mt-6 text-xs sm:text-base md:text-lg text-muted-foreground max-w-2xl px-2 md:px-0">
           Upload your documents, textbooks, lecture slides, or research paper PDFs. DocuMind's
           AI instantly generates <span className="font-medium">flashcards</span>, <span className="font-medium">quizzes</span>, <span className="font-medium">mind maps</span>, and <span className="font-medium">lets you chat</span> with your documents in seconds.
         </h2>
 
         {/* FEATURE CARDS */}
-        <div className="mt-10 flex flex-col sm:flex-row justify-center gap-5 w-full max-w-3xl">
+        <div className="mt-10 flex flex-row justify-center gap-2.5 md:gap-5 w-full max-w-3xl">
           {/* Card 1: Powered by Docling */}
-          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
-            <div className="rounded-lg bg-orange-100 dark:bg-orange-500/20 p-1.5 md:p-2 text-orange-500 dark:text-orange-400">
+          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-none md:rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
+            <div className="rounded-none md:rounded-lg bg-orange-100 dark:bg-orange-500/20 p-1.5 md:p-2 text-orange-500 dark:text-orange-400">
               <FileText className="md:h-5 md:w-5 h-3 w-3" />
             </div>
             <div>
-              <h3 className="font-medium text-slate-900 dark:text-white">
+              <h3 className="font-medium text-sm md:text-base text-slate-900 dark:text-white">
                 Powered by Docling
               </h3>
-              <p className="text-sm text-muted-foreground mt-0.5 leading-snug">
+              <p className="text-xs hidden md:block md:text-sm text-muted-foreground mt-0.5 leading-snug">
                 Flawlessly extracts complex tables & scanned documents.
               </p>
             </div>
           </div>
 
           {/* Card 2: Instant Results */}
-          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
-            <div className="rounded-lg bg-blue-100 dark:bg-blue-500/20 p-1.5 md:p-2 text-blue-500 dark:text-blue-400">
+          <div className="flex items-center gap-4 bg-white dark:bg-white/5 rounded-none md:rounded-xl p-2 md:p-4 text-left flex-1 shadow-md dark:shadow-none dark:border dark:border-white/10 transition-shadow">
+            <div className="rounded-none md:rounded-lg bg-blue-100 dark:bg-blue-500/20 p-1.5 md:p-2 text-blue-500 dark:text-blue-400">
               <Zap className="h-3 w-3 md:h-5 md:w-5" />
             </div>
             <div>
-              <h3 className="font-medium text-slate-900 dark:text-white">
+              <h3 className="font-medium text-sm md:text-base text-slate-900 dark:text-white">
                 Instant AI Generation
               </h3>
-              <p className="text-sm text-muted-foreground mt-0.5 leading-snug">
+              <p className="text-xs hidden md:block md:text-sm text-muted-foreground mt-0.5 leading-snug">
                 Flashcards, quizzes, mind maps and live chat ready in seconds.
               </p>
             </div>
@@ -119,12 +119,12 @@ export default function Hero() {
         {/* CTA BUTTONS */}
         <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4 w-full px-2 md:px-0">
           <Link href="/upload" className="w-full sm:w-auto">
-            <Button className="w-full shadow-md bg-linear-to-t from-blue-700 via-blue-600 to-blue-400 hover:from-blue-600 hover:via-blue-500 hover:to-blue-300 rounded-xl hover:cursor-pointer">
+            <Button className="w-full shadow-md bg-linear-to-t from-blue-700 via-blue-600 to-blue-400 hover:from-blue-600 hover:via-blue-500 hover:to-blue-300 rounded-none md:rounded-xl hover:cursor-pointer">
               <Upload className="mr-2 h-4 w-4" /> Upload PDF
             </Button>
           </Link>
           <Link href="/dashboard" className="w-full sm:w-auto">
-            <Button variant="outline" className="w-full bg-white dark:bg-transparent text-slate-900 dark:text-white opacity-100 shadow-xs border-gray-200 dark:border-white/20 hover:bg-gray-50 dark:hover:bg-white/10 rounded-xl hover:cursor-pointer">
+            <Button variant="outline" className="w-full bg-white dark:bg-transparent text-slate-900 dark:text-white opacity-100 shadow-xs border-gray-200 dark:border-white/20 hover:bg-gray-50 dark:hover:bg-white/10 rounded-none md:rounded-xl hover:cursor-pointer">
               <Code className="mr-2 h-4 w-4 text-slate-500 dark:text-slate-400" /> View Example Output
             </Button>
           </Link>

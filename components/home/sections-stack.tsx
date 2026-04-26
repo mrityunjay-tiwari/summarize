@@ -34,7 +34,7 @@ export default function ScrollableCardStackDemo() {
   const cardData: TCardDataProps[] = [
     {
       id: 1,
-      content: <div className="flex w-full h-full items-center justify-center"><QuizCarousel quizzes={MOCK_LLM_QUIZZES} /></div>,
+      content: <div className="flex w-full h-full items-center justify-center px-1.5"><QuizCarousel quizzes={MOCK_LLM_QUIZZES} /></div>,
       caption: "Play quiz here only !!",
     },
     {
@@ -53,7 +53,7 @@ export default function ScrollableCardStackDemo() {
     <div className="max-w-full">
       <div className="flex flex-col items-center mb-5">
         <Headings title="Example Output" subtitle="Features" subheading="Interactive Playground" />
-        
+        <h1 className="text-xs">(Scroll over cards to navigate through features.)</h1>
       </div>
       <ScrollableCardStack
         cardHeight={600}

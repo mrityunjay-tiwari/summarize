@@ -63,7 +63,7 @@ export function UploadStepper({
       <Stepper
         value={currentStep}
         onValueChange={() => {}} // Disabled manual changing
-        orientation={isMobile ? "vertical" : "horizontal"}
+        orientation={isMobile ? "horizontal" : "horizontal"}
         indicators={{
           completed: <IconCheck className="size-3.5" />,
           loading: <IconLoader2 className="size-3.5 animate-spin" />,

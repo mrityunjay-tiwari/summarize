@@ -59,7 +59,7 @@ export function DeleteProjectDialog({
         {children}
       </DialogTrigger>
       {/* We stop propagation on the content so clicking inside the modal doesn't trigger the card routing */}
-      <DialogContent onClick={(e) => e.stopPropagation()}>
+      <DialogContent onClick={(e) => e.stopPropagation()} className="rounded-xs md:rounded-md">
         <DialogHeader>
           <div className="flex items-start gap-3">
             <div className="bg-destructive/10 text-destructive rounded-md flex size-10 shrink-0 items-center justify-center">
@@ -76,9 +76,9 @@ export function DeleteProjectDialog({
         </DialogHeader>
         <DialogFooter>
           <DialogClose asChild>
-            <Button variant="outline" onClick={(e) => e.stopPropagation()}>Cancel</Button>
+            <Button variant="outline" className="rounded-xs md:rounded-md" onClick={(e) => e.stopPropagation()}>Cancel</Button>
           </DialogClose>
-          <Button variant="destructive" onClick={handleDelete} disabled={isDeleting}>
+          <Button variant="destructive" className="rounded-xs md:rounded-md" onClick={handleDelete} disabled={isDeleting}>
             {isDeleting ? "Deleting..." : "Delete"}
           </Button>
         </DialogFooter>

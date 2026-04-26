@@ -1,3 +1,5 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import {
   Empty,
@@ -22,7 +24,7 @@ export function EmptyState({title, description, buttonText, executeOnClick, icon
     <div className="flex h-full w-full items-center justify-center">
       <Empty className="dark:shadow-zinc-900">
         <EmptyHeader>
-          <EmptyMedia variant="icon">
+          <EmptyMedia className="rounded-none md:rounded-lg" variant="icon">
             {icon}
           </EmptyMedia>
           <EmptyTitle>{title}</EmptyTitle>
@@ -31,7 +33,7 @@ export function EmptyState({title, description, buttonText, executeOnClick, icon
           </EmptyDescription>
         </EmptyHeader>
         <EmptyContent>
-          <Button variant="outline" onClick={executeOnClick}>
+          <Button className="rounded-none md:rounded-md" variant="outline" onClick={executeOnClick}>
             <IconPlus  data-icon="inline-start" />
             {buttonText}
           </Button>

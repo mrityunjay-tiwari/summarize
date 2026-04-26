@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { generateEmbeddingsInBatches } from "@/utils/generate-embeddings-client";
 import { getDocumentChunksRaw, processExistingDocumentForChat } from "@/actions/upload-actions";
+import { SiLivechat } from "react-icons/si";
 
 type TChatTabProps = {
   url: string;
@@ -118,7 +119,7 @@ export function ChatTab({ url, documentContextForChat }: TChatTabProps) {
         {!isChatReady ? (
           <div className="">
             <EmptyState
-              icon={<TbCardsFilled />}
+              icon={<SiLivechat className="text-blue-500" />}
               title="Chat Not Setup Yet"
               description="Your PDF is still not setup for chat. Setup Your Chat Now."
               buttonText="Setup Chat"
