@@ -74,7 +74,7 @@ export function ResizablePanelExample({
               <iframe
                 key={page}
                 src={`${url}#page=${page}`}
-                className="w-full h-full rounded-md rounded-b-none hidden md:block"
+                className="w-full h-full rounded-none hidden md:block"
               />
               <iframe
                 src={`https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`}

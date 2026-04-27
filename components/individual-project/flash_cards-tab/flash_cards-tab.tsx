@@ -157,7 +157,7 @@ export function FlashCardsTab({
 
     try {
       const endpoint = "/api/generate-flash-cards-summary";
-      const batchSize = 7;
+      const batchSize = 3;
       let combinedResult: any[] = [];
 
       for (let i = 0; i < fetchedChunks.length; i += batchSize) {

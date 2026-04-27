@@ -57,7 +57,7 @@ export function FlashCardsCarousel({ flashCards = [] }: FlashCardsCarouselProps)
           {flashCards.map((card, index) => (
             <CarouselItem key={index}>
               <div className="flex h-[400px] items-center justify-center rounded-xs md:rounded-md p-6">
-                <CardFlip question={card.question} answer={card.answer} index={index} />
+                <CardFlip question={card.question} answer={card.answer} index={index} source={card.source} />
               </div>
             </CarouselItem>
           ))}

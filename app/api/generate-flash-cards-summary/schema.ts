@@ -6,7 +6,7 @@ export const flashCardStackSchema = z.object({
             index: z.number(),
             question: z.string(),
             answer: z.string(),
-            source: z.array(z.number())
+            source: z.array(z.number()).optional(),
         })
     )
 })

@@ -9,12 +9,14 @@ export interface CardFlipProps {
   question?: string;
   answer?: string;
   index?: number;
+  source?: number[];
 }
 
 export default function CardFlip({
   question = "UnDesign Systems",
   answer = "Dive deep into the world of modern UI/UX design.",
   index,
+  source,
 }: CardFlipProps) {
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
@@ -183,7 +185,9 @@ export default function CardFlip({
                 "hover:scale-[1.02] hover:cursor-pointer",
               )}
             >
-              <p className="text-xs">Source : </p>
+              <p className="text-xs">
+                Source: {source && source.length > 0 ? source.slice(0, 2).map(n => `Page ${n}`).join(", ") : "N/A"}
+              </p>
               <div className="group/icon relative">
                 <div
                   className={cn(

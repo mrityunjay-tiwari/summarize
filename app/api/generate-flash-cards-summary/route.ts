@@ -10,7 +10,15 @@ export const POST = async (req : Request) => {
             model: openrouter("openai/gpt-oss-120b:free"),
             prompt: text,
             schema: flashCardStackSchema,
-            system: `Given the text content you need to generate flash cards. Return a JSON object containing a 'flashCards' array with EXACTLY ${targetCount || 5} objects where each has an index. Each index should be continuously increasing starting from 1 (this will help in identifying the order of the flash cards). One question and answer in each object on the basis of the content provided by the user.`
+            system: `Given the text content you need to generate flash cards. 
+            Return a JSON object containing a 'flashCards' array with EXACTLY 
+            ${targetCount || 5} objects where each has an index. 
+            Each index should be continuously increasing starting from 1 
+            (this will help in identifying the order of the flash cards). 
+            One question and answer in each object on the basis of the content 
+            provided by the user. In the schema provided, in the source add the page_number 
+            from the metadata of the chunks you are provided.
+            Consider creating flash cards from multiple chunks, not all flash cards from one chunk only.`
         })
 
         return Response.json({
