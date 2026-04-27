@@ -45,3 +45,9 @@ next-env.d.ts
 /lib/generated/prisma
 
 test-metadata.ts
+
+#testing files
+/app/canvas
+/app/flip
+/app/quiz
+/app/step
