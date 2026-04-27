@@ -231,10 +231,10 @@ export function FlashCardsTab({
 
   if (isGenerating) {
     return (
-      <div className="flex-1 flex w-full h-full justify-center items-center py-10 max-w-4xl mx-auto flex-col gap-4">
+      <div className="flex-1 flex w-full h-full justify-center items-center px-2 py-10 max-w-4xl mx-auto flex-col gap-4">
         {showCounter ? (
-          <div className="flex flex-col items-center justify-center gap-6 mt-8 w-full max-w-lg">
-            <h3 className="text-xl font-semibold mb-4 text-center">
+          <div className="flex flex-col items-center justify-center gap-2.5 md:gap-6 mt-4 md:mt-8 w-full max-w-lg">
+            <h3 className="text-base md:text-xl font-medium md:font-semibold mb-2.5 md:mb-4 text-center">
               How many Flash Cards do you want to generate?
             </h3>
             <FeatureCounter
@@ -248,7 +248,7 @@ export function FlashCardsTab({
             />
             <Button
               onClick={handleContinueGeneration}
-              className="mt-8 px-8 w-full"
+              className="mt-4 md:mt-8 px-8 w-full rounded-xs md:rounded-md"
               size="lg"
             >
               Continue
@@ -256,7 +256,7 @@ export function FlashCardsTab({
             <Button
               onClick={handleCancel}
               variant="outline"
-              className="mt-2 w-full"
+              className="mt-2 w-full rounded-xs md:rounded-md"
             >
               Cancel
             </Button>

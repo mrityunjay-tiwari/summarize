@@ -334,7 +334,7 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
     <div className="flex flex-col gap-4 w-full max-w-2xl mx-auto my-2 text-center items-center justify-center">
       {currentStep > 0 ? (
         <div className="w-full py-12">
-          <Button onClick={handleCancel} variant="outline" className="flex gap-2 justify-self-start"> <ArrowLeft /> Back</Button>
+          <Button onClick={handleCancel} variant="outline" className="rounded-xs md:rounded-md flex gap-2 justify-self-start"> <ArrowLeft /> Back</Button>
             <Separator className="mb-10 mt-4" />
             {showCounter ? (
                <div className="flex flex-col items-center justify-center gap-6 mt-8">

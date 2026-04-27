@@ -28,6 +28,7 @@ function ResizablePanel({ ...props }: ResizablePrimitive.PanelProps) {
 function ResizableHandle({
   withHandle,
   className,
+  children,
   ...props
 }: ResizablePrimitive.SeparatorProps & {
   withHandle?: boolean
@@ -46,6 +47,7 @@ function ResizableHandle({
           <GripVerticalIcon className="size-2.5" />
         </div>
       )}
+      {children}
     </ResizablePrimitive.Separator>
   )
 }

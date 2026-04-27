@@ -43,13 +43,11 @@ const InitialOption = () => {
       <Choicebox
         defaultValue="1"
         onValueChange={(val: string) => setSelected(val)}
-        style={{
-          gridTemplateColumns: `repeat(${options.length}, 1fr)`,
-        }}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"
       >
         {options.map((option) => (
           <ChoiceboxItem
-            className="rounded-lg! border-dashed! bg-white! dark:bg-zinc-950! dark:border-zinc-200!"
+            className="rounded-xs! md:rounded-lg! border-dashed! bg-white! dark:bg-zinc-950! dark:border-zinc-400! md:dark:border-zinc-200!"
             key={option.id}
             value={option.id}
           >

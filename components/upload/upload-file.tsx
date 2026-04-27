@@ -204,7 +204,7 @@ export default function AnimatedFileUpload({
         }
         aria-label="File upload area. Drag and drop files or press to browse"
         className={cn(
-          "relative flex cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed px-6 py-10",
+          "relative flex cursor-pointer flex-col items-center justify-center rounded-xs md:rounded-lg border-2 border-dashed px-6 py-10",
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
           "transition-colors duration-200",
           isDragOver

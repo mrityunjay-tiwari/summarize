@@ -213,10 +213,10 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
 
   if (isGenerating) {
     return (
-       <div className="flex-1 flex w-full h-full justify-center items-center py-10 max-w-4xl mx-auto flex-col gap-4">
+       <div className="flex-1 flex w-full h-full justify-center items-center px-2 py-10 max-w-4xl mx-auto flex-col gap-4">
            {showCounter ? (
-             <div className="flex flex-col items-center justify-center gap-6 mt-8 w-full max-w-lg">
-                <h3 className="text-xl font-semibold mb-4 text-center">How many Quiz questions do you want to generate?</h3>
+             <div className="flex flex-col items-center justify-center gap-2.5 md:gap-6 mt-4 md:mt-8 w-full max-w-lg">
+                <h3 className="text-base md:text-xl font-medium md:font-semibold mb-2.5 md:mb-4 text-center">How many Quiz questions do you want to generate?</h3>
                 <FeatureCounter 
                   min={generationLimits.min} 
                   max={generationLimits.max} 
@@ -224,8 +224,8 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
                   defaultValue={generationLimits.val} 
                   onChange={(val) => setGenerationLimits(prev => ({...prev, val}))}
                 />
-                <Button onClick={handleContinueGeneration} className="mt-8 px-8 w-full" size="lg">Continue</Button>
-                <Button onClick={handleCancel} variant="outline" className="mt-2 w-full">Cancel</Button>
+                <Button onClick={handleContinueGeneration} className="mt-4 md:mt-8 px-8 w-full rounded-xs md:rounded-md" size="lg">Continue</Button>
+                <Button onClick={handleCancel} variant="outline" className="mt-2 w-full rounded-xs md:rounded-md">Cancel</Button>
              </div>
            ) : (
              <UploadStepper steps={stepsForGeneration} currentStep={currentStep} onCancel={handleCancel} />
