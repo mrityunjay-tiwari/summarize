@@ -59,7 +59,7 @@ export default function ScrollableCardStackDemo() {
     <div className="max-w-full">
       <div className="flex flex-col items-center mb-5">
         <Headings title="Example Output" subtitle="Features" subheading="Interactive Playground" />
-        <h1 className="text-xs">(Scroll over cards to navigate through features.)</h1>
+        <h1 className="text-xs">(Scroll over cards slowly to navigate through features.)</h1>
       </div>
       <ScrollableCardStack
         cardHeight={600}
