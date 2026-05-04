@@ -47,6 +47,11 @@ export default function ScrollableCardStackDemo() {
       content: <CanvasDemo />,
       caption: "Edit or download your AI generated mindmap !!",
     },
+    {
+      id: 4,
+      content: <CanvasDemo />,
+      caption: "Edit or download your AI generated mindmap !!",
+    },
   ];
 
   return (

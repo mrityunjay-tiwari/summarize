@@ -21,7 +21,7 @@ export function SystemDesign() {
               alt="system design image"
               className="h-auto w-full rounded-none md:rounded-xl backdrop-blur-2xl shadow-md"
               height={800}
-              src="https://ik.imagekit.io/mrityunjay/DocuMind/sd.jpg"
+              src="https://ik.imagekit.io/mrityunjay/DocuMind/system_design_documind"
               unoptimized
               width={1500}
             />

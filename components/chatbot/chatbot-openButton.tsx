@@ -35,7 +35,7 @@ const WELCOME_MESSAGE = {
   parts: [
     {
       type: "text" as const,
-      text: "Hello and welcome! I'm Mrityunjay's AI.\nAsk me anything — projects, ideas, or just chat.",
+      text: "Hello and welcome! I'm Documind's AI.\nAsk me anything - about the project, how it works, its features or system design.",
     },
   ],
 };
@@ -43,19 +43,19 @@ const WELCOME_MESSAGE = {
 const ASK = [
   {
     id: 1,
-    message: "What is my tech stack ?",
+    message: "What problem does DocuMind solve?",
   },
   {
     id: 2,
-    message: "What is your college name ?",
+    message: "How does DocuMind process PDFs?",
   },
   {
     id: 3,
-    message: "What is your next idea ?",
+    message: "Who built this application?",
   },
   {
     id: 4,
-    message: "What is your work experience ?",
+    message: "What all can I do with my PDF?",
   },
 ];
 export default function ChatBotOpenButton() {
@@ -306,7 +306,7 @@ export default function ChatBotOpenButton() {
               <div className="">
                 <div className="rounded-lg shadow-[inset_0_2px_4px_rgba(0,0,0,0.12)] dark:shadow-[inset_0_2px_4px_rgba(255,255,255,0.12)] p-1 border">
                   <Image
-                    src={"https://ik.imagekit.io/mrityunjay/profile.jpg"}
+                    src={"https://ik.imagekit.io/mrityunjay/DocuMind/teach__5_-removebg-preview.png?updatedAt=1777106433440"} //
                     alt=""
                     width={20}
                     height={20}
@@ -319,7 +319,7 @@ export default function ChatBotOpenButton() {
                   className={cn(
                     `text-sm font-medium text-neutral-700 dark:text-neutral-300 ${sans.className}`,
                   )}
-                >{`Mrityunjay's AI`}</p>
+                >{`Documind's AI`}</p>
                 <div
                   className={cn(
                     `text-xs text-neutral-500 dark:text-neutral-400 flex gap-1 items-start ${sans.className}`,
@@ -383,7 +383,7 @@ export default function ChatBotOpenButton() {
                     ) : (
                       <div className="rounded-md shadow-[inset_0_2px_4px_rgba(0,0,0,0.12)] p-1 border mt-3.5">
                         <Image
-                          src={"https://ik.imagekit.io/mrityunjay/profile.jpg"}
+                          src={"https://ik.imagekit.io/mrityunjay/DocuMind/teach__5_-removebg-preview.png?updatedAt=1777106433440"}
                           alt=""
                           width={15}
                           height={15}
