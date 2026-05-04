@@ -19,7 +19,7 @@ export default async function Home() {
         <div className="mt-8 md:mt-16 w-full">
           <Hero />
         </div>
-        <div className="w-full mt-10 md:mt-0">
+        <div id="example-output" className="w-full mt-10 md:mt-0">
           <ScrollableCardStackDemo />
         </div>
         <div className="flex justify-center -mb-10 md:-mb-20 w-full px-2 mx-2 md:px-0">

@@ -123,7 +123,7 @@ export default function Hero() {
               <Upload className="mr-2 h-4 w-4" /> Upload PDF
             </Button>
           </Link>
-          <Link href="/dashboard" className="w-full sm:w-auto">
+          <Link href="#example-output" className="w-full sm:w-auto">
             <Button variant="outline" className="w-full bg-white dark:bg-transparent text-slate-900 dark:text-white opacity-100 shadow-xs border-gray-200 dark:border-white/20 hover:bg-gray-50 dark:hover:bg-white/10 rounded-none md:rounded-xl hover:cursor-pointer">
               <Code className="mr-2 h-4 w-4 text-slate-500 dark:text-slate-400" /> View Example Output
             </Button>
