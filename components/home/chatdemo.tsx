@@ -27,7 +27,6 @@ import {
 import {GlobeIcon} from "lucide-react";
 import {memo, useCallback, useState, useEffect} from "react";
 import {DefaultChatTransport} from "ai";
-import {Separator} from "@/components/ui/separator";
 import {
   Conversation,
   ConversationContent,
@@ -39,7 +38,6 @@ import {
   MessageResponse,
 } from "@/components/ai-elements/message";
 import {useChat} from "@ai-sdk/react";
-import {useParams} from "next/navigation";
 import {
   Reasoning,
   ReasoningContent,
@@ -47,15 +45,6 @@ import {
 } from "@/components/ai-elements/reasoning";
 
 import {Spinner} from "@/components/ui/spinner";
-import {
-  Source,
-  Sources,
-  SourcesContent,
-  SourcesTrigger,
-} from "@/components/ai-elements/sources";
-
-const SUBMITTING_TIMEOUT = 200;
-const STREAMING_TIMEOUT = 2000;
 
 interface AttachmentItemProps {
   attachment: AttachmentData;
@@ -68,7 +57,7 @@ const WELCOME_MESSAGE = {
   parts: [
     {
       type: "text" as const,
-      text: "Hello and welcome! I'm Mrityunjay's AI.\nAsk me anything — projects, ideas, or just chat.",
+      text: "Hello and welcome! I'm Kensin, DocuMind's demo assistant.\nAsk me what DocuMind does, how PDF chat works, or how it creates flashcards, quizzes, and mind maps.",
     },
   ],
 };
@@ -113,20 +102,17 @@ const PromptInputAttachmentsDisplay = () => {
   );
 };
 
-import {saveChatHistory} from "@/actions/update-chat";
 import MicPromptInputBox from "../individual-project/chat-tab/mic";
 import { AIResponseWrapper } from "../individual-project/chat-tab/chat-reactions";
 
 type TPromptInputBoxProps = {
-  file_url: string;
+  file_url?: string;
   initialMessages?: any;
 };
 const ChatDemo = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   const [isFormattingInput, setIsFormattingInput] = useState(false);
-  const params = useParams();
-  const document_id = params?.id as string | undefined;
 
-  const {messages, sendMessage, status, regenerate, setMessages} = useChat({
+  const {messages, sendMessage, status, setMessages} = useChat({
         transport: new DefaultChatTransport({
           api: "/api/demo-chatbot",
         }),
@@ -150,17 +136,6 @@ const ChatDemo = ({file_url, initialMessages}: TPromptInputBoxProps) => {
     }
   }, [hasInitialized, initialMessages, setMessages]);
 
-  const isStreaming = status === "streaming";
-
-  useEffect(() => {
-    if (hasInitialized && document_id && messages.length > 0 && !isStreaming) {
-      const timeout = setTimeout(() => {
-        saveChatHistory(document_id, messages);
-      }, 1000);
-      return () => clearTimeout(timeout);
-    }
-  }, [messages, document_id, isStreaming, hasInitialized]);
-
   const handleRefresh = useCallback(() => {
     const lastUserMessage = messages.filter((m) => m.role === "user").pop();
 
@@ -169,44 +144,26 @@ const ChatDemo = ({file_url, initialMessages}: TPromptInputBoxProps) => {
       return;
     }
 
-    if (!document_id) {
-      console.warn("Missing document_id");
-      return;
-    }
-
     const text = lastUserMessage.parts
       ?.filter((p: any) => p.type === "text")
       .map((p: any) => p.text)
       .join(" ");
 
-    sendMessage(
-      {text},
-      {
-        body: {document_id},
-      },
-    );
-  }, [messages, document_id, sendMessage]);
+    sendMessage({text});
+  }, [messages, sendMessage]);
 
   const handleSubmit = useCallback(
     (message: PromptInputMessage) => {
       if (status === "submitted" || status === "streaming") return;
 
-      if (!document_id) {
-        console.warn("Document ID is missing; cannot send chat request.");
-        return;
-      }
-
-      console.log("Submitting message:", message);
-
-      sendMessage({text: message.text}, {body: {document_id, file_url}});
+      sendMessage({text: message.text}, {body: {file_url}});
     },
-    [sendMessage, status, document_id],
+    [sendMessage, status, file_url],
   );
-  console.log("MESSAGES:", messages);
   return (
-    <div className="max-w-full mx-auto relative size-full h-[calc(100vh-4rem)] pt-2.5 md:pt-12">
-      <div className="flex flex-col h-full">
-        <Conversation className="h-full thin-scrollbar">
+    <div className="relative mx-auto flex size-full max-w-full overflow-hidden p-3 sm:p-4 md:p-5">
+      <div className="flex h-full min-h-0 w-full flex-col overflow-hidden rounded-xl border bg-background/95 shadow-sm">
+        <Conversation className="min-h-0 flex-1 thin-scrollbar">
           <ConversationContent>
             {messages.map((message, index) => {
               const isLastMessage = index === messages.length - 1;
@@ -294,7 +251,7 @@ const ChatDemo = ({file_url, initialMessages}: TPromptInputBoxProps) => {
               );
             })}
             {status === "submitted" && (
-              <div className="text-left flex items-center gap-2">
+              <div className="flex items-center gap-2 px-1 pb-2 text-left">
                 <Spinner />{" "}
                 <p className="text-sm text-gray-500 dark:text-gray-400 animate-pulse">
                   Thinking...
@@ -306,14 +263,19 @@ const ChatDemo = ({file_url, initialMessages}: TPromptInputBoxProps) => {
         </Conversation>
 
         <PromptInputProvider>
-          <PromptInput globalDrop multiple onSubmit={handleSubmit}>
+          <PromptInput
+            className="shrink-0 rounded-none border-x-0 border-b-0 shadow-none"
+            globalDrop
+            multiple
+            onSubmit={handleSubmit}
+          >
             <PromptInputAttachmentsDisplay />
             <PromptInputBody>
               <PromptInputTextarea
                 disabled={isFormattingInput}
-                className={
+                className={`max-h-24 min-h-16 resize-none text-sm sm:min-h-20 ${
                   isFormattingInput ? "opacity-30 pointer-events-none" : ""
-                }
+                }`}
               />
             </PromptInputBody>
             {/* <Separator className="w-9/12"/> */}

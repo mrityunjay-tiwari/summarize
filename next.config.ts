@@ -18,7 +18,7 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  allowedDevOrigins: ['10.80.188.220', '10.196.45.220', 'capture-recycled-episode.ngrok-free.dev'],
+  allowedDevOrigins: ['10.80.188.220', '10.196.45.220', 'capture-recycled-episode.ngrok-free.dev', '192.168.29.157'],
 };
 
 export default nextConfig;

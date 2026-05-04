@@ -6,6 +6,7 @@ import { QuizCarousel } from "../individual-project/quiz-tab/quiz-carousel";
 import ScrollableCardStack from "../smoothui/scrollable-card-stack";
 import React from "react";
 import Headings from "./headings";
+import ChatDemo from "./chatdemo";
 
 export type TCardDataProps = {
     id: number; 
@@ -49,8 +50,8 @@ export default function ScrollableCardStackDemo() {
     },
     {
       id: 4,
-      content: <CanvasDemo />,
-      caption: "Edit or download your AI generated mindmap !!",
+      content: <ChatDemo />,
+      caption: "Chat with your document !!",
     },
   ];
 
