@@ -151,6 +151,7 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
             );
             if (result.success) {
               toast.success("Document perfectly saved for Chat!");
+              router.push(`/dashboard/${result.document_id}?tab=chat`);
             } else {
               toast.error(result.message);
             }
