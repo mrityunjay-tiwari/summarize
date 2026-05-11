@@ -5,18 +5,41 @@ import { quizSchema } from "./schema";
 export const POST = async(req : Request) => {
     try {
         const { text, targetCount } = await req.json();
+        const requestedCount = Math.max(1, Number(targetCount) || 5);
         
         const result = await generateObject({
             model: openrouter("openai/gpt-oss-120b:free"),
             prompt: text,
             schema: quizSchema,
-            system: `Given the text content you need to generate a quiz, it will be an array with EXACTLY ${targetCount || 5} objects where each has an index. Each index should be continuously increasing starting from 1 (this will help in identifying the order of the quiz questions). One question and 4 options (each option has its optionIndex as continuously increasing starting from 1,2,3,4) for each question out of which strictly only one is the correct option and also return the correctOption, the correction is to be returned in the format as return the optionIndex of the correct option in each object. Ask questions on the basis of the content provided by the user. The questions should be such that they cover the entire content of the text provided.`
+            system: `You generate multiple-choice quiz questions from the provided document text.
+
+Return a JSON object with a "quiz" array containing EXACTLY ${requestedCount} quiz objects.
+
+Each quiz object must contain:
+- index: continuously increasing from 1
+- question: a clear question based only on the provided text
+- options: exactly 4 options
+- each option must have optionIndex 1, 2, 3, and 4
+- correctOption: the optionIndex of the single correct option
+- explanation: a short explanation of why the correct answer is right
+- source: page numbers if they are present in the provided text or metadata
+
+Do not return an empty quiz array. If the text is short, still create practical questions from the available information. Cover the provided content as broadly as possible.`
         })
+
+        const quiz = result.object.quiz;
+
+        if (!Array.isArray(quiz) || quiz.length === 0) {
+            return Response.json({
+                success: false,
+                error: "No quiz questions were generated"
+            }, {status: 422});
+        }
 
         return Response.json({
             success: true,
             message: "quiz generated successfully",
-            result: result.object.quiz
+            result: quiz
         })
     } catch (error) {
         console.error("error in generating quiz: ", error)

@@ -157,12 +157,16 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
           });
           
           const data = await res.json();
-          if (data.success) {
+          if (data.success && Array.isArray(data.result) && data.result.length > 0) {
               combinedResult = [...combinedResult, ...data.result];
           }
       }
       
       if (signal?.aborted) throw new Error("AbortError");
+
+      if (combinedResult.length === 0) {
+        throw new Error("No quiz questions were generated.");
+      }
       
       setCurrentStep(4); // Saving Project - This again is confusing a bit I know, but I will correct it later.
       const hasChunks = documentContextForChat.totalChunks > 0;

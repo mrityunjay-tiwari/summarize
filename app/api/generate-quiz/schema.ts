@@ -15,7 +15,7 @@ export const quizSchema = z.object({
             explanation: z.string(),
             source: z.array(z.number()).optional()
         })
-    )
+    ).min(1)
 })
 
 export type QuizSchema = z.infer<typeof quizSchema>;

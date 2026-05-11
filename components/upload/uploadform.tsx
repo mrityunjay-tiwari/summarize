@@ -93,12 +93,16 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
               });
               
               const data = await res.json();
-              if (data.success) {
+              if (data.success && Array.isArray(data.result) && data.result.length > 0) {
                   combinedResult = [...combinedResult, ...data.result];
               }
           }
           
           if (abortControllerRef.current?.signal.aborted) throw new Error("AbortError");
+
+          if (combinedResult.length === 0) {
+              throw new Error(`No ${isFlashcards ? "flash cards" : "quiz questions"} were generated.`);
+          }
           
           setCurrentStep(4); // Saving Project
           console.log("Combined generated content: ", combinedResult);
