@@ -68,7 +68,7 @@ const WELCOME_MESSAGE = {
   parts: [
     {
       type: "text" as const,
-      text: "Hello and welcome! I'm Mrityunjay's AI.\nAsk me anything — projects, ideas, or just chat.",
+      text: "Hello and welcome! I'm DocuMind's AI.\nAsk me anything about the document.",
     },
   ],
 };

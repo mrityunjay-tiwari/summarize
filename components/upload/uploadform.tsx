@@ -93,6 +93,11 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
               });
               
               const data = await res.json();
+
+              if (!res.ok || !data.success) {
+                  throw new Error(data.error || data.message || `${isFlashcards ? "Flash card" : "Quiz"} generation failed.`);
+              }
+
               if (data.success && Array.isArray(data.result) && data.result.length > 0) {
                   combinedResult = [...combinedResult, ...data.result];
               }
@@ -129,7 +134,7 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
           if (abortControllerRef.current?.signal.aborted || error.message === "AbortError" || error.name === "AbortError") {
               if (uploadedFileData) await deleteFileByKey(uploadedFileData.key);
           } else {
-              toast.error("Generation failed!");
+              toast.error(error.message || "Generation failed!");
           }
       } finally {
           setCurrentStep(0);

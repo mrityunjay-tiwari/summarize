@@ -157,6 +157,11 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
           });
           
           const data = await res.json();
+
+          if (!res.ok || !data.success) {
+            throw new Error(data.error || data.message || "Quiz generation failed.");
+          }
+
           if (data.success && Array.isArray(data.result) && data.result.length > 0) {
               combinedResult = [...combinedResult, ...data.result];
           }
@@ -199,7 +204,7 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
       if (error.name === "AbortError" || error.message === "AbortError") {
           toast.error("User aborted setup process.");
       } else {
-          toast.error("Generation failed!");
+          toast.error(error.message || "Generation failed!");
       }
       setIsGenerating(false);
       setCurrentStep(0);
