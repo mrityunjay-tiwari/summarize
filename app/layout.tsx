@@ -38,15 +38,15 @@ const ubuntu = Ubuntu({
 export const metadata: Metadata = {
   title: "DocuMind",
   description: "Turn your PDF into Ultimate study guide.",
-  metadataBase: new URL("https://documind.site"),
+  metadataBase: new URL("https://documind.fun"),
   openGraph: {
     title: "DocuMind",
     description: "Turn your PDF into Ultimate study guide.",
-    url: "https://documind.site",
+    url: "https://documind.fun",
     siteName: "DocuMind",
     images: [
       {
-        url: "https://ik.imagekit.io/mrityunjay/DocuMind/preview", 
+        url: "https://ik.imagekit.io/mrityunjay/DocuMind/preview?updatedAt=1779116181543", 
         width: 1200,
         height: 630,
       },
@@ -58,7 +58,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "DocuMind",
     description: "Turn your PDF into Ultimate study guide.",
-    images: ["https://ik.imagekit.io/mrityunjay/DocuMind/preview"],
+    images: ["https://ik.imagekit.io/mrityunjay/DocuMind/preview?updatedAt=1779116181543"],
   },
 };
 
