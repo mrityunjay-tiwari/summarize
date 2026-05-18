@@ -39,12 +39,26 @@ export const metadata: Metadata = {
   title: "DocuMind",
   description: "Turn your PDF into Ultimate study guide.",
   openGraph: {
+    title: "DocuMind",
+    description: "Turn your PDF into Ultimate study guide.",
+    url: "https://documind.site",
+    siteName: "DocuMind",
     images: [
       {
-        url: ''
-      }
-    ]
-  }
+        url: "https://ik.imagekit.io/mrityunjay/DocuMind/preview", 
+        width: 1200,
+        height: 630,
+      },
+    ],
+    type: "website",
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "DocuMind",
+    description: "Turn your PDF into Ultimate study guide.",
+    images: ["https://ik.imagekit.io/mrityunjay/DocuMind/preview"],
+  },
 };
 
 export default async function RootLayout({
