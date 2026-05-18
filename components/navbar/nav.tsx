@@ -115,7 +115,7 @@ export const Navbar = ({user}: {user?: any}) => {
                               : "hover:text-accent-foreground",
                           )}
                         >
-                          <span>Summaries</span>
+                          <span>Dashboard</span>
                           <span
                             className={cn(
                               "absolute left-0 -bottom-1 h-[1.5px] w-full origin-left scale-x-0 bg-foreground transition-transform duration-300 group-hover:scale-x-100",
