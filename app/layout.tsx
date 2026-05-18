@@ -38,6 +38,7 @@ const ubuntu = Ubuntu({
 export const metadata: Metadata = {
   title: "DocuMind",
   description: "Turn your PDF into Ultimate study guide.",
+  metadataBase: new URL("https://documind.site"),
   openGraph: {
     title: "DocuMind",
     description: "Turn your PDF into Ultimate study guide.",
