@@ -6,8 +6,9 @@ import {
   ResizablePanelGroup,
 } from "@/components/ui/resizable";
 import {SelectTheTab} from "../individual-project/tabs";
-import {useState, useEffect} from "react";
+import {useState, useEffect, useMemo} from "react";
 import { cn } from "@/lib/utils";
+import { PdfPageProvider } from "../individual-project/pdf-page-context";
 
 type TResizablePanelExampleProps = {
   url: string;
@@ -22,6 +23,12 @@ export function ResizablePanelExample({
 }: TResizablePanelExampleProps) {
   const [page, setPage] = useState(1);
   const [showNudge, setShowNudge] = useState(false);
+
+  // Lets the chat citations (e.g. "Page 2") drive the PDF viewer's page.
+  const pageContextValue = useMemo(
+    () => ({ goToPage: (p: number) => setPage(p) }),
+    []
+  );
 
   useEffect(() => {
     const hasSeenNudge = localStorage.getItem("hasSeenMobileResizeNudge");
@@ -41,7 +48,7 @@ export function ResizablePanelExample({
   };
 
   return (
-    <>
+    <PdfPageProvider value={pageContextValue}>
       <div className="flex w-full min-h-[calc(150vh-4rem)] md:hidden">
         <ResizablePanelGroup orientation="vertical" className="h-full w-full">
           <ResizablePanel minSize={10} defaultSize={70}>
@@ -109,6 +116,6 @@ export function ResizablePanelExample({
           </ResizablePanel>
         </ResizablePanelGroup>
       </div>
-    </>
+    </PdfPageProvider>
   );
 }

@@ -53,6 +53,7 @@ import {
   SourcesContent,
   SourcesTrigger,
 } from "@/components/ai-elements/sources";
+import {usePdfPage} from "@/components/individual-project/pdf-page-context";
 
 const SUBMITTING_TIMEOUT = 200;
 const STREAMING_TIMEOUT = 2000;
@@ -124,9 +125,48 @@ const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   const params = useParams();
   const document_id = params?.id as string | undefined;
 
+  const {goToPage} = usePdfPage();
+
   const {messages, sendMessage, status, regenerate, setMessages} = useChat({
     id: document_id,
   });
+
+  // Intercept "[Page N](#page=N)" citation clicks in the capture phase so the
+  // left PDF viewer jumps to that page instead of Streamdown opening its
+  // link-safety modal / a new tab. Only page citations are handled; every other
+  // link is left to Streamdown's default behavior, completely untouched.
+  const handleCitationClickCapture = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
+      // Streamdown renders a link either as a plain <a href="#page=N"> or, when
+      // its link-safety modal is enabled (the default here), as a
+      // <button data-streamdown="link"> that carries NO href in the DOM. Match
+      // both variants via the shared data attribute.
+      const linkEl = (e.target as HTMLElement).closest<HTMLElement>(
+        '[data-streamdown="link"]',
+      );
+      if (!linkEl) return;
+
+      // Prefer the href (anchor variant); fall back to the visible label like
+      // "Page 2" or a range "Page 4–5" (button variant — all the DOM exposes
+      // there). We take the FIRST page number, and require the label to start
+      // with "Page"/"Pages" so non-citation links are never hijacked.
+      const href = linkEl.getAttribute("href") || "";
+      let match = href.match(/#page=(\d+)/);
+      if (!match) {
+        match = (linkEl.textContent || "").match(/^\s*pages?\s+(\d+)/i);
+      }
+      if (!match) return;
+
+      const pageNum = parseInt(match[1], 10);
+      if (Number.isNaN(pageNum)) return;
+
+      // Confirmed a page citation: stop Streamdown's handler and jump the PDF.
+      e.preventDefault();
+      e.stopPropagation();
+      goToPage(pageNum);
+    },
+    [goToPage],
+  );
 
   const [hasInitialized, setHasInitialized] = useState(false);
 
@@ -201,7 +241,7 @@ const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   console.log("MESSAGES:", messages);
   return (
     <div className="max-w-full mx-auto relative size-full h-[calc(100vh-4rem)] pt-2.5 md:pt-12">
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col h-full" onClickCapture={handleCitationClickCapture}>
         <Conversation className="h-full thin-scrollbar">
           <ConversationContent>
             {messages.map((message, index) => {

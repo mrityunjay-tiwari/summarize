@@ -39,7 +39,7 @@ const webSearchTool = tool({
 
 const knowledgBaseSearchTool = (document_id: string) => tool({
         description: 'Search the PDF document for relevant information based on a query.',
-        parameters: z.object({
+        inputSchema: z.object({
             query: z.string().describe('The search query. Do NOT include page numbers here.'),
             page_number: z.number().optional().describe('CRITICAL: You MUST provide this number if the user asks about a specific page. Do not leave this empty if a page is requested.')
         }),
@@ -127,7 +127,7 @@ const knowledgBaseSearchTool = (document_id: string) => tool({
                 contexts: formattedContexts.length > 0 ? formattedContexts.join("\n\n") : "No relevant context found in document." 
             };
         })
-    } as any);
+    });
 
 const getTools = (document_id: string) => ({
     search_knowledge_base: knowledgBaseSearchTool(document_id),
