@@ -99,7 +99,17 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
               }
 
               if (data.success && Array.isArray(data.result) && data.result.length > 0) {
-                  combinedResult = [...combinedResult, ...data.result];
+                  // Stamp each card with the real page numbers of the chunks in
+                  // this batch, so "Source" reflects actual document pages.
+                  const batchPages = Array.from(
+                      new Set(
+                          batch.flatMap(
+                              (c: any) => (c?.meta?.page_numbers ?? c?.metadata?.page_numbers ?? []) as number[]
+                          )
+                      )
+                  ).sort((a, b) => a - b);
+                  const stamped = data.result.map((card: any) => ({ ...card, source: batchPages }));
+                  combinedResult = [...combinedResult, ...stamped];
               }
           }
           

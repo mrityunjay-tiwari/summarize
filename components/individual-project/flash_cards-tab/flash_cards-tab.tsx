@@ -176,8 +176,17 @@ export function FlashCardsTab({
         });
 
         const data = await res.json();
-        if (data.success) {
-          combinedResult = [...combinedResult, ...data.result];
+        if (data.success && Array.isArray(data.result)) {
+          // Stamp each card with the real page numbers of this batch's chunks.
+          const batchPages = Array.from(
+            new Set(
+              batch.flatMap(
+                (c: any) => (c?.meta?.page_numbers ?? c?.metadata?.page_numbers ?? []) as number[]
+              )
+            )
+          ).sort((a, b) => a - b);
+          const stamped = data.result.map((card: any) => ({ ...card, source: batchPages }));
+          combinedResult = [...combinedResult, ...stamped];
         }
       }
 

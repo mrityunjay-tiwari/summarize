@@ -34,7 +34,7 @@ export const CurlyArrow = ({ className }: { className?: string }) => (
 const SCROLL_TIMEOUT_OFFSET = 100;
 const MIN_SCROLL_INTERVAL = 300;
 const SCROLL_THRESHOLD = 20;
-const TOUCH_SCROLL_THRESHOLD = 100;
+const TOUCH_ADVANCE_THRESHOLD = 24;
 const SCALE_FACTOR = 0.08;
 const MIN_SCALE = 0.08;
 const MAX_SCALE = 2;
@@ -47,6 +47,12 @@ export interface ScrollableCardStackProps {
   items: TCardDataProps[];
   perspective?: number;
   transitionDuration?: number;
+  /**
+   * Optional content (e.g. heading) rendered above the cards but INSIDE the
+   * scroll-capture region, so scrolling over it also advances the cards instead
+   * of scrolling past the section.
+   */
+  header?: React.ReactNode;
 }
 
 const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
@@ -55,11 +61,13 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   perspective = 1000,
   transitionDuration = 180,
   className,
+  header,
 }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [isScrolling, setIsScrolling] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollY = useMotionValue(0);
   const lastScrollTime = useRef(0);
@@ -211,6 +219,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
 
   // Handle touch events for mobile
   const touchStartY = useRef(0);
+  const touchStartX = useRef(0);
   const touchStartIndex = useRef(0);
   const touchStartTime = useRef(0);
   const touchMoved = useRef(false);
@@ -218,6 +227,7 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
   const handleTouchStart = useCallback(
     (e: React.TouchEvent) => {
       touchStartY.current = e.touches[0].clientY;
+      touchStartX.current = e.touches[0].clientX;
       touchStartIndex.current = currentIndex;
       touchStartTime.current = Date.now();
       touchMoved.current = false;
@@ -226,22 +236,48 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
     [currentIndex]
   );
 
-  const handleTouchMove = useCallback(
-    (e: React.TouchEvent) => {
-      if (!isDragging || isScrolling) {
+  // Native (non-passive) touch handler so a normal swipe advances one card and
+  // is prevented from scrolling the page past the section — mirroring the wheel
+  // behavior on desktop. At the first/last card the lock is released so the page
+  // scrolls away normally, and horizontal swipes are left alone (so carousels
+  // inside a card keep working).
+  const handleTouchMoveNative = useCallback(
+    (e: TouchEvent) => {
+      if (isScrolling) {
         return;
       }
 
-      const touchY = e.touches[0].clientY;
-      const deltaY = touchStartY.current - touchY;
+      const touch = e.touches[0];
+      if (!touch) {
+        return;
+      }
 
-      if (Math.abs(deltaY) > TOUCH_SCROLL_THRESHOLD && !touchMoved.current) {
-        const scrollDirection = deltaY > 0 ? 1 : -1;
+      const deltaY = touchStartY.current - touch.clientY;
+      const deltaX = touchStartX.current - touch.clientX;
+
+      // Ignore mostly-horizontal gestures (let inner carousels handle them).
+      if (Math.abs(deltaX) > Math.abs(deltaY) || deltaY === 0) {
+        return;
+      }
+
+      const scrollDirection: 1 | -1 = deltaY > 0 ? 1 : -1;
+
+      // Release the lock at the boundaries so the user can leave the section.
+      if (
+        (scrollDirection === -1 && currentIndex === 0) ||
+        (scrollDirection === 1 && currentIndex === maxIndex)
+      ) {
+        return;
+      }
+
+      // Lock the section to card navigation and advance one card per swipe.
+      e.preventDefault();
+      if (!touchMoved.current && Math.abs(deltaY) > TOUCH_ADVANCE_THRESHOLD) {
         scrollToCard(scrollDirection);
         touchMoved.current = true;
       }
     },
-    [isDragging, isScrolling, scrollToCard]
+    [isScrolling, currentIndex, maxIndex, scrollToCard]
   );
 
   const handleTouchEnd = useCallback(() => {
@@ -249,19 +285,24 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
     touchMoved.current = false;
   }, []);
 
-  // Set up event listeners
+  // Set up event listeners on the whole section so scrolling anywhere over it
+  // (header, cards, and the empty space around them) advances the cards.
   useEffect(() => {
-    const container = containerRef.current;
-    if (!container) {
+    const section = sectionRef.current;
+    if (!section) {
       return;
     }
 
-    container.addEventListener("wheel", handleWheel, { passive: false });
+    section.addEventListener("wheel", handleWheel, { passive: false });
+    section.addEventListener("touchmove", handleTouchMoveNative, {
+      passive: false,
+    });
 
     return () => {
-      container.removeEventListener("wheel", handleWheel);
+      section.removeEventListener("wheel", handleWheel);
+      section.removeEventListener("touchmove", handleTouchMoveNative);
     };
-  }, [handleWheel]);
+  }, [handleWheel, handleTouchMoveNative]);
 
   // Snap to current index when not dragging
   useEffect(() => {
@@ -315,15 +356,16 @@ const ScrollableCardStack: React.FC<ScrollableCardStackProps> = ({
       aria-label="Scrollable card stack"
       aria-live="polite"
       className={cn("relative mx-auto h-fit", className)}
+      onTouchEnd={handleTouchEnd}
+      onTouchStart={handleTouchStart}
+      ref={sectionRef}
     >
+      {header && <div className="w-full">{header}</div>}
       {/* biome-ignore lint/a11y/noNoninteractiveElementInteractions: Interactive scrollable widget requires event handlers */}
       <div
         aria-label="Scrollable card container"
         className="h-full w-full"
         onKeyDown={handleKeyDown}
-        onTouchEnd={handleTouchEnd}
-        onTouchMove={handleTouchMove}
-        onTouchStart={handleTouchStart}
         ref={containerRef}
         role="application"
         style={{

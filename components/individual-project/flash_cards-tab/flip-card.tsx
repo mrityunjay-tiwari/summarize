@@ -4,6 +4,7 @@ import {ArrowRight, Repeat2} from "lucide-react";
 import {useState, useEffect} from "react";
 import {cn} from "@/lib/utils";
 import {Button} from "@/components/ui/button";
+import {usePdfPage} from "@/components/individual-project/pdf-page-context";
 
 export interface CardFlipProps {
   question?: string;
@@ -21,6 +22,7 @@ export default function CardFlip({
   const [isFlipped, setIsFlipped] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
   const [isHoverable, setIsHoverable] = useState(false);
+  const {goToPage} = usePdfPage();
   const hoverClass = isHoverable ? "group-hover:shadow-lg" : "";
 
   useEffect(() => {
@@ -186,7 +188,26 @@ export default function CardFlip({
               )}
             >
               <p className="text-xs">
-                Source: {source && source.length > 0 ? source.slice(0, 2).map(n => `Page ${n}`).join(", ") : "N/A"}
+                Source:{" "}
+                {source && source.length > 0 ? (
+                  source.slice(0, 2).map((n, i) => (
+                    <span key={n}>
+                      {i > 0 && ", "}
+                      <button
+                        type="button"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          goToPage(n);
+                        }}
+                        className="underline underline-offset-2 hover:text-orange-500 transition-colors cursor-pointer"
+                      >
+                        Page {n}
+                      </button>
+                    </span>
+                  ))
+                ) : (
+                  "N/A"
+                )}
               </p>
               <div className="group/icon relative">
                 <div

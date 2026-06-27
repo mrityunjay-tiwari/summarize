@@ -120,6 +120,23 @@ type TPromptInputBoxProps = {
   file_url: string;
   initialMessages?: any;
 };
+// Splits an assistant answer into the main body and the trailing "Sources"
+// section (heading included) so the sources can be rendered one size smaller
+// and slightly duller. Falls back to {body: text, sources: null} when no
+// standalone "Sources" heading is present, leaving rendering unchanged.
+function splitSourcesSection(text: string): {body: string; sources: string | null} {
+  const re =
+    /\n[ \t]*(?:#{1,6}[ \t]*)?(?:\*\*|__)?[ \t]*sources[ \t]*:?[ \t]*(?:\*\*|__)?[ \t]*(?=\n)/gi;
+  let idx = -1;
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null) idx = m.index;
+  if (idx === -1) return {body: text, sources: null};
+  return {
+    body: text.slice(0, idx).replace(/\s+$/, ""),
+    sources: text.slice(idx).replace(/^\s+/, ""),
+  };
+}
+
 const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
   const [isFormattingInput, setIsFormattingInput] = useState(false);
   const params = useParams();
@@ -286,12 +303,30 @@ const PromptInputBox = ({file_url, initialMessages}: TPromptInputBoxProps) => {
                               </ReasoningContent>
                             </Reasoning>
                           )}
-                          <MessageResponse key={message.id}>
-                            {message.parts
+                          {(() => {
+                            const fullText = message.parts
                               .filter((part: any) => part.type === "text")
                               .map((part: any) => part.text)
-                              .join("")}
-                          </MessageResponse>
+                              .join("");
+                            const {body, sources} =
+                              splitSourcesSection(fullText);
+                            return (
+                              <>
+                                <MessageResponse key={`${message.id}-body`}>
+                                  {body}
+                                </MessageResponse>
+                                {sources && (
+                                  <div className="mt-1 opacity-70 [&_p]:text-xs [&_li]:text-xs [&_h1]:text-base [&_h2]:text-base [&_h3]:text-sm">
+                                    <MessageResponse
+                                      key={`${message.id}-sources`}
+                                    >
+                                      {sources}
+                                    </MessageResponse>
+                                  </div>
+                                )}
+                              </>
+                            );
+                          })()}
                           {/* <Sources className="mt-5">
                             <SourcesTrigger
                               count={

@@ -235,10 +235,20 @@ export function FlowContent({
   );
 }
 /** Demo component for preview */
-export default function CanvasDemo() {
+export default function CanvasDemo({
+  nodes: nodesProp,
+  edges: edgesProp,
+}: {
+  nodes?: ReactFlowNode[];
+  edges?: Edge[];
+} = {}) {
   const nodeTypes = useMemo(() => ({agent: AgentNode}), []);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes, onNodesChange] = useNodesState(
+    nodesProp ?? initialNodes,
+  );
+  const [edges, setEdges, onEdgesChange] = useEdgesState(
+    edgesProp ?? initialEdges,
+  );
 
   const onConnect = useCallback(
     (params: Connection) => setEdges((eds) => addEdge(params, eds)),
