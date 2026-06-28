@@ -1,19 +1,6 @@
 "use client"
 
 import * as React from "react"
-import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
-} from "lucide-react"
-
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { ProjectName } from "@/components/project-name"
@@ -27,6 +14,9 @@ import {
 import { BsFiletypePdf } from "react-icons/bs";
 import { VscFilePdf } from "react-icons/vsc";
 import { TbFileTypePdf } from "react-icons/tb";
+import UserAccountAvatar from "@/components/smoothui/user-account-avatar";
+import { signOut } from "next-auth/react";
+import { redirect } from "next/navigation"
 
 const data = {
   user: {
@@ -49,7 +39,7 @@ export function AppSidebar({
 }: React.ComponentProps<typeof Sidebar> & {
   allDocuments?: { name: string, url: string, id: string }[],
   user: {name: string, email: string, image: string},
-  documentInfo?: TDocumentInfo
+  documentInfo?: TDocumentInfo,
 }) {
   
   const projects = allDocuments?.map((doc) => ({
@@ -68,7 +58,21 @@ export function AppSidebar({
         <NavProjects projects={projects} />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={user} />
+        {/* <NavUser user={user} /> */}
+        {user && (
+        <UserAccountAvatar
+          className="h-8 w-8 overflow-hidden"
+          user={{
+            name: user.name || "User",
+            email: user.email || "",
+            avatar: user.image || "",
+          }}
+          onLogout={() => {
+            signOut()
+            redirect("/")
+          }}
+        />
+        )}
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
