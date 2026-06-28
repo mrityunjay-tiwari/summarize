@@ -16,6 +16,7 @@ import { useRouter } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 import { Separator } from "../ui/separator";
 import FeatureCounter from "../individual-project/counter";
+import { generateQuizSet } from "@/utils/quiz-pipeline";
 
 export default function UploadForm({initialCount}: {initialCount: number}) {
   const router = useRouter();
@@ -75,44 +76,56 @@ export default function UploadForm({initialCount}: {initialCount: number}) {
       const endpoint = isFlashcards ? "/api/generate-flash-cards-summary" : "/api/generate-quiz";
       
       try {
-          const batchSize = 7;
           let combinedResult: any[] = [];
-          
-          for (let i = 0; i < fetchedChunks.length; i += batchSize) {
-              if (abortControllerRef.current?.signal.aborted) throw new Error("AbortError");
-              
-              const batch = fetchedChunks.slice(i, i + batchSize);
-              const text = batch.map((c: any) => c.text).join("\n");
-              
-              const batchTargetCount = Math.ceil(generationLimits.val / Math.ceil(fetchedChunks.length / batchSize));
-              
-              const res = await fetch(endpoint, {
-                  method: "POST",
-                  body: JSON.stringify({ text, targetCount: batchTargetCount }),
-                  signal: abortControllerRef.current?.signal
-              });
-              
-              const data = await res.json();
 
-              if (!res.ok || !data.success) {
-                  throw new Error(data.error || data.message || `${isFlashcards ? "Flash card" : "Quiz"} generation failed.`);
-              }
+          if (isFlashcards) {
+              const batchSize = 7;
 
-              if (data.success && Array.isArray(data.result) && data.result.length > 0) {
-                  // Stamp each card with the real page numbers of the chunks in
-                  // this batch, so "Source" reflects actual document pages.
-                  const batchPages = Array.from(
-                      new Set(
-                          batch.flatMap(
-                              (c: any) => (c?.meta?.page_numbers ?? c?.metadata?.page_numbers ?? []) as number[]
+              for (let i = 0; i < fetchedChunks.length; i += batchSize) {
+                  if (abortControllerRef.current?.signal.aborted) throw new Error("AbortError");
+
+                  const batch = fetchedChunks.slice(i, i + batchSize);
+                  const text = batch.map((c: any) => c.text).join("\n");
+
+                  const batchTargetCount = Math.ceil(generationLimits.val / Math.ceil(fetchedChunks.length / batchSize));
+
+                  const res = await fetch(endpoint, {
+                      method: "POST",
+                      body: JSON.stringify({ text, targetCount: batchTargetCount }),
+                      signal: abortControllerRef.current?.signal
+                  });
+
+                  const data = await res.json();
+
+                  if (!res.ok || !data.success) {
+                      throw new Error(data.error || data.message || "Flash card generation failed.");
+                  }
+
+                  if (data.success && Array.isArray(data.result) && data.result.length > 0) {
+                      // Stamp each card with the real page numbers of the chunks in
+                      // this batch, so "Source" reflects actual document pages.
+                      const batchPages = Array.from(
+                          new Set(
+                              batch.flatMap(
+                                  (c: any) => (c?.meta?.page_numbers ?? c?.metadata?.page_numbers ?? []) as number[]
+                              )
                           )
-                      )
-                  ).sort((a, b) => a - b);
-                  const stamped = data.result.map((card: any) => ({ ...card, source: batchPages }));
-                  combinedResult = [...combinedResult, ...stamped];
+                      ).sort((a, b) => a - b);
+                      const stamped = data.result.map((card: any) => ({ ...card, source: batchPages }));
+                      combinedResult = [...combinedResult, ...stamped];
+                  }
               }
+          } else {
+              // Quiz: document-wide, quality-first pipeline (first quiz, so no
+              // pages are covered yet).
+              combinedResult = await generateQuizSet({
+                  chunks: fetchedChunks,
+                  coveredPages: [],
+                  count: generationLimits.val,
+                  signal: abortControllerRef.current?.signal,
+              });
           }
-          
+
           if (abortControllerRef.current?.signal.aborted) throw new Error("AbortError");
 
           if (combinedResult.length === 0) {

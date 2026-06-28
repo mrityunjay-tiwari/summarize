@@ -17,6 +17,7 @@ import { getDocumentChunksRaw, addGeneratedContentToExistingDocument } from "@/a
 import { toast } from "sonner";
 import LimitReachBanner from "../limit-reach-banner";
 import TabsHeader from "../tabs-header";
+import { generateQuizSet, coveredPagesFromQuizzes } from "@/utils/quiz-pipeline";
 
 type TQuizTabProps = {
   quizzes: any[];
@@ -139,38 +140,20 @@ export function QuizTab({quizzes, documentContextForChat}: TQuizTabProps) {
     const signal = abortControllerRef.current?.signal;
 
     try {
-      const endpoint = "/api/generate-quiz";
-      const batchSize = 7;
-      let combinedResult: any[] = [];
-      
-      for (let i = 0; i < fetchedChunks.length; i += batchSize) {
-          if (signal?.aborted) throw new Error("AbortError");
-          
-          const batch = fetchedChunks.slice(i, i + batchSize);
-          const text = batch.map((c: any) => c.text).join("\n");
-          const batchTargetCount = Math.ceil(generationLimits.val / Math.ceil(fetchedChunks.length / batchSize));
-          
-          const res = await fetch(endpoint, {
-              method: "POST",
-              body: JSON.stringify({ text, targetCount: batchTargetCount }),
-              signal
-          });
-          
-          const data = await res.json();
+      // Document-wide, quality-first quiz: stratified across the whole document,
+      // skipping pages already covered by previous quiz sets, no padding.
+      const coveredPages = coveredPagesFromQuizzes(localQuizzes);
+      const combinedResult = await generateQuizSet({
+        chunks: fetchedChunks,
+        coveredPages,
+        count: generationLimits.val,
+        signal,
+      });
 
-          if (!res.ok || !data.success) {
-            throw new Error(data.error || data.message || "Quiz generation failed.");
-          }
-
-          if (data.success && Array.isArray(data.result) && data.result.length > 0) {
-              combinedResult = [...combinedResult, ...data.result];
-          }
-      }
-      
       if (signal?.aborted) throw new Error("AbortError");
 
       if (combinedResult.length === 0) {
-        throw new Error("No quiz questions were generated.");
+        throw new Error("Couldn't generate good quiz questions from this document right now. Please try again.");
       }
       
       setCurrentStep(4); // Saving Project - This again is confusing a bit I know, but I will correct it later.
