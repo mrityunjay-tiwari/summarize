@@ -83,9 +83,20 @@ export default async function LoginPage() {
 
             <p className="mt-8 text-center text-xs text-muted-foreground md:text-left">
               By continuing, you agree to our{" "}
-              <span className="underline underline-offset-2">Terms of Service</span>{" "}
+              <Link
+                href="/terms"
+                className="underline underline-offset-2 transition-colors hover:text-foreground"
+              >
+                Terms of Service
+              </Link>{" "}
               and{" "}
-              <span className="underline underline-offset-2">Privacy Policy</span>.
+              <Link
+                href="/privacy"
+                className="underline underline-offset-2 transition-colors hover:text-foreground"
+              >
+                Privacy Policy
+              </Link>
+              .
             </p>
           </div>
         </div>
